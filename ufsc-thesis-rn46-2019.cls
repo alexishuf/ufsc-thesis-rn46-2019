@@ -71,13 +71,17 @@
 \setulmarginsandblock{3cm}{2cm}{*}  % {upper}{lower}                      @buABNT
 \checkandfixthelayout%
 
-% Fontes dos títulos e seções
-\renewcommand{\ABNTEXchapterfont}{\bfseries}
-\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
-\renewcommand{\ABNTEXsectionfont}{\normalfont}
-\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
-\renewcommand{\ABNTEXsubsectionfont}{\bfseries}
-\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+% Tamanhos e estilos de fontes para chapter e (sub)*section
+\renewcommand{\ABNTEXchapterfont}{\bfseries}       % @buDoc
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize} % @buDoc
+\renewcommand{\ABNTEXsectionfont}{\normalfont}     % @buDoc
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize} % @buDoc
+\renewcommand{\ABNTEXsubsectionfont}{\bfseries}       % @buDoc
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize} % @buDoc
+\renewcommand{\ABNTEXsubsubsectionfont}{\normalfont}     % @buDoc
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize} % @buDoc
+\renewcommand{\ABNTEXsubsubsubsectionfont}{\itshape}        % @buDoc
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize} % @buDoc
 
 % Espaçamento depois do título
 \setlength{\afterchapskip}{0.38cm}
