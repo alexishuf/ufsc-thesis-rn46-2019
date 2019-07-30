@@ -2,8 +2,10 @@
 %% ufsc-thesis-rn46-2019.cls, a template that abides to changes introduced by RN 46/2019/CPG.
 %% This class file was based on https://github.com/mateusduboli/ufsc-thesis-latex
 %% - @rn46 The RN document: https://repositorio.ufsc.br/handle/123456789/197121
+%% - @buDoc MS Word template: https://repositorio.ufsc.br/handle/123456789/197457
 %% - @buWord MS Word Formatting guide: https://repositorio.ufsc.br/handle/123456789/198045
 %% - @buABNT ABNT NBR 14721:2011 : https://repositorio.ufsc.br/handle/123456789/180829
+%% - @ABNT ABNT NBR 14721:2011
 
 % Define versão necessária do LaTeX
 \NeedsTeXFormat{LaTeX2e}
@@ -18,11 +20,12 @@
 
 % Carrega como base a classe 'abntex2'
 \LoadClass[%
-  12pt,
-  a4paper,
-  twoside, % Impressão nos dois lados da folha
-  chapter=TITLE, % Título de capítulos em caixa alta
-  section=TITLE  % Título de seções em caixa alta
+  12pt, %@buWord, @buABNT, @buDoc
+  a4paper, %@rn46
+  twoside, % @ABNT
+  chapter=TITLE, % Caixa alta @buDoc
+  section=TITLE  % Caixa alta @buDoc
+                 % Capitalizado para subseção e menor @buDoc
 ]{abntex2}
 
 % Manipulação de Strings
@@ -44,9 +47,6 @@
 \RequirePackage{ifthen}
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
-% Tamanho da fonte padrão do 'ABNTEX'
-%\renewcommand{\normalsize}{\fontsize{10.5pt}{12pt}}
-
 % Comandos de dados - programa
 \providecommand{\imprimirprograma}{}
 \newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
@@ -67,8 +67,8 @@
 
 
 % Margens
-\setlrmarginsandblock{2.5cm}{1.5cm}{*}
-\setulmarginsandblock{2cm}{1.5cm}{*}
+\setlrmarginsandblock{2cm}{3cm}{*}  % {left}{right} no anverso (p. ímpar) @buABNT
+\setulmarginsandblock{3cm}{2cm}{*}  % {upper}{lower}                      @buABNT
 \checkandfixthelayout%
 
 % Fontes dos títulos e seções
@@ -90,31 +90,8 @@
   \StrBehind{#1}{{}},
   \StrBefore{#1}{{}}
 }
-% Ficha catalográfica
-\newcounter{ufscthesis@indiceficha}
 
-\newcommand{\imprimirfichacatalografica}{%
-  \setcounter{ufscthesis@indiceficha}{1}
-  \begin{fichacatalografica}
-  \vspace*{\fill}
-  \fbox{%
-    \ttfamily%
-    \begin{minipage}[b][][t]{\textwidth}
-      \indent\ufscthesis@inverter{\imprimirautor} \newline%
-      \indent~\imprimirtitulo~:~/ \imprimirautor ; orientador, \imprimirorientador%
-      \ifnotempty{\imprimircoorientador}{~; co-orientador, \imprimircoorientador}.~-~\imprimirlocal~\the\year. \newline%
-      \indent~\pageref{LastPage} p. \newline \newline%
-      \indent- \imprimirinstituicao, \imprimircentro. \imprimirprograma. \newline \newline%
-      \indent Inclui Refer\^{e}ncias \newline \newline%
-      \indent \imprimirassuntos
-      \Roman{ufscthesis@indiceficha}. \ufscthesis@inverter{\imprimirorientador}. \stepcounter{ufscthesis@indiceficha}
-      \ifnotempty{\imprimircoorientador}{\Roman{ufscthesis@indiceficha}. \ufscthesis@inverter{\imprimircoorientador}.\stepcounter{ufscthesis@indiceficha}}
-      \Roman{ufscthesis@indiceficha}. \imprimirinstituicao. \imprimirprograma.
-      \Roman{ufscthesis@indiceficha}. \imprimirtitulo.
-    \end{minipage}
-  }
-  \end{fichacatalografica}
-}
+% Ficha catalográfica foi removida, pois deve ser gerada em http://ficha.bu.ufsc.br/
 
 % Folha de rosto segundo modelo da Biblioteca Universitária da UFSC
 \renewcommand{\folhaderostocontent}{
@@ -151,13 +128,5 @@
   \end{center}
 }
 
-% Comandos auxiliares
-% \newcommand{\showfont}{%
-%   encoding: \f@encoding{},
-%   family: \f@family{},
-%   series: \f@series{},
-%   shape: \f@shape{},
-%   size: \f@size{}
-% }
 
 \endinput
