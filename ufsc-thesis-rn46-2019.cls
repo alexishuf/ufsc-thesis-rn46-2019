@@ -13,19 +13,88 @@
 % Prove acesso a classe 'ufsc-thesis'
 \ProvidesClass{ufsc-thesis-rn46-2019}[2019/07/30 v0.1 ufsc-thesis-rn46-2019]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Declarações e tratamento inicial de opções                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% [english]
+% Ativa nomes de elementos (pré)textuais em inglês (secion, contents, table, figure, ...)
+\newif\ifufscthesis@eng
+\DeclareOption{english}{%
+  \ufscthesis@engtrue%
+  \PassOptionsToPackage{english}{babel}%
+  \PassOptionsToClass{\CurrentOption}{abntex2}%
+}
+
+% [brazil]
+% Por padrão, assume-se pt_BR, por isso a opção é ignorada
+\DeclareOption{brazil}{\OptionNotUsed}
+
+% [lmodern] [times] [arial]
+% Escolhe a fonte: lmodern (default), times, ou arial. 
+%Veja cada um dos \newif para detalhes
+\newif\ifufscthesis@lmodern % [lmodern] O ápice da tipografia. A maioria das 
+                            % pessoas vai achar que é Times
+\ufscthesis@lmoderntrue   
+\newif\ifufscthesis@times % [times] Um clone da Times New Roman. Por razões 
+                         % legais a fonte não pode ser distribuída livremente. 
+                         % Se você usa windows ou ilegalmente roubou arquivos
+                         % TTF, chame a fonte TTF no seu main.tex
+\newif\ifufscthesis@arial % [arial] Como no caso da times, problemas de licença
+                         % impedem a distribuição da fonte. Se você (ou quem te 
+                         % mandou usar) pediu arial, você na verdade não se 
+                         % importa com a fonte e vai ganhar uma helvetica.
+                         % Se roubou o TTF ou está no windows, 
+                         % faça a configuração no main.tex
+\DeclareOption{lmodern}{\ufscthesis@lmoderntrue \ufscthesis@timesfalse \ufscthesis@arialfalse}
+\DeclareOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
+\DeclareOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
+
+% [nocapautoref]
+% Por padrão \autoref será configurado para produzir Seção/Section ao invés de seção/section
+% Passando essa opção, essa classe não irá alterar o comportamento padrão
+\newif\ifufscthesis@nocapautoref
+\DeclareOption{nocapautoref}{%
+  \ufscthesis@nocapautoreftrue%
+}
+
+% [noabntexcite]
+% Por padrão o abntex2cite é carregado, incluindo algumas opções pré-definidas
+% (veja logo abaixo). Para desativar esse carregamento automático (por exemplo, 
+% para evitar algumas dessas opções, use a opção noabntex2cite
+\newif\ifufscthesis@noabntexcite
+\DeclareOption{noabntexcite}{%
+  \ufscthesis@noabntexcitetrue%
+}
+
+% [nohidelinks]
+% Por padrão essa classe desativa cor e bordas no links do documento (hyperref)
+% Use essa opção para que hidelinks não seja passado ao hyperref por essa classe
+\newif\ifufscthesis@nohidelinks
+\DeclareOption{nohidelinks}{%
+  \ufscthesis@nohidelinkstrue%
+}
+
+% Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
 \DeclareOption*{%
  \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
+
+% Faz a mágica acontecer
 \ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Carregar abnTeX2 e outros pacotes                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Carrega como base a classe 'abntex2'
 \LoadClass[%
   12pt, %@buWord, @buABNT, @buDoc
   a4paper, %@rn46
-  twoside, % @ABNT
-  chapter=TITLE, % Caixa alta @buDoc
-  section=TITLE  % Caixa alta @buDoc
-                 % Capitalizado para subseção e menor @buDoc
+  twoside, % @buABNT
+  chapter=TITLE, % Caixa alta @buDoc @buWord
+  section=TITLE  % Caixa alta @buDoc @buWord
+                 % Capitalizado para subseção e menor @buDoc @buWord
 ]{abntex2}
 
 % Manipulação de Strings
@@ -34,9 +103,16 @@
 % Tamanho das fontes
 \RequirePackage{anyfontsize}
 
-% TODO Colocar times caso o usuário queira, fonte matemática zuada
-% Fonte 'Times New Roman'
-\RequirePackage{mathptmx}
+\ifufscthesis@lmodern
+  \RequirePackage{lmodern}
+\fi
+\ifufscthesis@times
+  \RequirePackage{mathptmx}
+\fi
+\ifufscthesis@arial
+  \RequirePackage{helvet}
+  \renewcommand{\familydefault}{\sfdefault}
+\fi
 
 % Identação do primeiro paragráfo
 \RequirePackage{indentfirst}
@@ -44,7 +120,24 @@
 % Número da última página
 \RequirePackage{lastpage}
 
+% Citações
+\ifufscthesis@noabntexcite\else
+  \PassOptionsToPackage{alf,abnt-and-type=&,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+  \RequirePackage{abntex2cite}
+\fi
+
+\ifufscthesis@nohidelinks\else
+  \PassOptionsToPackage{hidelinks}{hyperref}
+  % abntex2 já chama o hyperref
+  %\AtBeginDocument{\RequirePackage{xepersian}}
+\fi
+
 \RequirePackage{ifthen}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos gerais                                                %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
 % Comandos de dados - programa
@@ -65,6 +158,42 @@
 \providecommand{\imprimircentro}{}
 \newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% i18n                                                           %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifufscthesis@eng
+  \let\ufscthesis@oldpretextual\pretextual
+  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
+  \let\ufscthesis@oldtextual\textual
+  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{english}}
+  \selectlanguage{english}
+  \addto\extrasenglish{%
+    \renewcommand{\chapterautorefname}{Chapter}%
+    \renewcommand{\sectionautorefname}{Section}%
+    \renewcommand{\subsectionautorefname}{Subsection}%
+    \renewcommand{\subsubsectionautorefname}{Subsubsection}%
+  }
+
+\fi
+\ifufscthesis@nocapautoref\else
+  \addto\extrasenglish{%
+    \renewcommand{\chapterautorefname}{Chapter}%
+    \renewcommand{\sectionautorefname}{Section}%
+    \renewcommand{\subsectionautorefname}{Subsection}%
+    \renewcommand{\subsubsectionautorefname}{Subsubsection}%
+  }
+%  \addto\extrasportugues{%
+%    \renewcommand{\chapterautorefname}{Capítulo}%
+%    \renewcommand{\sectionautorefname}{Seção}%
+%    \renewcommand{\subsectionautorefname}{Subseção}%
+%    \renewcommand{\subsubsectionautorefname}{Subsubseção}%
+%  }
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Formatação                                                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Margens
 \setlrmarginsandblock{2cm}{3cm}{*}  % {left}{right} no anverso (p. ímpar) @buABNT
@@ -107,6 +236,12 @@
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
 \OnehalfSpacing
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos para gerar elementos especiais                        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % Ficha catalográfica foi removida, pois deve ser gerada em http://ficha.bu.ufsc.br/
 

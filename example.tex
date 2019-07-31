@@ -1,4 +1,4 @@
-\documentclass[a4paper]{ufsc-thesis-rn46-2019}  
+\documentclass[english,nocapautoref,lmodern]{ufsc-thesis-rn46-2019}  
 
 % Gerador de texto
 \usepackage{lipsum}
@@ -22,6 +22,7 @@
 \assuntos{Ciências da Computação,Modelos,Teses,OpenSource,LaTeX}
 
 \begin{document}
+
 % Inicia parte pré-textual do documento capa, folha de rosto, folha de
 % aprovação, aprovação, resumo, lista de tabelas, lista de figuras, etc.
 \pretextual%
@@ -38,13 +39,22 @@
 
 This is the introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+\begin{itemize}
+\item \autoref{ch:bg}
+\item \autoref{sec:stuff}
+\item \autoref{sec:more}
+\item \autoref{sec:yet-more}
+\end{itemize}
+
 \lipsum[1]
 
 \chapter{Background}
+\label{ch:bg}
 
 \lipsum[1]
 
 \section{Some stuff}
+\label{sec:stuff}
 
 \lipsum[1]
 
@@ -53,6 +63,15 @@ This is the introduction. Lorem ipsum dolor sit amet, consectetur adipiscing eli
 \lipsum[1]
 
 \lipsum[1]
+
+\begin{figure}[tb]
+  \centering
+  \caption{A caption text.}
+  \label{fig:f}
+  <Fig here>\\ 
+  Source: the author.
+\end{figure}
+
 
 \lipsum[1]
 
@@ -65,14 +84,17 @@ This is the introduction. Lorem ipsum dolor sit amet, consectetur adipiscing eli
 \lipsum[1]
 
 \subsection{Some more stuff}
+\label{sec:more}
 
 \lipsum[1] \footnote{Some footnote}
 
 \subsubsection{Yet more stuff}
+\label{sec:yet-more}
 
 \lipsum[1]
 
 \subsubsubsection{Yet another more stuff}
+\label{sec:yet-another}
 
 \lipsum[1]
 
