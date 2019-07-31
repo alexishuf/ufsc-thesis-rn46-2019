@@ -218,17 +218,19 @@
 \checkandfixthelayout%
 
 % Tamanhos e estilos de fontes para chapter e (sub)*section
-\renewcommand{\ABNTEXchapterfont}{\bfseries}       % @buDoc @buWord[p. 8]
-\renewcommand{\ABNTEXchapterfontsize}{\normalsize} % @buDoc @buWord
-\renewcommand{\ABNTEXsectionfont}{\normalfont}     % @buDoc @buWord
-\renewcommand{\ABNTEXsectionfontsize}{\normalsize} % @buDoc @buWord
-\renewcommand{\ABNTEXsubsectionfont}{\bfseries}       % @buDoc @buWord
-\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize} % @buDoc @buWord
+% Também aplica \noindent @buWord[p.10]
+% Para títulos de capítulo ainda parece existir 1em de recuo na esquerda, mas parece ser algo do memoir
+\renewcommand{\ABNTEXchapterfont}{\noindent\bfseries} % @buDoc @buWord[p. 8]
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}    % @buDoc @buWord
+\renewcommand{\ABNTEXsectionfont}{\noindent\normalfont} % @buDoc @buWord
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}      % @buDoc @buWord
+\renewcommand{\ABNTEXsubsectionfont}{\noindent\bfseries} % @buDoc @buWord
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}    % @buDoc @buWord
 %@buDoc possívelmente contem um erro pois inverte a formatação de subsubsection com subsubsubsection indicada no @buWord, além de não estar numerado corretamente (falta um ".1")
-\renewcommand{\ABNTEXsubsubsectionfont}{\itshape}        % @buWord 
-\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize} % @buWord
-\renewcommand{\ABNTEXsubsubsubsectionfont}{\normalfont}     % @buWord
-\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize} % @buWord
+\renewcommand{\ABNTEXsubsubsectionfont}{\noindent\itshape} % @buWord 
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}   % @buWord
+\renewcommand{\ABNTEXsubsubsubsectionfont}{\noindent\normalfont} % @buWord
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}      % @buWord
 
 % Tamanho de fonte em cabeçalhos e rodapés. @buWord, @buDoc
 % (o default do abntex2 (footnotesize) já parecia ser 10, mas foi preciso fazer força para afetar figure e table)
