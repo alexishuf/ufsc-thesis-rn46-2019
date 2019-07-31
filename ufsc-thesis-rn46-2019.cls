@@ -71,29 +71,42 @@
 \setulmarginsandblock{3cm}{2cm}{*}  % {upper}{lower}                      @buABNT
 \checkandfixthelayout%
 
-% Tamanhos e estilos de fontes para chapter e (sub)*section
-\renewcommand{\ABNTEXchapterfont}{\bfseries}       % @buDoc
-\renewcommand{\ABNTEXchapterfontsize}{\normalsize} % @buDoc
-\renewcommand{\ABNTEXsectionfont}{\normalfont}     % @buDoc
-\renewcommand{\ABNTEXsectionfontsize}{\normalsize} % @buDoc
-\renewcommand{\ABNTEXsubsectionfont}{\bfseries}       % @buDoc
-\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize} % @buDoc
-\renewcommand{\ABNTEXsubsubsectionfont}{\normalfont}     % @buDoc
-\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize} % @buDoc
-\renewcommand{\ABNTEXsubsubsubsectionfont}{\itshape}        % @buDoc
-\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize} % @buDoc
+% Cabeçalho e Rodapé    
+%   - @buWord diz 2 cm para ambos, com alinhamento vertical superior
+%   - Essas configs não tem efeito visual perceptível, provaveis defaults do abnTeX2
+\setheadfoot{2cm}{1cm} % {header height}{footsep (from bottom of text)}
+\setlength\headsep{1cm} % sep from header bottom to text upper margin
 
-% Espaçamento depois do título
-\setlength{\afterchapskip}{0.38cm}
-% Espaçamento depois dos paragráfos
+% Aplica mudanças de layout
+\checkandfixthelayout%
+
+% Tamanhos e estilos de fontes para chapter e (sub)*section
+\renewcommand{\ABNTEXchapterfont}{\bfseries}       % @buDoc @buWord[p. 8]
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize} % @buDoc @buWord
+\renewcommand{\ABNTEXsectionfont}{\normalfont}     % @buDoc @buWord
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize} % @buDoc @buWord
+\renewcommand{\ABNTEXsubsectionfont}{\bfseries}       % @buDoc @buWord
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize} % @buDoc @buWord
+%@buDoc possívelmente contem um erro pois inverte a formatação de subsubsection com subsubsubsection indicada no @buWord, além de não estar numerado corretamente (falta um ".1")
+\renewcommand{\ABNTEXsubsubsectionfont}{\itshape}        % @buWord 
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize} % @buWord
+\renewcommand{\ABNTEXsubsubsubsectionfont}{\normalfont}     % @buWord
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize} % @buWord
+
+% Espaçamento depois do título 
+%  - @buDoc deixa sempre 1 linha com esp. 1,5 em branco após chapter, section e subsection. Em LaTeX 1em equivale a altura de uma linha, por isso 1.5em. Com normalsize sendo 12pt, 1em=18pt=0.6326cm. O ufsc-thesis do Mateus Dubiela usava 0.38cm para chapskip e deixava o padrão para os demais
+\setlength{\afterchapskip}{1.5em} 
+\setlength{\aftersecskip}{1.5em} 
+\setlength{\aftersubsecskip}{1.5em} 
+% - Essa prática do @buDoc não é estéticamente agradável. Mas foi mantida pois o template a utiliza até subseções (não há exemplos para os níveis inferiores). Como por algum motivo não é possível controlar o espaçamento de sub-sub-subseção (o chapskip é usado), optou-se por aplicar o mesmo espaçamento para tudo que pode ser configurado
+\setlength{\aftersubsubsecskip}{1.5em} 
+
+% Espaçamento depois dos paragráfos @buDoc @buWord
 \setlength{\parskip}{0.0cm}
-% Espaçamento da primeira linha do parágrafo
-\setlength{\parindent}{1.0cm}
-% Comando para inverter sobrenome e nome
-\newcommand{\ufscthesis@inverter}[1]{%
-  \StrBehind{#1}{{}},
-  \StrBefore{#1}{{}}
-}
+% Espaçamento da primeira linha do parágrafo @buDoc @buWord
+\setlength{\parindent}{1.5cm}
+% Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
+\OnehalfSpacing
 
 % Ficha catalográfica foi removida, pois deve ser gerada em http://ficha.bu.ufsc.br/
 
