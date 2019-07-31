@@ -31,21 +31,23 @@
 \DeclareOption{brazil}{\OptionNotUsed}
 
 % [lmodern] [times] [arial]
-% Escolhe a fonte: lmodern (default), times, ou arial. 
+% Escolhe a fonte: lmodern, times (default), ou arial. 
 %Veja cada um dos \newif para detalhes
 \newif\ifufscthesis@lmodern % [lmodern] O ápice da tipografia. A maioria das 
                             % pessoas vai achar que é Times
-\ufscthesis@lmoderntrue   
+
 \newif\ifufscthesis@times % [times] Um clone da Times New Roman. Por razões 
-                         % legais a fonte não pode ser distribuída livremente. 
-                         % Se você usa windows ou ilegalmente roubou arquivos
-                         % TTF, chame a fonte TTF no seu main.tex
+                          % legais a fonte não pode ser distribuída livremente. 
+                          % Se você usa windows ou ilegalmente roubou arquivos
+                          % TTF, chame a fonte TTF no seu main.tex
+
 \newif\ifufscthesis@arial % [arial] Como no caso da times, problemas de licença
-                         % impedem a distribuição da fonte. Se você (ou quem te 
-                         % mandou usar) pediu arial, você na verdade não se 
-                         % importa com a fonte e vai ganhar uma helvetica.
-                         % Se roubou o TTF ou está no windows, 
-                         % faça a configuração no main.tex
+                          % impedem a distribuição da fonte. Se você (ou quem te 
+                          % mandou usar) pediu arial, você na verdade não se 
+                          % importa com a fonte e vai ganhar uma helvetica.
+                          % Se roubou o TTF ou está no windows, 
+                          % faça a configuração no main.tex
+\ufscthesis@timestrue
 \DeclareOption{lmodern}{\ufscthesis@lmoderntrue \ufscthesis@timesfalse \ufscthesis@arialfalse}
 \DeclareOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
 \DeclareOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
