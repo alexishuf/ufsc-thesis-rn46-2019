@@ -132,11 +132,51 @@
   %\AtBeginDocument{\RequirePackage{xepersian}}
 \fi
 
+% Coisas usadas para truques aqui na classe
+\RequirePackage{etoolbox}
 \RequirePackage{ifthen}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% i18n                                                           %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifufscthesis@eng
+  \newcommand{\ufscthesis@captionsourcelabel}[0]{Source}
+  \let\ufscthesis@oldpretextual\pretextual
+  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
+  \let\ufscthesis@oldtextual\textual
+  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{english}}
+  \let\ufscthesis@oldpostextual\postextual
+  \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
+  \selectlanguage{english}
+\else
+  \newcommand{\ufscthesis@captionsourcelabel}[0]{Fonte}
+\fi
+
+\ifufscthesis@nocapautoref\else
+  \addto\extrasenglish{%
+    \renewcommand{\chapterautorefname}{Chapter}%
+    \renewcommand{\sectionautorefname}{Section}%
+    \renewcommand{\subsectionautorefname}{Subsection}%
+    \renewcommand{\subsubsectionautorefname}{Subsubsection}%
+  }
+  \addto\extrasbrazil{%
+    \renewcommand{\chapterautorefname}{Capítulo}%
+    \renewcommand{\sectionautorefname}{Seção}%
+    \renewcommand{\subsectionautorefname}{Subseção}%
+    \renewcommand{\subsubsectionautorefname}{Subsubseção}%
+  }
+\fi
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos gerais                                                %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\captionsource{<text>}
+% Imprime o Fonte: <text> de figuras e tabelas conforme exigido em @buABNT @buDoc
+% O Fonte muda para Source quando a opção english é dada para a classe
+% Uma quebra de linha será inserida automaticamente
+\newcommand{\captionsource}[1]{\begingroup \par \footnotesize \ufscthesis@captionsourcelabel:~#1 \endgroup}
 
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
@@ -157,38 +197,6 @@
 
 \providecommand{\imprimircentro}{}
 \newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% i18n                                                           %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifufscthesis@eng
-  \let\ufscthesis@oldpretextual\pretextual
-  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
-  \let\ufscthesis@oldtextual\textual
-  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{english}}
-  \selectlanguage{english}
-  \addto\extrasenglish{%
-    \renewcommand{\chapterautorefname}{Chapter}%
-    \renewcommand{\sectionautorefname}{Section}%
-    \renewcommand{\subsectionautorefname}{Subsection}%
-    \renewcommand{\subsubsectionautorefname}{Subsubsection}%
-  }
-
-\fi
-\ifufscthesis@nocapautoref\else
-  \addto\extrasenglish{%
-    \renewcommand{\chapterautorefname}{Chapter}%
-    \renewcommand{\sectionautorefname}{Section}%
-    \renewcommand{\subsectionautorefname}{Subsection}%
-    \renewcommand{\subsubsectionautorefname}{Subsubsection}%
-  }
-%  \addto\extrasportugues{%
-%    \renewcommand{\chapterautorefname}{Capítulo}%
-%    \renewcommand{\sectionautorefname}{Seção}%
-%    \renewcommand{\subsectionautorefname}{Subseção}%
-%    \renewcommand{\subsubsectionautorefname}{Subsubseção}%
-%  }
-\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -222,6 +230,15 @@
 \renewcommand{\ABNTEXsubsubsubsectionfont}{\normalfont}     % @buWord
 \renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize} % @buWord
 
+% Tamanho de fonte em cabeçalhos e rodapés. @buWord, @buDoc
+% (o default do abntex2 (footnotesize) já parecia ser 10, mas foi preciso fazer força para afetar figure e table)
+\renewcommand{\footnotesize}{\fontsize{10pt}{12pt}\selectfont}
+\renewcommand{\ABNTEXfontereduzida}{\footnotesize}
+\AtBeginDocument{%
+  \captionnamefont{\footnotesize}%
+  \captiontitlefont{\footnotesize}%
+}
+
 % Espaçamento depois do título 
 %  - @buDoc deixa sempre 1 linha com esp. 1,5 em branco após chapter, section e subsection. Em LaTeX 1em equivale a altura de uma linha, por isso 1.5em. Com normalsize sendo 12pt, 1em=18pt=0.6326cm. O ufsc-thesis do Mateus Dubiela usava 0.38cm para chapskip e deixava o padrão para os demais
 \setlength{\afterchapskip}{1.5em} 
@@ -235,7 +252,12 @@
 % Espaçamento da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
-\OnehalfSpacing
+%\OnehalfSpacing
+\SingleSpacing
+% Lugares que exigem espaçamento entre linhas simples @buWord[p. 7]
+% - Floats (figure/table): Fracassei em alterar, mas default já é SingleSpacing
+% - footnotes: Fracassei em alterar, mas default já é SingleSpacing
+% - referencias: Nem tentei alterar, mas o default já é SingleSpacing
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
