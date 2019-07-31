@@ -173,6 +173,27 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos de dados                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comandos de dados - programa
+\providecommand{\imprimirprograma}{}
+\newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
+
+% \assuntos{<comma-separated list>}
+% Lista de assuntos da tese/dissertação
+\newcounter{ufscthesis@assuntos}
+\providecommand{\listaassuntos}{}
+\newcommand{\assuntos}[1]{\renewcommand{\listaassuntos}{#1}}
+
+% \centro{<centro>}
+% Configura o nome do centro da UFSC
+\providecommand{\imprimircentro}{}
+\newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
+
+% Data padrão é o ano atual. @buDoc e @buABNT exigem que seja usado apenas o ano!
+\renewcommand{\imprimirdata}{\the\year}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos gerais                                                %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -184,12 +205,6 @@
 
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
-% Comandos de dados - programa
-\providecommand{\imprimirprograma}{}
-\newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
-
-\newcounter{ufscthesis@assuntos}
-\providecommand{\listaassuntos}{}
 \providecommand{\imprimirassuntos}{%
   \setcounter{ufscthesis@assuntos}{1}
   \@for\assunto:={\listaassuntos}\do{%
@@ -197,11 +212,6 @@
     \addtocounter{ufscthesis@assuntos}{1}
   }
 }
-\newcommand{\assuntos}[1]{\renewcommand{\listaassuntos}{#1}}
-
-\providecommand{\imprimircentro}{}
-\newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Formatação                                                     %%%
