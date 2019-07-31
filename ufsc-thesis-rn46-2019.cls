@@ -75,6 +75,15 @@
   \ufscthesis@nohidelinkstrue%
 }
 
+% [nocleanheader]
+% O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta 
+% classe coloca headers conforme o @buDoc. Use essa opção para restaurar os headers
+% padrão do abnTex2
+\newif\ifufscthesis@nocleanheader
+\DeclareOption{nocleanheader}{%
+  \ufscthesis@nocleanheadertrue%
+}
+
 % Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
 \DeclareOption*{%
  \PassOptionsToClass{\CurrentOption}{abntex2}%
@@ -127,9 +136,8 @@
 \fi
 
 \ifufscthesis@nohidelinks\else
-  \PassOptionsToPackage{hidelinks}{hyperref}
   % abntex2 já chama o hyperref
-  %\AtBeginDocument{\RequirePackage{xepersian}}
+  \AtBeginDocument{\hypersetup{hidelinks}}
 \fi
 
 % Coisas usadas para truques aqui na classe
@@ -213,9 +221,27 @@
 %   - Essas configs não tem efeito visual perceptível, provaveis defaults do abnTeX2
 \setheadfoot{2cm}{1cm} % {header height}{footsep (from bottom of text)}
 \setlength\headsep{1cm} % sep from header bottom to text upper margin
-
 % Aplica mudanças de layout
 \checkandfixthelayout%
+
+% Altera o estilo do cabeçalho
+\ifufscthesis@nocleanheader\else
+  %https://github.com/abntex/abntex2/wiki/HowToCustomizarCabecalhoRodape
+  \makepagestyle{estiloufsctextual}
+    %%cabeçalhos
+    \makeevenhead{estiloufsctextual} %%pagina par
+       {\footnotesize \thepage}{}{}
+    \makeoddhead{estiloufsctextual} %%pagina ímpar ou com oneside
+       {}{}{\footnotesize \thepage}
+    %% rodapé
+    \makeevenfoot{estiloufsctextual}
+       {}{}{}
+    \makeoddfoot{estiloufsctextual} %%pagina ímpar ou com oneside
+       {}{}{}
+  % Aplica o estilo no modo textual
+  \let\ufscthesis@oldtextualii\textual
+  \renewcommand{\textual}[0]{\ufscthesis@oldtextualii\pagestyle{estiloufsctextual}}
+\fi
 
 % Tamanhos e estilos de fontes para chapter e (sub)*section
 % Também aplica \noindent @buWord[p.10]
@@ -251,6 +277,14 @@
 
 % Espaçamento depois dos paragráfos @buDoc @buWord
 \setlength{\parskip}{0.0cm}
+% De acordo com @buABNT, na bibliografia deve haver uma linha em branco entre entradas
+\let\ufscthesis@oldthebibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+  \ufscthesis@oldthebibliography{#1}%
+  % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a 
+  % heresia de separar as entradas com uma quebra de parágrafo
+  \setlength{\parskip}{1.2em} 
+}
 % Espaçamento da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
