@@ -254,6 +254,14 @@
 \renewcommand{\ABNTEXsubsubsubsectionfont}{\noindent\normalfont} % @buWord
 \renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}      % @buWord
 
+% Estilos de fonte usados no sumário devem corresponder aos estilos usados 
+% no títulos @buWord @buDoc
+\renewcommand{\cftchapterfont}{\bfseries}    % @buDoc @buWord
+\renewcommand{\cftsectionfont}{\normalfont}  % @buDoc @buWord
+\renewcommand{\cftsubsectionfont}{\bfseries} % @buDoc @buWord
+\renewcommand{\cftsubsubsectionfont}{\itshape}       % @buWord
+\renewcommand{\cftsubsubsubsectionfont}{\normalfont} % @buWord
+
 % Tamanho de fonte em cabeçalhos e rodapés. @buWord, @buDoc
 % (o default do abntex2 (footnotesize) já parecia ser 10, mas foi preciso fazer força para afetar figure e table)
 \renewcommand{\footnotesize}{\fontsize{10pt}{12pt}\selectfont}
