@@ -31,21 +31,21 @@
 \DeclareOption{brazil}{\OptionNotUsed}
 
 % [lmodern] [times] [arial]
-% Escolhe a fonte: lmodern, times (default), ou arial. 
+% Escolhe a fonte: lmodern, times (default), ou arial.
 %Veja cada um dos \newif para detalhes
-\newif\ifufscthesis@lmodern % [lmodern] O ápice da tipografia. A maioria das 
+\newif\ifufscthesis@lmodern % [lmodern] O ápice da tipografia. A maioria das
                             % pessoas vai achar que é Times
 
-\newif\ifufscthesis@times % [times] Um clone da Times New Roman. Por razões 
-                          % legais a fonte não pode ser distribuída livremente. 
+\newif\ifufscthesis@times % [times] Um clone da Times New Roman. Por razões
+                          % legais a fonte não pode ser distribuída livremente.
                           % Se você usa windows ou ilegalmente roubou arquivos
                           % TTF, chame a fonte TTF no seu main.tex
 
 \newif\ifufscthesis@arial % [arial] Como no caso da times, problemas de licença
-                          % impedem a distribuição da fonte. Se você (ou quem te 
-                          % mandou usar) pediu arial, você na verdade não se 
+                          % impedem a distribuição da fonte. Se você (ou quem te
+                          % mandou usar) pediu arial, você na verdade não se
                           % importa com a fonte e vai ganhar uma helvetica.
-                          % Se roubou o TTF ou está no windows, 
+                          % Se roubou o TTF ou está no windows,
                           % faça a configuração no main.tex
 \ufscthesis@timestrue
 \DeclareOption{lmodern}{\ufscthesis@lmoderntrue \ufscthesis@timesfalse \ufscthesis@arialfalse}
@@ -62,7 +62,7 @@
 
 % [noabntexcite]
 % Por padrão o abntex2cite é carregado, incluindo algumas opções pré-definidas
-% (veja logo abaixo). Para desativar esse carregamento automático (por exemplo, 
+% (veja logo abaixo). Para desativar esse carregamento automático (por exemplo,
 % para evitar algumas dessas opções, use a opção noabntex2cite
 \newif\ifufscthesis@noabntexcite
 \DeclareOption{noabntexcite}{%
@@ -78,7 +78,7 @@
 }
 
 % [nocleanheader]
-% O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta 
+% O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta
 % classe coloca headers conforme o @buDoc. Use essa opção para restaurar os headers
 % padrão do abnTex2
 \newif\ifufscthesis@nocleanheader
@@ -251,7 +251,7 @@
 \setulmarginsandblock{3cm}{2cm}{*}  % {upper}{lower}                      @buABNT
 \checkandfixthelayout%
 
-% Cabeçalho e Rodapé    
+% Cabeçalho e Rodapé
 %   - @buWord diz 2 cm para ambos, com alinhamento vertical superior
 %   - Essas configs não tem efeito visual perceptível, provaveis defaults do abnTeX2
 \setheadfoot{2cm}{1cm} % {header height}{footsep (from bottom of text)}
@@ -287,19 +287,36 @@
 \renewcommand{\ABNTEXsectionfontsize}{\normalsize}      % @buDoc @buWord
 \renewcommand{\ABNTEXsubsectionfont}{\noindent\bfseries} % @buDoc @buWord
 \renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}    % @buDoc @buWord
-%@buDoc possívelmente contem um erro pois inverte a formatação de subsubsection com subsubsubsection indicada no @buWord, além de não estar numerado corretamente (falta um ".1")
-\renewcommand{\ABNTEXsubsubsectionfont}{\noindent\itshape} % @buWord 
+%@buDoc possívelmente contem um erro pois inverte a formatação de subsubsection
+%com subsubsubsection indicada no @buWord, além de não estar numerado
+%corretamente (falta um ".1")
+\renewcommand{\ABNTEXsubsubsectionfont}{\noindent\itshape} % @buWord
 \renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}   % @buWord
 \renewcommand{\ABNTEXsubsubsubsectionfont}{\noindent\normalfont} % @buWord
 \renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}      % @buWord
 
-% Estilos de fonte usados no sumário devem corresponder aos estilos usados 
+% Estilos de fonte usados no sumário devem corresponder aos estilos usados
 % no títulos @buWord @buDoc
-\renewcommand{\cftchapterfont}{\bfseries}    % @buDoc @buWord
-\renewcommand{\cftsectionfont}{\normalfont}  % @buDoc @buWord
-\renewcommand{\cftsubsectionfont}{\bfseries} % @buDoc @buWord
-\renewcommand{\cftsubsubsectionfont}{\itshape}       % @buWord
-\renewcommand{\cftsubsubsubsectionfont}{\normalfont} % @buWord
+
+% seções em caixa alta
+\let\oldcontentsline\contentsline
+\def\contentsline#1#2{%
+  \expandafter\ifx\csname l@#1\endcsname\l@section
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {%
+    \oldcontentsline{#1}{\MakeUppercase{#2}}%
+  }{%
+    \oldcontentsline{#1}{#2}%
+  }%
+}
+
+\renewcommand{\cftsectionfont}{\normalfont}                 % @buDoc @buWord
+\renewcommand{\cftsubsectionfont}{\normalfont\bfseries}     % @buDoc @buWord
+\renewcommand{\cftsubsubsectionfont}{\normalfont\itshape}   % @buWord
+\renewcommand{\cftparagraphfont}{\normalfont}               % @buWord
 
 % Tamanho de fonte em cabeçalhos e rodapés. @buWord, @buDoc
 % (o default do abntex2 (footnotesize) já parecia ser 10, mas foi preciso fazer força para afetar figure e table)
@@ -310,13 +327,13 @@
   \captiontitlefont{\footnotesize}%
 }
 
-% Espaçamento depois do título 
+% Espaçamento depois do título
 %  - @buDoc deixa sempre 1 linha com esp. 1,5 em branco após chapter, section e subsection. Em LaTeX 1em equivale a altura de uma linha, por isso 1.5em. Com normalsize sendo 12pt, 1em=18pt=0.6326cm. O ufsc-thesis do Mateus Dubiela usava 0.38cm para chapskip e deixava o padrão para os demais
-\setlength{\afterchapskip}{1.5em} 
-\setlength{\aftersecskip}{1.5em} 
-\setlength{\aftersubsecskip}{1.5em} 
+\setlength{\afterchapskip}{1.5em}
+\setlength{\aftersecskip}{1.5em}
+\setlength{\aftersubsecskip}{1.5em}
 % - Essa prática do @buDoc não é estéticamente agradável. Mas foi mantida pois o template a utiliza até subseções (não há exemplos para os níveis inferiores). Como por algum motivo não é possível controlar o espaçamento de sub-sub-subseção (o chapskip é usado), optou-se por aplicar o mesmo espaçamento para tudo que pode ser configurado
-\setlength{\aftersubsubsecskip}{1.5em} 
+\setlength{\aftersubsubsecskip}{1.5em}
 
 % Espaçamento depois dos paragráfos @buDoc @buWord
 \setlength{\parskip}{0.0cm}
@@ -324,9 +341,9 @@
 \let\ufscthesis@oldthebibliography\thebibliography
 \renewcommand{\thebibliography}[1]{%
   \ufscthesis@oldthebibliography{#1}%
-  % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a 
+  % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a
   % heresia de separar as entradas com uma quebra de parágrafo
-  \setlength{\parskip}{1.2em} 
+  \setlength{\parskip}{1.2em}
 }
 % Espaçamento da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
