@@ -195,6 +195,9 @@
 
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
+% O @buDoc usa extensivamente linhas em branco como recurso estético
+\newcommand{\ufscthesis@lbreak}[0]{\par\vspace{\baselineskip}\par}
+
 \providecommand{\imprimirfichacatalografica}[0]{%
 \clearpage\begingroup\centering\bfseries %
   \vspace*{\fill}%
@@ -214,6 +217,11 @@
 \newtoggle{ufscthesishastitulode}
 \providecommand{\imprimirtitulode}{}
 \newcommand{\titulode}[1]{\toggletrue{ufscthesishastitulode}\renewcommand{\imprimirtitulode}{#1}}
+\newcommand{\ufscthesis@titulode}[0]{%
+  \iftoggle{ufscthesishastitulode}%
+    {\imprimirtitulode}%
+    {\begingroup \bfseries Erro: defina \textbackslash{}titulode\endgroup}%
+}%
 
 % \tese
 % \dissertacao
@@ -224,13 +232,40 @@
 \newcommand{\tese}[0]{\toggletrue{ufscthesistese}\renewcommand{\imprimirtipotrabalho}{Tese}}
 \newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Dissertação}}
 
+% \nivel{<mestrado/doutorado>}
+% Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT 
+% O valor padrão é inferido pelo uso de \tese ou \dissertacao
+\providecommand{\imprimirnivel}{\iftoggle{ufscthesistese}{doutorado}{mestrado}}
+\newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
+
 % \centro{<centro>}
 % Configura o nome do centro da UFSC
 \providecommand{\imprimircentro}{}
 \newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Comandos de dados padrão                                       %%%
+%%% Banca e coordenação (folha de certificação)                    %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Uso interno. Lista de membros da banca
+\newcommand*\ufscthesis@banca{}
+% Uso interno. Lista de membros da banca
+\newcommand{\ufscthesis@membrobanca}[2]{#1\par#2}
+% 6.61cm medido no template oficial @buWord
+\newcommand{\ufscthesis@certificador}[2]{\rule{6.61cm}{1pt}\par#1\par#2\par}
+
+% \membrobanca{<nome>}{<Universidade>}
+% Adiciona um membro da 
+\newcommand{\membrobanca}[2]{\listadd{\ufscthesis@banca}{#1\par#2}}
+
+\newcommand{\imprimircoordenador}[0]{}
+\newcommand{\coordenador}[1]{%
+  \renewcommand{\imprimircoordenador}%
+  {\ufscthesis@certificador{#1}{Coordenador do Programa}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Padrões para Comandos de dados do abnTeX2                      %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \preambulo{<texto>}
@@ -238,15 +273,57 @@
 % dessa classe, \tese ou \dissertacao, foram usados
 \renewcommand{\imprimirpreambulo}{%
 \imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
-\imprimirprograma para obtenção do título de %
-\iftoggle{ufscthesishastitulode}%
-  {\imprimirtitulode}%
-  {\begingroup \bfseries Erro: defina \textbackslash{}titulode\endgroup}%
+\imprimirprograma para obtenção do título de \ufscthesis@titulode%
 }
 
-% \data{<ano>}
-% Data padrão é o ano atual. @buDoc e @buABNT exigem que seja usado apenas o ano!
-\renewcommand{\imprimirdata}{\the\year}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos para configurar data                                  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \data{1 de janeiro de 2019}
+% \dia{<dia>}
+% \mes{<mes>}
+% \ano{<ano>}
+% @buDoc e @buABNT usam a data em duas situações.
+% - O ano, na capa e folha de rosto
+% - "\dia de \mes de \ano" na folha de certificação
+% Por padrão esses três componentes são extraídos da data atual
+% Se o usuário usar o comando \data{} esse comando irá 
+% sobreescrever a data usada na ficha de certificação. Uma leve 
+% bruxaria faz um parsing porco para extrair o ano e usar na 
+% capa e folha de rosto.
+\providecommand{\imprimirano}{\the\year}
+\providecommand{\imprimirmes}{%
+  \ifcase \month \or Janeiro\or Fevereiro\or Março%
+  \or Abril\or Maio\or Junho\or Julho\or Agosto%
+  \or Setembro\or Outubro\or Novembro\or Dezembro\fi%
+}
+\providecommand{\imprimirdia}{\the\day}
+\newcommand{\ano}[1]{\renewcommand{\ano}{\#1}}
+\newcommand{\mes}[1]{\renewcommand{\mes}{\#1}}
+\newcommand{\dia}[1]{\renewcommand{\dia}{\#1}}
+\renewcommand{\imprimirdata}{\imprimirano} % engana abnTeX2
+
+% Uso na folha de certificação
+\newcommand{\imprimirdataext}{\imprimirdia{} de \imprimirmes{} de \imprimirano}
+
+% https://tex.stackexchange.com/a/236213
+\newcommand*\ufscthesislastword[1]{\expandafter\xreverseit\expandafter{\expandafter}#1 \relax}
+\def\xreverseit#1#2 #3{%
+  \ifx\relax#3%
+  #2%
+  \expandafter\xthree
+  \fi
+  \xreverseit{#1 #2}#3% 
+}
+\def\xthree#1#2#3{}
+
+% Configura data como no abnTeX2. Forneça a data completa, como 
+% irá aparecer na folha de certificação. O ano *deveria* ser extraído
+\renewcommand{\data}[1]{%
+  \renewcommand{\imprimirdataext}{#1}%
+  \renewcommand{\imprimirano}{\ufscthesislastword{#1}}%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -401,10 +478,57 @@
 
     % Local e data em caixa baixa sem negrito
     {\imprimirlocal}
-    \par{\imprimirdata}
+    \par{\imprimirano}
     \vspace*{1cm}
   \end{center}
 }
+
+% Origem: @buDoc e @buABNT Atenção o uso de \vspace*{\fill} nos
+% locais usados foi uma advinhação do autor que vos fala. Não há
+% nenhuma instrução da BU sobre os espaçamentos verticais na folha de
+% certificação.  No @buDoc foi observado um uso de espalamento de
+% elementos que variava de 1 a 3 line breaks. Na parte superior eram
+% usados menos line breaks e na parte inferior, mais. Isso indica a
+% intenção de quem fez o @buDoc em aglutinar mais na parte superior e
+% espaçar mais na parte inferior.  Quando essas interpretações são
+% colocadas em fonte Times, há muito mais espaço disponível, o que
+% torna o uso de um único ufscthesis@lbreak esteticamente feio pois
+% causa um desbalancemento notável. A solução foi classificar os
+% linebreaks do @buDoc entre os de uma linhas e os de 2+ linhas. Para os
+% de 2+ linhas são usados 2 \vspace*{\fill}, enquanto que nos usos de um
+% line break, aqui usamos apenas um fill. Isso de certa forma mantem
+% proporcionalmente a distribuição vertical do @buDoc. Para os membros
+% de banca, foi mantido fixo o uso de um único line break acima de cada
+% membro. No caso dos "certificadores" (Coordenador e Orientador) foi
+% usado fill duplo (3 linhas no @buDoc).
+\newcommand{\folhadecertificacaocontent}{
+  \begin{center}
+    \OnehalfSpacing %usado na folha inteira
+    % Nome do autor em caixa baixa sem negrito
+    {\imprimirautor} \par
+    % Apenas 1,5 de espaço Título em negrito (e subtitulo sem)
+    {\centering\bfseries \imprimirtitulo} \par
+    \vspace*{\fill}
+    %\ufscthesis@lbreak % uma linha em branco
+    O presente trabalho em nível de \imprimirnivel foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
+    % Imprime os membros (sem linhas para assinatura)
+    \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
+    \vspace*{\fill}
+    \vspace*{\fill}
+    Certificamos que esta é a {\bfseries versão original e final} de conclusão que foi julgado adequado para obtenção do título de \ufscthesis@titulode. \par
+    \vspace*{\fill}
+    % Pessoas que assinam o documento (por isso eles tem a linha)
+    \imprimircoordenador
+    \vspace*{\fill}
+    \ufscthesis@certificador{\imprimirorientador}{Orientador}
+    \vspace*{\fill}
+    \vspace*{\fill}
+    % Local e data em caixa baixa sem negrito
+    \imprimirlocal, \imprimirdataext.
+  \end{center}
+}
+
+\newcommand{\imprimirfolhadecertificacao}[0]{\clearpage\folhadecertificacaocontent\clearpage}
 
 
 \endinput

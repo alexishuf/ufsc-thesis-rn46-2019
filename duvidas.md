@@ -8,3 +8,8 @@ O template-word.doc indica que Arial ou Times New Roman são fontes sugeridas. O
 ## Alinhamento de Figuras
 
 Tradicionalmente é feito tudo centralizado (Figura, legenda e fonte). O template mostra tudo alinhado a esquerda mas o tutorial de Word usa a expressão "Conforme alinhamento da Ilustração", o que parece implicar que o alinhamento é uma escolha do autor. Qual é a regra (se houver)?
+
+## Distribuição vertical na folha de certificação
+
+O template word usa linhas em branco para espaçar elementos, mas qual era a intenção? A estratégia adotada no .cls (\\folhadecertificacaocontent) é válida?
+

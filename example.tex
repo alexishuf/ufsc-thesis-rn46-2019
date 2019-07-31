@@ -8,7 +8,9 @@
 % Preâmbulo
 \titulo{Template \LaTeX~ seguindo a RN 46/2019/CPG da UFSC}
 \autor{Fulano da Silva}
-%\data{\the\year} % Apenas o ano deve ser usado. O default é o ano atual
+% Importante! Para documentos em inglês, não use today, digite a data em
+% pt_BR, como deve aparecer na folha de certificação.
+\data{1 de Agosto de 2019}
 \instituicao{Universidade Federal de Santa Catarina}
 \programa{Programa de Pós-Graduação em Ciências da Computação}
 \tese % ou \dissertacao
@@ -17,6 +19,15 @@
 \orientador{Prof. Dr. Ben Trovato}
 \coorientador{Prof. Dr. Lars Thørväld}
 \centro{Centro Tecnológico -- CTC}
+
+% Membros da banca e coordenador
+% As regras da BU agora exigem que Dr. apareça depois do nome
+\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Aparna Patel, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
+% Atenção! o template da BU e o documento que apresenta as regras continua 
+% usando Dr antes do nome para Orientador e Coordenador!
+\coordenador{Prof. Dr. Charles Palmer, Dr.}
 
 
 \begin{document}
@@ -30,6 +41,7 @@
 % Ficha catalográfica deve ser gerado no site http://ficha.bu.ufsc.br/
 \includepdf{ficha.pdf}
 \clearpage
+\imprimirfolhadecertificacao
 \tableofcontents*%
 \textual%
 \cleardoublepage
