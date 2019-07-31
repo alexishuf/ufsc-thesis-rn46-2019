@@ -108,12 +108,6 @@
                  % Capitalizado para subseção e menor @buDoc @buWord
 ]{abntex2}
 
-% Manipulação de Strings
-\RequirePackage{xstring}
-
-% Tamanho das fontes
-\RequirePackage{anyfontsize}
-
 \ifufscthesis@lmodern
   \RequirePackage{lmodern}
 \fi
