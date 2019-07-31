@@ -503,6 +503,7 @@
 % usado fill duplo (3 linhas no @buDoc).
 \newcommand{\folhadecertificacaocontent}{
   \begin{center}
+    \normalsize
     \OnehalfSpacing %usado na folha inteira
     % Nome do autor em caixa baixa sem negrito
     {\imprimirautor} \par
