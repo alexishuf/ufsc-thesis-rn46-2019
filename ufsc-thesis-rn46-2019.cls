@@ -152,8 +152,20 @@
   \let\ufscthesis@oldpostextual\postextual
   \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
   \selectlanguage{english}
+
+  % Nomeclatura de orientador e Coorientador cf @buABNT. 
+  % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês @CitationNeeded
+  \addto\captionsenglish{%
+    \renewcommand{\orientadorname}{Orientador:}%
+    \renewcommand{\coorientadorname}{Coorientador:}%
+  }
 \else
+  % Nomenclatura cf @buDoc e @buABNT
   \newcommand{\ufscthesis@captionsourcelabel}[0]{Fonte}
+  \addto\captionsbrazil{%
+    \renewcommand{\orientadorname}{Orientador:}%
+    \renewcommand{\coorientadorname}{Coorientador:}%
+  }
 \fi
 
 \ifufscthesis@nocapautoref\else
@@ -171,28 +183,6 @@
   }
 \fi
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Comandos de dados                                              %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Comandos de dados - programa
-\providecommand{\imprimirprograma}{}
-\newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
-
-% \assuntos{<comma-separated list>}
-% Lista de assuntos da tese/dissertação
-\newcounter{ufscthesis@assuntos}
-\providecommand{\listaassuntos}{}
-\newcommand{\assuntos}[1]{\renewcommand{\listaassuntos}{#1}}
-
-% \centro{<centro>}
-% Configura o nome do centro da UFSC
-\providecommand{\imprimircentro}{}
-\newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
-
-% Data padrão é o ano atual. @buDoc e @buABNT exigem que seja usado apenas o ano!
-\renewcommand{\imprimirdata}{\the\year}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos gerais                                                %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,13 +195,52 @@
 
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
-\providecommand{\imprimirassuntos}{%
-  \setcounter{ufscthesis@assuntos}{1}
-  \@for\assunto:={\listaassuntos}\do{%
-    \arabic{ufscthesis@assuntos}.\assunto. %
-    \addtocounter{ufscthesis@assuntos}{1}
-  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos de dados                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comandos de dados - programa
+\providecommand{\imprimirprograma}{}
+\newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
+
+% \titulode{Doutor em Ciência da Computação}
+% Define o título ao qual o trabalho corresponde
+\newtoggle{ufscthesishastitulode}
+\providecommand{\imprimirtitulode}{}
+\newcommand{\titulode}[1]{\toggletrue{ufscthesishastitulode}\renewcommand{\imprimirtitulode}{#1}}
+
+% \tese
+% \dissertacao
+% Define o tipo de trabalho. Você pode usar o \tipotrabalho definido no abnTeX2, 
+% mas alguns defaults dessa classe deixarão de ser computados. 
+% O mais importante deles é o \preambulo
+\newtoggle{ufscthesistese}
+\newcommand{\tese}[0]{\toggletrue{ufscthesistese}\renewcommand{\imprimirtipotrabalho}{Tese}}
+\newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Dissertação}}
+
+% \centro{<centro>}
+% Configura o nome do centro da UFSC
+\providecommand{\imprimircentro}{}
+\newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comandos de dados padrão                                       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \preambulo{<texto>}
+% Texto padrão conforme @buABNT. Esse default só é configurado se os comandos 
+% dessa classe, \tese ou \dissertacao, foram usados
+\renewcommand{\imprimirpreambulo}{%
+\imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
+\imprimirprograma para obtenção do título de %
+\iftoggle{ufscthesishastitulode}%
+  {\imprimirtitulode}%
+  {\begingroup \bfseries Erro: defina \textbackslash{}titulode\endgroup}%
 }
+
+% \data{<ano>}
+% Data padrão é o ano atual. @buDoc e @buABNT exigem que seja usado apenas o ano!
+\renewcommand{\imprimirdata}{\the\year}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Formatação                                                     %%%
@@ -332,6 +361,7 @@
     \abntex@ifnotempty{\imprimirpreambulo}{%
       \hspace{.45\textwidth}
       \begin{minipage}{.5\textwidth}
+        \ABNTEXfontereduzida
         \SingleSpacing
         \imprimirpreambulo
 
