@@ -195,6 +195,13 @@
 
 \newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
+\providecommand{\imprimirfichacatalografica}[0]{%
+\clearpage\begingroup\centering\bfseries %
+  \vspace*{\fill}%
+  A ficha catalográfica deve ser gerada usando o sistema da BU em \url{https://http://ficha.bu.ufsc.br/}. Posteriormente o PDF deve ser incluído via \textbackslash{}includepdf{nome.pdf}%
+  \vspace*{\fill}%
+\endgroup\clearpage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos de dados                                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

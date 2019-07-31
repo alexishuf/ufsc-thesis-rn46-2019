@@ -1,11 +1,9 @@
 \documentclass[english]{ufsc-thesis-rn46-2019}
 
-% Gerador de texto
-\usepackage{lipsum}
+\usepackage[utf8]{inputenc} % UTF-8
+\usepackage{lipsum} % Gerador de texto
+\usepackage{pdfpages} % Inclui PDF externo (ficha catalográfica)
 
-\usepackage{cmap}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 
 % Preâmbulo
 \titulo{Template \LaTeX~ seguindo a RN 46/2019/CPG da UFSC}
@@ -16,8 +14,8 @@
 \tese % ou \dissertacao
 \local{Florianópolis} % Apenas cidade! Sem estado
 \titulode{Doutor em Ciência da Computação}
-\orientador{Pedro Henrique {}de Souza}
-\coorientador{José {}da Silva Sauro}
+\orientador{Prof. Dr. Ben Trovato}
+\coorientador{Prof. Dr. Lars Thørväld}
 \centro{Centro Tecnológico -- CTC}
 
 
@@ -27,10 +25,11 @@
 % aprovação, aprovação, resumo, lista de tabelas, lista de figuras, etc.
 \pretextual%
 \imprimircapa%
-\imprimirfolhaderosto*%
+\imprimirfolhaderosto*
+\clearpage % força troca de página. Importante fazer isso antes do includepdf
+% Ficha catalográfica deve ser gerado no site http://ficha.bu.ufsc.br/
+\includepdf{ficha.pdf}
 \clearpage
-% Deve ser gerado no site http://ficha.bu.ufsc.br/
-% \imprimirfichacatalografica%
 \tableofcontents*%
 \textual%
 \cleardoublepage
