@@ -488,8 +488,7 @@
 % Espaçamento da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
-%\OnehalfSpacing
-\SingleSpacing
+\OnehalfSpacing
 % Lugares que exigem espaçamento entre linhas simples @buWord[p. 7]
 % - Floats (figure/table): Fracassei em alterar, mas default já é SingleSpacing
 % - footnotes: Fracassei em alterar, mas default já é SingleSpacing
@@ -2493,7 +2492,8 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 \end{filecontents*}
 \else
   % Alguns caminhos possíveis onde o aluno poderia ter nos largado
-  % O pacote currfile não permite pegar o diretório/arquivo da classe
+  % O pacote currfile não permite pegar o diretório/arquivo da classe por
+  % isso esse trabalho em volta. Quem ler o README não deveria sofre (muito)
   \graphicspath{%
     {.}%
     {ufsc-thesis-rn46-2019/}%
@@ -2543,7 +2543,7 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 }
 
 
-% Folha de rosto segundo modelo da Biblioteca Universitária da UFSC
+% Folha de rosto segundo modelo novo da BU
 \renewcommand{\folhaderostocontent}{
   \begin{center}
     % Nome do autor em caixa baixa sem negrito
@@ -2561,7 +2561,6 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
         \ABNTEXfontereduzida
         \SingleSpacing
         \imprimirpreambulo
-
         % Nomes do orientador e coorientador
         {\imprimirorientadorRotulo~\imprimirorientador\par}
         \abntex@ifnotempty{\imprimircoorientador}{%
@@ -2582,21 +2581,10 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 % Origem: @buDoc e @buABNT Atenção o uso de \vspace*{\fill} nos
 % locais usados foi uma advinhação do autor que vos fala. Não há
 % nenhuma instrução da BU sobre os espaçamentos verticais na folha de
-% certificação.  No @buDoc foi observado um uso de espalamento de
-% elementos que variava de 1 a 3 line breaks. Na parte superior eram
-% usados menos line breaks e na parte inferior, mais. Isso indica a
-% intenção de quem fez o @buDoc em aglutinar mais na parte superior e
-% espaçar mais na parte inferior.  Quando essas interpretações são
-% colocadas em fonte Times, há muito mais espaço disponível, o que
-% torna o uso de um único ufscthesis@lbreak esteticamente feio pois
-% causa um desbalancemento notável. A solução foi classificar os
-% linebreaks do @buDoc entre os de uma linhas e os de 2+ linhas. Para os
-% de 2+ linhas são usados 2 \vspace*{\fill}, enquanto que nos usos de um
-% line break, aqui usamos apenas um fill. Isso de certa forma mantem
-% proporcionalmente a distribuição vertical do @buDoc. Para os membros
-% de banca, foi mantido fixo o uso de um único line break acima de cada
-% membro. No caso dos "certificadores" (Coordenador e Orientador) foi
-% usado fill duplo (3 linhas no @buDoc).
+% certificação.  Em contato com a BU, a estratégia adotada foi:
+% 1. Separar membros da banca com uma linha (\ufscthesis@lbreak)
+% 2. Aplicar \fill em todos os demais espaçamentos, usando o 
+%    dobro de força nos casos onde o @buDoc usava 2+ linhas
 \newcommand{\folhadecertificacaocontent}{
   \begin{center}
     \normalsize
