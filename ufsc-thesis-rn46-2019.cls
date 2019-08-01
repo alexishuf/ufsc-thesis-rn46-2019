@@ -165,8 +165,9 @@
   \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
   \selectlanguage{english}
 
-  % Nomeclatura de orientador e Coorientador cf noembeddedlogonoembeddedlogo
-  % Esses nomesnoembeddedlogonoembeddedlogo permanecer em pt_BR mesmo para trabalhos escritos enoembeddedlogotrue%true%  \addto\captionsenglish{%
+  % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
+  % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos en inglês
+  \addto\captionsenglish{%
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
   }
