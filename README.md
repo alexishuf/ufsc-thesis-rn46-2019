@@ -29,7 +29,7 @@ Após a disponibilização, você deve usar a classe:
 \documentclass[]{ufsc-thesis-rn46-2019}
 ```
 
-### Modo rústico 
+### Modo rústico
 
 No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca no seu projeto LaTeX. O .cls possui o logo da UFSC embarcado, mas vocẽ precisa solicitar o uso dessa feature:
 
@@ -37,7 +37,7 @@ No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca 
 \documentclass[embeddedlogo]{ufsc-thesis-rn46-2019}
 ```
 
-Para compilar será necessário usar a opção `-shell-escape`:
+Esse modo **funciona no [overleaf](https://www.overleaf.com/)** out of the box. Se você estiver trabalhando localmente, precisará estar em um ambiente UNIX-like e adicionar a opção `-shell-escape` ao compilar:
 
 ```bash
 pdflatex -shell-escape arquivo.tex
