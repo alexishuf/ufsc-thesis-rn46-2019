@@ -7,3 +7,6 @@ all: $(SRC_FILES:.tex=.pdf)
 
 clean:
 	latexmk -cd -CA $(SRC_FILES)
+	cd "$(1)" && latexmk -cd -CA
+	cd "$(1)" && rm -f main.pdf *.dvi *.bbl *.nav *.ilg *.idx *.64 main-logo.pdf
+	cd "$(1)" && rm -fr auto _minted-*
