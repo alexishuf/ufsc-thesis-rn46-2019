@@ -263,6 +263,10 @@
   \renewcommand{\imprimircoordenador}%
   {\ufscthesis@certificador{#1}{Coordenador do Programa}}%
 }
+\newcommand{\coordenadora}[1]{%
+  \renewcommand{\imprimircoordenador}%
+  {\ufscthesis@certificador{#1}{Coordenadora do Programa}}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Padrões para Comandos de dados do abnTeX2                      %%%
