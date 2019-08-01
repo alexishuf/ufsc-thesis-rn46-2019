@@ -66,6 +66,12 @@ Leia o [manual em doc/userguide.pdf](https://github.com/alexishuf/ufsc-thesis-rn
 
 O [manual](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é escrito usando a própria classe e o código fonte está disponível no diretório `doc/`.
 
+### Não gostei do exemplo, não há um exemplo mais parecido com uma dissertação?
+
+Há vários! Essa mudança de regras da RN 46/2019/CPG mudou principalmente procedimentos de entrega e detalhes de formatação. Todos os exemplos de como fazer uma dissertação com abnTeX2 continuam aplicáveis. Você apenas precisa cuidar para não copiar configurações de formatação dos templates já em circulação.
+
+O próprio [repositório do abnTeX2](https://github.com/abntex/abntex2) aqui no github possui referências interessantes. Se estiver em dúvida sobre a ordem dos elementos necessários e opcionais, uma fonte rápida de consulta é o próprio [documento da BU sobre ABNT](https://repositorio.ufsc.br/handle/123456789/180829).
+
 ### Eu tenho um template que gosto muito, como passar a usar essa classe?
 
 Há duas situações. Seu template faz um \documentclass{abntex2}? Se sim troque abntex2 por essa classe. Se você incluir um pacote que aplica as regras de formatação antigas da BU, há duas opções:
