@@ -11,7 +11,7 @@ Referências normativas relevantes consideradas no desenvolvimento dessa classe:
 
 ## Como usar?
 
-Há dois modos principais.
+Há dois modos principais. As subseções abaixo discutem os passos iniciais de cada modo. A leitura do [manual completo](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é encorajada.
 
 ### Submodulo/Diretório
 
