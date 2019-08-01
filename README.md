@@ -29,6 +29,19 @@ Após a disponibilização, você deve usar a classe:
 \documentclass[]{ufsc-thesis-rn46-2019}
 ```
 
+Se você mudou o nome ou local do diretório de uma forma que o .cls não consegue adivinhar onde ele está, você deverá alterar o `\graphicspath{}` para incluir o diretório onde está o arquivo .cls. O chute padrão da classe é esse:
+
+```tex
+\graphicspath{%
+  {.}%
+  {ufsc-thesis-rn46-2019/}%
+  {../ufsc-thesis-rn46-2019/}%
+  {../../ufsc-thesis-rn46-2019/}%
+}
+```
+
+**Dica:** Se estiver em um ambiente UNIX-like, você pode evitar chateações com o caminho do logo-ufsc.pdf usando a opção `embeddedlogo` na classe.
+
 ### Modo rústico
 
 No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca no seu projeto LaTeX. O .cls possui o logo da UFSC embarcado, mas vocẽ precisa solicitar o uso dessa feature:
