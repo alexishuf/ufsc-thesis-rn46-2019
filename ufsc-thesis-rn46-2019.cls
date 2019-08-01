@@ -52,6 +52,18 @@
 \DeclareOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
 \DeclareOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
 
+% [embeddedlogo]
+% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está 
+% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade 
+% faz com que o arquivo .cls seja stand-alone. 
+% Esse desempacotamento depende de compilação com -shell-escape e de um 
+% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf 
+% desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
+\newif\ifufscthesis@embeddedlogo
+\DeclareOption{embeddedlogo}{%
+  \ufscthesis@embeddedlogotrue%
+}
+
 % [nocapautoref]
 % Por padrão \autoref será configurado para produzir Seção/Section ao invés de seção/section
 % Passando essa opção, essa classe não irá alterar o comportamento padrão
@@ -84,18 +96,6 @@
 \newif\ifufscthesis@nocleanheader
 \DeclareOption{nocleanheader}{%
   \ufscthesis@nocleanheadertrue%
-}
-
-% [embeddedlogo]
-% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está 
-% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade 
-% faz com que o arquivo .cls seja stand-alone. 
-% Esse desempacotamento depende de compilação com -shell-escape e de um 
-% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf 
-% desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
-\newif\ifufscthesis@embeddedlogo
-\DeclareOption{embeddedlogo}{%
-  \ufscthesis@embeddedlogotrue%
 }
 
 % Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
