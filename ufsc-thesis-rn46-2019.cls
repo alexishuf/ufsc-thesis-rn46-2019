@@ -2461,7 +2461,7 @@ MDAwIG4gCjAwMDAxMTI3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA4CiAgIC9Sb290IDcg
 MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 \end{filecontents*}
 \else
-  \newcommand{\ufscthesis@logo}{ufsc.pdf}
+  \newcommand{\ufscthesis@logo}{logo-ufsc.pdf}
 \fi
 
 % alterando a capa

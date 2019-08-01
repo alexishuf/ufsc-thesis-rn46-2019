@@ -197,7 +197,7 @@ A \autoref{fig:figura} é uma figura de exemplo. Para gerar o ``Fonte:'' (que ap
   \label{fig:figura}
   %\lipsum[1]
 
-  \includegraphics[width=.5\linewidth]{ufsc.pdf}
+  \includegraphics[width=.5\linewidth]{logo-ufsc.pdf}
   \captionsource{The author.}
 \end{figure}
 
@@ -230,7 +230,7 @@ A classe possui apenas duas opções que fornecem uma feature (são as dusa prim
             \texttt{brazil}}
 Prepara o \abnTeX e a classe para que o corpo do documento esteja em inglês (ou português). Alguns elementos em português, especialmente os relacionados a BU e a UFSC permanecem em português.
 
-\paragraph*{\texttt{embeddlogo}} Se ativa, essa opção desempacota o ufsc.pdf diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que o \texttt{.cls} seja uma arquivo auto-contido. Pessoas avessas a \texttt{git submodule} e a diretórios podem simplesmente levar o .cls de um projeto para outro. Há uma desvantagem (e por isso essa opção não é default): É necessário compilar com a opção \texttt{-shell-escape} em uma ambiente \texttt{UNIX-like}.
+\paragraph*{\texttt{embeddlogo}} Se ativa, essa opção desempacota o \texttt{logo-ufsc.pdf} diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que o \texttt{.cls} seja uma arquivo auto-contido. Pessoas avessas a \texttt{git submodule} e a diretórios podem simplesmente levar o .cls de um projeto para outro. Há uma desvantagem (e por isso essa opção não é default): É necessário compilar com a opção \texttt{-shell-escape} em uma ambiente \texttt{UNIX-like}.
 
 \paragraph*{\texttt{times}, \texttt{lmodern} e \texttt{arial}} Escolhe a fonte do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e \texttt{arial} são usados clones open-source (sem limitações legais à redistribuição) que podem ser encontradas em qualquer instalação \LaTeX. A opção \texttt{lmodern} corresponde a fonte Latin Modern, a fonte padrão do \LaTeX. Essa é uma fonte serifada similar à Times, mas melhor. No entanto, ela não possui respaldo oficial da BU.
 
