@@ -488,8 +488,7 @@
 % Espaçamento da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
-%\OnehalfSpacing
-\SingleSpacing
+\OnehalfSpacing
 % Lugares que exigem espaçamento entre linhas simples @buWord[p. 7]
 % - Floats (figure/table): Fracassei em alterar, mas default já é SingleSpacing
 % - footnotes: Fracassei em alterar, mas default já é SingleSpacing
