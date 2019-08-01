@@ -17,8 +17,8 @@ Há dois modos principais.
 
 Disponibilize esse repositório como um subdiretório do seu projeto. Isso pode ser feito de três formas:
 
-1. `git submodule add --depth 1 https://github.com/alexishuf/ufsc-thesis-rn46-2019` 
-2. `git clone --depth 1 https://github.com/alexishuf/ufsc-thesis-rn46-2019`
+1. `git submodule add https://github.com/alexishuf/ufsc-thesis-rn46-2019` 
+2. `git clone https://github.com/alexishuf/ufsc-thesis-rn46-2019`
 3. Use a opção download as zip do github e extraia o zip dentro do seu projeto.
 
 **Dica:** ao usar as opções git, você pode incluir a opção `--depth 1` para evitar baixar todo o histórico de commits.
