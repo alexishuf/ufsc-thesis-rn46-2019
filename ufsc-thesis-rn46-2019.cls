@@ -87,11 +87,11 @@
 }
 
 % [embeddedlogo]
-% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está 
-% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade 
-% faz com que o arquivo .cls seja stand-alone. 
-% Esse desempacotamento depende de compilação com -shell-escape e de um 
-% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf 
+% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está
+% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade
+% faz com que o arquivo .cls seja stand-alone.
+% Esse desempacotamento depende de compilação com -shell-escape e de um
+% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf
 % desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
 \newif\ifufscthesis@embeddedlogo
 \DeclareOption{embeddedlogo}{%
@@ -166,7 +166,8 @@
   \selectlanguage{english}
 
   % Nomeclatura de orientador e Coorientador cf noembeddedlogonoembeddedlogo
-  % Esses nomesnoembeddedlogonoembeddedlogo permanecer em pt_BR mesmo para trabalhos escritos enoembeddedlogotrue%true%  \addto\captionsenglish{%
+  % Esses nomesnoembeddedlogonoembeddedlogo permanecer em pt_BR mesmo para trabalhos escritos enoembeddedlogotrue%true%
+  \addto\captionsenglish{%
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
   }
@@ -280,14 +281,21 @@
 \newcommand{\membrobanca}[2]{\listadd{\ufscthesis@banca}{#1\par#2}}
 
 % \coordenador[a]{<nome>}
-% Configura o nome do(a) Coordenador(a) do programa 
+% Configura o nome do(a) Coordenador(a) do programa
 % @buDoc @buABNT mostram nesse caso o Dr. antes do nome.
 \newcommand{\imprimircoordenador}[0]{}
 \newcommand{\coordenador}[2][]{%
   \renewcommand{\imprimircoordenador}%
-    {\ufscthesis@certificador{#1}{Coordenador#1 do Programa}}%
+    {\ufscthesis@certificador{#2}{Coordenador#1 do Programa}}%
 }
 \newcommand{\coordenadora}[1]{\coordenador[a]{#1}}
+
+\newtoggle{ufscthesisfemsupervisor}
+\newcommand{\orientadora}[1]{
+  \toggletrue{ufscthesisfemsupervisor}
+  \orientador[Orientadora:]{#1}
+}
+\newcommand{\coorientadora}[1]{\coorientador[Coorientadora:]{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Padrões para Comandos de dados do abnTeX2                      %%%
@@ -470,7 +478,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifufscthesis@embeddedlogo
-  \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}  
+  \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}
   \AtBeginDocument{%
     \immediate\write18{base64 -d \jobname.64 > \jobname-logo.pdf}
   }
@@ -2577,7 +2585,9 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
     \imprimircoordenador
     \vspace*{\fill}
     \vspace*{\fill}
-    \ufscthesis@certificador{\imprimirorientador}{Orientador}
+    \ufscthesis@certificador{\imprimirorientador}{
+      Orientador\iftoggle{ufscthesisfemsupervisor}{a}{}
+    }
     \vspace*{\fill}
     \vspace*{\fill}
     % Local e data em caixa baixa sem negrito
