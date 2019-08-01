@@ -151,11 +151,13 @@
 
 % Citações
 \ifufscthesis@noabntexcite\else
+  % @buDoc e @buABNT mostram títulos destacados em negrito
+  \PassOptionsToPackage{alf,abnt-emphasize=bf,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
   \ifufscthesis@eng
-    % Em inglês usa & no lugar de & nas referências
-    \PassOptionsToPackage{alf,abnt-and-type=&,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+    % Em inglês, usa & no lugar de "e"
+    \PassOptionsToPackage{abnt-and-type=&}{abntex2cite}
   \else
-    \PassOptionsToPackage{alf,abnt-and-type=e,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+    \PassOptionsToPackage{abnt-and-type=e}{abntex2cite}
   \fi
   \RequirePackage{abntex2cite}
 \fi
