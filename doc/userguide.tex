@@ -1,4 +1,4 @@
-\documentclass[embeddedlogo]{ufsc-thesis-rn46-2019}
+\documentclass[embeddedlogo]{../ufsc-thesis-rn46-2019}
 
 \usepackage[utf8]{inputenc} % UTF-8
 \usepackage{lipsum} % Gerador de texto
@@ -32,12 +32,11 @@
 % Membros da banca e coordenador
 % As regras da BU agora exigem que Dr. apareça depois do nome
 \membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
-\membrobanca{Prof. Aparna Patel, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
 \membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
 % Atenção! o template da BU e o documento que apresenta as regras continua
 % usando Dr antes do nome para Orientador e Coordenador!
 \coordenador{Prof. Dr. Charles Palmer}
-
 
 \begin{document}
 
@@ -103,9 +102,10 @@ Há duas principais formas de incluir essa classe no seu projeto.
 
 \begin{enumerate}
   \item Copie o arquivo \texttt{ufsc-thesis-rn46-2019.cls}. Sim, isso funciona
-      pois o logo da UFSC está embutido em base64 dentro do cls. Para que isso
-        funcione, você deve compilar com \texttt{-shell-escape} em um ambiente
-        \textit{UNIX-like}, como no arquivo \texttt{Makefile} de exemplo.
+      pois o logo da UFSC está embutido em base64 dentro da classe. Para que
+        isso funcione, você deve compilar com \texttt{-shell-escape} em um
+        ambiente \textit{UNIX-like}, como no arquivo \texttt{Makefile} de
+        exemplo.
   \item Copie a pasta do repositório do GitHub para dentro do seu projeto.
       Nesse caso você deverá adicionar o caminho dessa pasta ao fazer o
         \mt|\documentclass|. Há 3 formas de incluir essa pasta:
@@ -183,7 +183,7 @@ apenas indicar os membros avaliadores da banca e o coordenador do programa:
 \centro{Centro Tecnológico}
 
 \membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
-\membrobanca{Prof. Aparna Patel, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
 \membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
 \coordenador{Prof. Dr. Charles Palmer}
   \end{minted}
@@ -192,7 +192,7 @@ apenas indicar os membros avaliadores da banca e o coordenador do programa:
 
 Os elementos pré-textuais permanecem em grande parte tendo seu comportamento
 determinado pelo \abnTeX. Alguns elementos incluídos nesse guia foram alterados
-para satisfazer normas da UFSC. Esses elementos pré-textuais também presentes
+para satisfazer normas da UFSC. Esses elementos também presentes
 nesse guia são obtidos com o código mostrado na \autoref{fig:pre}. Capa
 (\mt|\imprimircapa|), folha de rosto (\mt|\imprimirfolhaderosto*|) listas
 (\emph{e.g.} \mt|\listoffigures*|) e o sumário \mt|\tableofcontents*| são
@@ -200,11 +200,12 @@ obtidos através dos mesmos comandos do \abnTeX, mas agora respeitam novas
 regras impostas pela BU.
 
 A ficha catalográfica deve ser gerada em sistema próprio da BU, que produz um
-PDF. Esse PDF deve ser salvo no seu projeto e incluído no documento. A macro
-\mt|\incluirfichacatalografica{<pdf>}| faz essa inclusão usando o pacote
-\href{https://www.ctan.org/pkg/pdfpages}{\mt|pdfpages|}. O \mt|\protect| é
-necessário para evitar um \emph{bug} (uma linha em branco substitui o
-\mt|\protect|).  A folha de certificação será gerada pelo comando
+PDF. Esse PDF deve ser salvo no seu projeto e incluído no documento.
+
+A macro \mt|\incluirfichacatalografica{<pdf>}| faz essa inclusão usando o
+pacote \href{https://www.ctan.org/pkg/pdfpages}{\mt|pdfpages|}. O \mt|\protect|
+é necessário para evitar um \emph{bug} (uma linha em branco substitui o
+\mt|\protect|).  A folha de certificação é gerada pelo comando
 \mt|\imprimirfolhadecertificacao| de acordo (e na ordem) com os comandos de
 dados emitidos anteriormente.
 
@@ -246,12 +247,17 @@ tratamento de bibliografia.
 
 \section{Opções da classe}
 
-A classe possui apenas uma opção que fornece recursos, e todas as demais servem
-para desativar comportamentos padrão.
+A classe possui apenas uma opção que fornce recursos: a primeira na lista
+abaixo. Todas as demais servem para desativar comportamentos padrão.
 
 \paragraph*{\texttt{english}} Prepara o \abnTeX{} e a classe para que o corpo
 do documento esteja em inglês. Alguns elementos em português, especialmente os
 relacionados a BU e a UFSC permanecem em português.
+
+\paragraph*{\texttt{brazil}} Não tem efeito pois o idioma por padrão é o
+português do Brasil. Entretanto, note que para utilizar outros idiomas além de
+inglês e português, é necessário repassar todos os idiomas explicitamente à
+classe \abnTeX.
 
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
@@ -259,12 +265,8 @@ o \texttt{.cls} seja um arquivo auto-contido. Pessoas aversas a \texttt{git
 submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
 projeto para outro. Entretanto, há uma desvantagem, e por isso essa opção não é
 padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma
-ambiente \emph{UNIX-like}.
-
-\paragraph*{\texttt{brazil}} Não tem efeito pois o idioma por padrão é o
-português do Brasil. Entretanto, note que para utilizar outros idiomas além de
-inglês e português, é necessário repassar todos os idiomas explicitamente à
-classe \abnTeX.
+ambiente \emph{UNIX-like}. O logo foi obtido da \href{página de identidade
+visual da UFSC}{http://identidade.ufsc.br/}.
 
 \paragraph*{\texttt{times}, \texttt{lmodern}, \texttt{arial}} Escolhe a fonte
 do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e
@@ -272,7 +274,7 @@ do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e
 redistribuição) que podem ser encontradas em qualquer instalação \LaTeX. A
 opção \texttt{lmodern} corresponde à fonte Latin Modern, a fonte padrão do
 \LaTeX. Essa é uma fonte serifada similar à Times, mas não possui respaldo
-oficial da BU, mesmo sendo mais agradável e estilosa.
+oficial da BU.
 
 \paragraph*{\texttt{nocapautoref}} Essa classe configura o comando
 \mt{\autoref} para que nomes de capítulos e seções sejam capitalizados. Ao
@@ -304,6 +306,7 @@ Essa seção apresenta macros novas, não presentes no \abnTeX{} ou
 \texttt{abntex2cite}.
 
 \subsection{Comandos de dados}
+\label{sec:dados}
 
 Esses comandos visam fornecer dados que são posteriormente usados pelos
 comandos de saída discutidos na próxima seção. \textbf{Importante:} não esqueça
@@ -354,9 +357,9 @@ esse é o único lugar onde o título deve vir após o nome. Para orientador e
 coordenador a BU coloca o título antes.
 
 \paragraph*{\texttt{\textbackslash{}coordenadora\{<nome>\}}} Nome do
-coordenador do programa. No caso de coordenadora, o comando \mt|\coordenadora|
-pode ser usado. Nesse caso a BU usa títulos antes do nome.  Exemplo:
-\mt|\coordenador{Prof. Dr. Mordecai Malignatus}|.
+coordenador do programa. Nesse caso a BU usa títulos antes do nome. No caso de
+coordenadora, o comando \mt|\coordenadora| pode ser usado. Exemplo:
+\mt|\coordenador{ Prof. Dr. Mordecai Malignatus}|.
 
 \subsection{Comandos de saída}
 
@@ -425,7 +428,6 @@ pode ser opcional. Recursos foram gastos com isso. Descubra a verdade nas
 capitalizadas.
 % Fiquei 15 minutos mais próximo da morte ao escrever isso. Você pode chegar
 % ainda mais perto se tentar entender.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Elementos pós-textuais                                       %%%

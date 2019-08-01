@@ -52,6 +52,18 @@
 \DeclareOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
 \DeclareOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
 
+% [embeddedlogo]
+% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está
+% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade
+% faz com que o arquivo .cls seja stand-alone.
+% Esse desempacotamento depende de compilação com -shell-escape e de um
+% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf
+% desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
+\newif\ifufscthesis@embeddedlogo
+\DeclareOption{embeddedlogo}{%
+  \ufscthesis@embeddedlogotrue%
+}
+
 % [nocapautoref]
 % Por padrão \autoref será configurado para produzir Seção/Section ao invés de seção/section
 % Passando essa opção, essa classe não irá alterar o comportamento padrão
@@ -148,6 +160,12 @@
   \AtBeginDocument{\hypersetup{hidelinks}}
 \fi
 
+% Usado para incluir o logo da UFSC
+\RequirePackage{graphicx}
+
+% Usado para incluir a ficha catalográfica
+\RequirePackage{pdfpages}
+
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
@@ -165,8 +183,8 @@
   \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
   \selectlanguage{english}
 
-  % Nomeclatura de orientador e Coorientador cf noembeddedlogonoembeddedlogo
-  % Esses nomesnoembeddedlogonoembeddedlogo permanecer em pt_BR mesmo para trabalhos escritos enoembeddedlogotrue%true%
+  % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
+  % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês
   \addto\captionsenglish{%
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
@@ -2469,7 +2487,18 @@ MDAwIG4gCjAwMDAxMTI3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA4CiAgIC9Sb290IDcg
 MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 \end{filecontents*}
 \else
-  \newcommand{\ufscthesis@logo}{ufsc.pdf}
+  % Alguns caminhos possíveis onde o aluno poderia ter nos largado
+  % O pacote currfile não permite pegar o diretório/arquivo da classe
+  \graphicspath{%
+    {.}%
+    {ufsc-thesis-rn46-2019/}%
+    {../ufsc-thesis-rn46-2019/}%
+    {../../ufsc-thesis-rn46-2019/}%
+    {ufsc-thesis/}%
+    {../ufsc-thesis/}%
+    {../../ufsc-thesis/}%
+  }
+  \newcommand{\ufscthesis@logo}{logo-ufsc.pdf}
 \fi
 
 % alterando a capa
