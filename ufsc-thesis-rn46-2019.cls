@@ -148,6 +148,12 @@
   \AtBeginDocument{\hypersetup{hidelinks}}
 \fi
 
+% Usado para incluir o logo da UFSC
+\RequirePackage{graphicx}
+
+% Usado para incluir a ficha catalográfica
+\RequirePackage{pdfpages}
+
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
