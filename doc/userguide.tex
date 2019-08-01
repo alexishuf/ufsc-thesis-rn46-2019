@@ -410,6 +410,17 @@ A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções
 \item Há coisas na \autoref{sec:yet-more}.
 \end{itemize}
 
+Citações são feitas com \mt|\begin{citacao}...\end{citacao}|. A BU faz
+as mesmas exigências que já são o \textit{default} na classe \abnTeX2.
+
+\begin{citacao}
+  A elaboração do trabalho de conclusão de curso em nível de mestrado
+  e de doutorado na UFSC deverá atender aos critérios e procedimentos
+  estabelecidos nesta resolução normativa e em diretrizes
+  estabelecidas pela Pró-Reitoria de Pós-Graduação e pelos Programas
+  de Pós-Graduação.
+\end{citacao}
+
 Atenção! O template da BU deixa figuras e tabelas alinhadas à esquerda. No
 entanto, o tutorial de Word disponibilizado pela BU diz que legendas e
 \emph{captions} devem respeitar o ``alinhamento da ilustração'' (e apresenta
@@ -417,7 +428,16 @@ uma ilustração alinhada à esquerda). O tutorial explicando a ABNT mostra uma
 figura centralizada com legendas alinhadas a esquerda e com recuo até o começo
 da figura. O autor do \texttt{.cls} se exime de qualquer culpa. Alinhe aqui
 (com \mt|\centering|, \mt|\flushright| ou \mt|\flushleft|) como mandar o seu
-coração.
+coração. Veja na \autoref{fig:logo} o efeito de se usar \mt|\centering|.
+
+\begin{figure}[t]
+  \centering
+  \caption{Logotipo da Universidade Federal de Santa Catarina.}
+  \label{fig:logo}
+
+  \includegraphics[width=.2\linewidth]{../logo-ufsc.pdf}
+  \captionsource{O autor.}
+\end{figure}
 
 \section{Coisas}
 \label{sec:stuff}
