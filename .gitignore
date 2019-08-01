@@ -1,4 +1,7 @@
 *.aux
+*.64
+*.fdb_latexmk
+*.fls
 *.bbl
 *.upa
 *.upb
