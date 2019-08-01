@@ -153,7 +153,7 @@
   \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
   \selectlanguage{english}
 
-  % Nomeclatura de orientador e Coorientador cf @buABNT. 
+  % Nomeclatura de orientador e Coorientador cf @buABNT.
   % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês @CitationNeeded
   \addto\captionsenglish{%
     \renewcommand{\orientadorname}{Orientador:}%
@@ -201,7 +201,9 @@
 \providecommand{\imprimirfichacatalografica}[0]{%
 \clearpage\begingroup\centering\bfseries %
   \vspace*{\fill}%
-  A ficha catalográfica deve ser gerada usando o sistema da BU em \url{https://http://ficha.bu.ufsc.br/}. Posteriormente o PDF deve ser incluído via \textbackslash{}includepdf{nome.pdf}%
+  A ficha catalográfica deve ser gerada usando o sistema da BU em
+  \url{https://ficha.bu.ufsc.br/}. Posteriormente o PDF deve ser incluído via
+  \textbackslash{}includepdf{nome.pdf}%
   \vspace*{\fill}%
 \endgroup\clearpage}
 
@@ -225,15 +227,15 @@
 
 % \tese
 % \dissertacao
-% Define o tipo de trabalho. Você pode usar o \tipotrabalho definido no abnTeX2, 
-% mas alguns defaults dessa classe deixarão de ser computados. 
+% Define o tipo de trabalho. Você pode usar o \tipotrabalho definido no abnTeX2,
+% mas alguns defaults dessa classe deixarão de ser computados.
 % O mais importante deles é o \preambulo
 \newtoggle{ufscthesistese}
 \newcommand{\tese}[0]{\toggletrue{ufscthesistese}\renewcommand{\imprimirtipotrabalho}{Tese}}
 \newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Dissertação}}
 
 % \nivel{<mestrado/doutorado>}
-% Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT 
+% Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT
 % O valor padrão é inferido pelo uso de \tese ou \dissertacao
 \providecommand{\imprimirnivel}{\iftoggle{ufscthesistese}{doutorado}{mestrado}}
 \newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
@@ -255,7 +257,7 @@
 \newcommand{\ufscthesis@certificador}[2]{\rule{6.61cm}{1pt}\par#1\par#2\par}
 
 % \membrobanca{<nome>}{<Universidade>}
-% Adiciona um membro da 
+% Adiciona um membro da
 \newcommand{\membrobanca}[2]{\listadd{\ufscthesis@banca}{#1\par#2}}
 
 \newcommand{\imprimircoordenador}[0]{}
@@ -269,11 +271,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \preambulo{<texto>}
-% Texto padrão conforme @buABNT. Esse default só é configurado se os comandos 
+% Texto padrão conforme @buABNT. Esse default só é configurado se os comandos
 % dessa classe, \tese ou \dissertacao, foram usados
 \renewcommand{\imprimirpreambulo}{%
 \imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
-\imprimirprograma para obtenção do título de \ufscthesis@titulode%
+\imprimirprograma{} para a obtenção do título de \ufscthesis@titulode{}.%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -288,9 +290,9 @@
 % - O ano, na capa e folha de rosto
 % - "\dia de \mes de \ano" na folha de certificação
 % Por padrão esses três componentes são extraídos da data atual
-% Se o usuário usar o comando \data{} esse comando irá 
-% sobreescrever a data usada na ficha de certificação. Uma leve 
-% bruxaria faz um parsing porco para extrair o ano e usar na 
+% Se o usuário usar o comando \data{} esse comando irá
+% sobreescrever a data usada na ficha de certificação. Uma leve
+% bruxaria faz um parsing porco para extrair o ano e usar na
 % capa e folha de rosto.
 \providecommand{\imprimirano}{\the\year}
 \providecommand{\imprimirmes}{%
@@ -314,11 +316,11 @@
   #2%
   \expandafter\xthree
   \fi
-  \xreverseit{#1 #2}#3% 
+  \xreverseit{#1 #2}#3%
 }
 \def\xthree#1#2#3{}
 
-% Configura data como no abnTeX2. Forneça a data completa, como 
+% Configura data como no abnTeX2. Forneça a data completa, como
 % irá aparecer na folha de certificação. O ano *deveria* ser extraído
 \renewcommand{\data}[1]{%
   \renewcommand{\imprimirdataext}{#1}%
@@ -444,6 +446,41 @@
 %%% Comandos para gerar elementos especiais                        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% alterando a capa
+\renewcommand{\imprimircapa}{%
+  \begin{capa}
+    \begin{center}
+      \includegraphics[height=2.54cm,width=1.84cm]{ufsc.png}
+
+      {
+        \ABNTEXsectionfont
+        \MakeTextUppercase{\imprimirinstituicao}
+
+        \MakeTextUppercase{\imprimircentro}
+
+        \MakeTextUppercase{\imprimirprograma}
+      }
+      \vspace*{4cm}
+
+      {
+        \ABNTEXsectionfont
+        \imprimirautor
+      }
+      \vspace*{5cm}
+
+      {
+        \ABNTEXchapterfont
+        \imprimirtitulo
+      }
+      \vfill
+
+      \imprimirlocal
+
+      \imprimirano
+      \vspace*{1cm}
+    \end{center}
+  \end{capa}
+}
 
 % Ficha catalográfica foi removida, pois deve ser gerada em http://ficha.bu.ufsc.br/
 
@@ -455,7 +492,7 @@
     \vspace*{\fill}
     % Título do trabalho em caixa alta e negrito
     \begin{center}
-      \MakeTextUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+      {\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
     \end{center}
     \vspace*{1cm}
     % Preâmbulo seguido de nomes do orientador e coorientador com recuo
@@ -511,15 +548,17 @@
     {\centering\bfseries \imprimirtitulo} \par
     \vspace*{\fill}
     %\ufscthesis@lbreak % uma linha em branco
-    O presente trabalho em nível de \imprimirnivel foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
+    O presente trabalho em nível de \imprimirnivel{} foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
     % Imprime os membros (sem linhas para assinatura)
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
     \vspace*{\fill}
+    Certificamos que esta é a {\bfseries versão original e final} do trabalho
+      de conclusão que foi julgado adequado para obtenção do título de \ufscthesis@titulode. \par
     \vspace*{\fill}
-    Certificamos que esta é a {\bfseries versão original e final} de conclusão que foi julgado adequado para obtenção do título de \ufscthesis@titulode. \par
     \vspace*{\fill}
     % Pessoas que assinam o documento (por isso eles tem a linha)
     \imprimircoordenador
+    \vspace*{\fill}
     \vspace*{\fill}
     \ufscthesis@certificador{\imprimirorientador}{Orientador}
     \vspace*{\fill}
