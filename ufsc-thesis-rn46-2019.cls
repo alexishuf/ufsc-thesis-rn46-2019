@@ -151,7 +151,12 @@
 
 % Citações
 \ifufscthesis@noabntexcite\else
-  \PassOptionsToPackage{alf,abnt-and-type=&,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+  \ifufscthesis@eng
+    % Em inglês usa & no lugar de & nas referências
+    \PassOptionsToPackage{alf,abnt-and-type=&,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+  \else
+    \PassOptionsToPackage{alf,abnt-and-type=e,abnt-doi=link,abnt-url-package=hyperref}{abntex2cite}
+  \fi
   \RequirePackage{abntex2cite}
 \fi
 
