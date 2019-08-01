@@ -2468,6 +2468,17 @@ MDAwIG4gCjAwMDAxMTI3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA4CiAgIC9Sb290IDcg
 MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 \end{filecontents*}
 \else
+  % Alguns caminhos possíveis onde o aluno poderia ter nos largado
+  % O pacote currfile não permite pegar o diretório/arquivo da classe
+  \graphicspath{%
+    {.}%
+    {ufsc-thesis-rn46-2019/}%
+    {../ufsc-thesis-rn46-2019/}%
+    {../../ufsc-thesis-rn46-2019/}%
+    {ufsc-thesis/}%
+    {../ufsc-thesis/}%
+    {../../ufsc-thesis/}%
+  }
   \newcommand{\ufscthesis@logo}{logo-ufsc.pdf}
 \fi
 
