@@ -1,5 +1,6 @@
 *.aux
 *.64
+*.pyg
 *.fdb_latexmk
 *.fls
 *.bbl
