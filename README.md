@@ -50,7 +50,9 @@ No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca 
 \documentclass[embeddedlogo]{ufsc-thesis-rn46-2019}
 ```
 
-Esse modo **funciona no [overleaf](https://www.overleaf.com/)** out of the box. Se você estiver trabalhando localmente, precisará estar em um ambiente UNIX-like e adicionar a opção `-shell-escape` ao compilar:
+Esse modo **funciona no [overleaf](https://www.overleaf.com/)** out of the box. Veja um [documento que pode ser usado como ponto de partida](https://www.overleaf.com/read/xqcswqpqyjpz).
+
+Se você estiver trabalhando localmente, precisará estar em um ambiente UNIX-like e adicionar a opção `-shell-escape` ao compilar:
 
 ```bash
 pdflatex -shell-escape arquivo.tex
