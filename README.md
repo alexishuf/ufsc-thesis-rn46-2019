@@ -101,7 +101,7 @@ A sua situação provavelmente se encaixa em um de três casos.
 1. Troque `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`
 2. Remova do seu .cls todas as instruções de formatação (margens, fontes, espaçamentos, bibliografia, etc.)
 
-**No caso 3**, seu template é um arquivo .tex que faz um `\documentclass{abntex2}`. Simplesmente troque abntex2 por essa classe.
+**No caso 3**, seu template é um arquivo .tex que faz um `\documentclass{abntex2}` ou `\documentclass{ufsc-thesis}`. Simplesmente troque abntex2 por essa classe e remova instruções de formatação que existam.
 
 ## Quais são as mudanças além do da página A4?
 
