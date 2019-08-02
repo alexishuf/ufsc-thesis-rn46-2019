@@ -264,7 +264,17 @@
     \renewcommand{\sectionautorefname}{Se\c{c}\~{a}o}%
     \renewcommand{\subsectionautorefname}{Subse\c{c}\~{a}o}%
     \renewcommand{\subsubsectionautorefname}{Subsubse\c{c}\~{a}o}%
-    %\providecommand{\subsubsubsectionautorefname}{Subsubsubse\c{c}\~{a}o}%
+  }
+  % Usando abntex2 \subsubsection e \paragraph são dois comandos para
+  % mesma coisa. No caso de subsection, o autoref não recebe os nomes
+  % do babel
+  \def\HyLang@english{
+      % O abnTeX2 explicitamente configura subsubsubsection em en
+      \def\paragraphautorefname{Subsubsubsection}%
+  }
+  \def\HyLang@portuges{
+      % O abnTeX2 explicitamente configura subsubseção em pt_BR
+      \def\paragraphautorefname{Subsubse\c{c}\~{a}o}%
   }
 \fi
 
