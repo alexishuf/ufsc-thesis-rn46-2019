@@ -195,7 +195,7 @@ apenas indicar os membros avaliadores da banca e o coordenador do programa:
 \membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
 \coordenador{Prof. Dr. Charles Palmer}
   \end{minted}
-  \captionsource{o autor.}
+  \fonte{o autor.}
 \end{figure}
 
 Os elementos pré-textuais permanecem em grande parte tendo seu comportamento
@@ -229,7 +229,7 @@ dados emitidos anteriormente.
 \cleardouplepage \listoffigures*
 \cleardoublepage \tableofcontents*
   \end{minted}
-  \captionsource{o autor.}
+  \fonte{o autor.}
 \end{figure}
 
 Antes de iniciar o primeiro capítulo é necessário chamar a macro \mt|\textual|,
@@ -247,7 +247,7 @@ tratamento de bibliografia.
 \postextual
 \bibliography{example}
   \end{minted}
-  \captionsource{o autor.}
+  \fonte{o autor.}
 \end{figure}
 
 
@@ -417,11 +417,6 @@ coordenadora, o comando \mt|\coordenadora| pode ser usado. Exemplo:
 Esses comandos produzem resultados visíveis. Devem ser usados dentro do
 ambiente \texttt{document}.
 
-\paragraph*{\texttt{\textbackslash{}captionsource\{<texto>\}}} Insere a
-descrição da fonte \texttt{Fonte: <texto>} que deve estar presente abaixo de
-figuras, tabelas e quaisquer outros elementos deste tipo. Esse comando não
-altera o alinhamento (veja a \autoref{sec:quick}).
-
 \paragraph*{\texttt{\textbackslash{}incluirfichacatalografica\{<arquivo>\}}}
 Inclui a ficha catalográfica proveniente de \texttt{arquivo} que foi gerado em
 \href{http://ficha.bu.ufsc.br/}{ficha.bu.ufsc.br}.
@@ -513,12 +508,13 @@ que o alinhamento seja avaliado.}.
 \end{citacao}
 
 Atenção! O template da BU deixa figuras e tabelas alinhadas à esquerda. No
-entanto, o tutorial de Word disponibilizado pela BU diz que legendas e
-\emph{captions} devem respeitar o ``alinhamento da ilustração'' (e apresenta
-uma ilustração alinhada à esquerda). O tutorial explicando a ABNT mostra uma
-figura centralizada com legendas alinhadas a esquerda e com recuo até o começo
-da figura. O autor do \texttt{.cls} se exime de qualquer culpa. Alinhe aqui
-(com \mt|\centering|, \mt|\flushright| ou \mt|\flushleft|) como mandar o seu
+entanto, o tutorial de Word disponibilizado pela BU diz que o \mt|\caption{}|
+(legenda acima) e o \mt|\fonte{}| (o ``Fonte: o autor.'', abaixo) devem
+respeitar o ``alinhamento da ilustração''. Esse tutorial apresenta apenas uma
+ilustração alinhada à esquerda). O tutorial explicando a ABNT mostra uma figura
+centralizada com legendas alinhadas a esquerda e com recuo até o começo da
+figura. O autor do \texttt{.cls} se exime de qualquer culpa. Alinhe aqui (com
+\mt|\centering|, \mt|\flushright| ou \mt|\flushleft|) como mandar o seu
 coração. Veja na \autoref{fig:logo} o efeito de se usar \mt|\centering|.
 
 \begin{figure}[t]
@@ -527,7 +523,7 @@ coração. Veja na \autoref{fig:logo} o efeito de se usar \mt|\centering|.
   \label{fig:logo}
 
   \includegraphics[width=.2\linewidth]{../logo-ufsc.pdf}
-  \captionsource{O autor.}
+  \fonte{o autor.}
 \end{figure}
 
 \section{Coisas}

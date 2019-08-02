@@ -216,8 +216,6 @@
 %%% i18n                                                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifufscthesis@eng
-  \newcommand{\ufscthesis@captionsourcelabel}[0]{Source}
-  
   % Ativa o idioma em cada uma das partes
   \let\ufscthesis@oldpretextual\pretextual
   \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
@@ -234,9 +232,6 @@
     \renewcommand{\coorientadorname}{Coorientador:}%
   }
 \else
-  % Nomenclatura cf @buDoc e @buABNT
-  \newcommand{\ufscthesis@captionsourcelabel}[0]{Fonte}
-
   % Ativa o idioma em cada uma das partes
   \let\ufscthesis@oldpretextual\pretextual
   \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{brazil}}
@@ -282,13 +277,9 @@
 %%% Comandos gerais                                                %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\captionsource{<text>}
-% Imprime o Fonte: <text> de figuras e tabelas conforme exigido em @buABNT @buDoc
-% O Fonte muda para Source quando a opção english é dada para a classe
-% Uma quebra de linha será inserida automaticamente
-\newcommand{\captionsource}[1]{\begingroup \par \footnotesize \ufscthesis@captionsourcelabel:~#1 \endgroup}
+%\captionsource{<text>} 
+% Comando removido! use \fonte{}, do abnTeX
 
-\newcommand{\ifnotempty}[2]{\ifthenelse{\not\equal{#1}{}}{#2}{}}
 
 % O @buDoc usa extensivamente linhas em branco como recurso estético
 \newcommand{\ufscthesis@lbreak}[0]{\par\vspace{\baselineskip}\par}
