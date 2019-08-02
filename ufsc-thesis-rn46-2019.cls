@@ -1,5 +1,11 @@
 % vim:et:sw=2
+
 %% ufsc-thesis-rn46-2019.cls, a template that abides to changes introduced by RN 46/2019/CPG.
+%%
+%% Original authors and maintainers:
+%% Alexis Huf <alexishuf@gmail.com>
+%% Gustavo Zambonin <gustavo.zambonin@posgrad.ufsc.br>
+%%
 %% This class file was based on https://github.com/mateusduboli/ufsc-thesis-latex
 %% - @rn46 The RN document: https://repositorio.ufsc.br/handle/123456789/197121
 %% - @buDoc MS Word template: https://repositorio.ufsc.br/handle/123456789/197457
@@ -11,7 +17,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2019/07/30 v0.1 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2019/08/02 v0.1 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%

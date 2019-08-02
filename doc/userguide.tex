@@ -77,19 +77,22 @@ nº 46/2019/CPG}.
 
 \section{Autores, suporte e atualizações}
 
-Essa classe foi escrita incialmente por dois alunos do
-\href{http://ppgcc.posgrad.ufsc.br/}{PPGCC da UFSC}: Alexis Huf e Gustavo
-Zambonin. Há o risco de esse arquivo não ser atualizado a cada \textit{pull
-request}, então confira a lista de mártires no GitHub. Essa classe é mantida no
+Essa classe foi escrita inicialmente por dois alunos do
+\href{http://ppgcc.posgrad.ufsc.br/}{PPGCC da UFSC}:
+\href{mailto:alexishuf@gmail.com}{Alexis Huf} e
+\href{mailto:gustavo.zambonin@posgrad.ufsc.br}{Gustavo Zambonin}.  
+Há o risco de esse arquivo não ser atualizado a cada \textit{pull request},
+então confira a lista de mártires no GitHub. Essa classe é mantida no
 repositório
 \href{https://github.com/alexishuf/ufsc-thesis-rn46-2019/}{alexishuf/ufsc-thesis-rn46-2019}.
-Atualizações podem ser encontradas nesse repositório. \textit{Issues} e PRs
-são bem vindos.
+Atualizações podem ser encontradas nesse repositório. \textit{Issues} e PRs são
+bem vindos.
 
 \subsection{Registro de mudanças}
 
 Lista de versões (pelo menos das versões que receberam um número):
 \begin{description}
+\item[v0.1] (2019-08-02) Primeira versão completa e documentada.
 \item[v0.1-alpha] (2019-08-01) Primeira versão para ajudar alunos com pouco
     prazo de entrega.
 \end{description}
@@ -129,7 +132,7 @@ inglesa, você deverá passar uma opção \mt|english| para a classe. Caso
 contrário não precisa passar nenhuma opção. Logo após chamar a classe, você
 deverá fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo
 completo de exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue
-um rápido overview sobre o significado de cada um dos comandos usados (a maior
+um rápido \emph{overview} sobre o significado de cada um dos comandos usados (a maior
 parte deles continua funcionando como no \abnTeX).
 
 \begin{itemize}
@@ -201,7 +204,7 @@ nesse guia são obtidos com o código mostrado na \autoref{fig:pre}. Capa
 (\mt|\imprimircapa|), folha de rosto (\mt|\imprimirfolhaderosto*|) listas
 (\emph{e.g.} \mt|\listoffigures*|) e o sumário \mt|\tableofcontents*| são
 obtidos através dos mesmos comandos do \abnTeX, mas agora respeitam novas
-regras impostas pela BU.
+regras definidas pela BU.
 
 A ficha catalográfica deve ser gerada em sistema próprio da BU, que produz um
 PDF. Esse PDF deve ser salvo no seu projeto e incluído no documento.
@@ -258,7 +261,7 @@ BibTeX funcionam.
 O alinhamento de Figuras (ainda) não está totalmente claro nas regras da BU. Os
 documentos da BU apresentam duas formas distintas. O autor do documento é
 encorajado a continuar usando o alinhamento que usava até então. Essa dúvida
-deverá ser esclarecida pela BU em breve, ocasão na qual essa classe será
+deverá ser esclarecida pela BU em breve, ocasião na qual essa classe será
 atualizada.
 
 \section{URLs de referências em inglês}
@@ -274,7 +277,7 @@ A maneira recomendada é utilizar a chave \texttt{note}, como mostra a linha 3 d
 \autoref{fig:note}. Nesse caso a chave \texttt{url} deve ser removida ou
 desativada (renomeando-a para \texttt{x-url}). A maneira não recomendada é
 alterar o arquivo .bst e permanecer usando a chave \texttt{url}. A documentação
-do \abnTeX desaconcelha essa abordagem. Quando o \abnTeX permitir a configuração
+do \abnTeX desaconselha essa abordagem. Quando o \abnTeX permitir a configuração
 desses dizeres, essa classe será atualizada.
 
 \begin{figure}[tb]
@@ -304,7 +307,7 @@ desses dizeres, essa classe será atualizada.
 
 \section{Opções da classe}
 
-A classe possui apenas uma opção que fornce recursos: a primeira na lista
+A classe possui apenas uma opção que fornece recursos: a primeira na lista
 abaixo. Todas as demais servem para desativar comportamentos padrão.
 
 \paragraph*{\texttt{english}} Prepara o \abnTeX{} e a classe para que o corpo
@@ -318,7 +321,7 @@ classe \abnTeX.
 
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
-o \texttt{.cls} seja um arquivo auto-contido. Pessoas aversas a \texttt{git
+o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
 submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
 projeto para outro. Entretanto, há uma desvantagem, e por isso essa opção não é
 padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma
@@ -457,7 +460,7 @@ brasão da UFSC, há alguns detalhes a serem observados. Ao utilizar a opção
 \texttt{embeddedlogo}, o logo da UFSC é extraíde de um base64 embutido dentro do
 próprio \texttt{.cls}. Sem usar essa opção é necessário que o arquivo
 \texttt{logo-ufsc.pdf} seja encontrado pelo comando \mt|\includegraphics|. Para
-que isso funcione, o .cls inicializa o \mt|\graphicspath| da seguinte forma:
+que isso funcione, o \texttt{.cls} inicializa o \mt|\graphicspath| da seguinte forma:
 
 \begin{minted}{latex}
   \graphicspath{%
@@ -469,7 +472,7 @@ que isso funcione, o .cls inicializa o \mt|\graphicspath| da seguinte forma:
 \end{minted}
 
 Essa inicialização é suficiente para os casos de uso típicos. Note que os
-caminhos são relativos ao working directory do \texttt{pdflatex}, não são
+caminhos são relativos ao \emph{working directory} do \texttt{pdflatex}, não são
 relativos ao \texttt{.cls} ou ao seu \texttt{.tex}.
 
 
@@ -506,7 +509,7 @@ A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções
 Citações são feitas com \mt|\begin{citacao}...\end{citacao}|. A BU faz
 as mesmas exigências que já são o \textit{default} na classe
 \abnTeX2\footnote{O alinhamento e o filete de notas de rodapé também
-não necessitou de modificações, além do tamaho da fonte. Essa frase
+não necessitou de modificações, além do tamanho da fonte. Essa frase
 não serve a nenhum propósito além de causar uma quebra de linha para
 que o alinhamento seja avaliado.}.
 
@@ -565,3 +568,12 @@ capitalizadas.
 \bibliography{userguide}
 
 \end{document}
+
+% LocalWords:  pdf ufsc-thesis-rn abntex PPGCC Zambonin pull request GitHub PRs
+% LocalWords:  alexishuf Issues alpha drop-in template cls shell-escape ZIP Git
+% LocalWords:  UNIX-like Makefile git submodule shame on you Overleaf english
+% LocalWords:  overview Pós-Graduação Prof BU pdfpages bug BibTeX URLs at bst
+% LocalWords:  Available cite-alf url x-url brazil embeddedlogo auto-contido
+% LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
+% LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
+% LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
