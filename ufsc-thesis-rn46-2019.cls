@@ -2625,6 +2625,7 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 }
 
 \newcommand{\imprimirfolhadecertificacao}[0]{\clearpage\folhadecertificacaocontent\clearpage}
+\newcommand{\imprimirfolhadeaprovacao}[0]{\imprimirfolhadecertificacao}
 
 % Faz override do abntex2-alf.bst durante a compilação, se necessário
 % Essa é uma gambiarra extremamente violenta. Se conseguir algo melhor, 

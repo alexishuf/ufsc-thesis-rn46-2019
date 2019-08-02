@@ -51,6 +51,10 @@
 \imprimirfolhaderosto*
 \protect\incluirfichacatalografica{ficha.pdf}
 \imprimirfolhadecertificacao
+%%% Atenção!
+%%% Usar \cleardoublepage na sua disssertação. Aqui é um clearpage
+%%% simples para que o leitor cheque mais rápido ao efetivo conteúdo do
+%%% documento.
 \clearpage \listoffigures*
 \clearpage \tableofcontents*%
 
@@ -375,10 +379,13 @@ altera o alinhamento (veja a \autoref{sec:quick}).
 Inclui a ficha catalográfica proveniente de \texttt{arquivo} que foi gerado em
 \href{http://ficha.bu.ufsc.br/}{ficha.bu.ufsc.br}.
 
-\paragraph*{\texttt{\textbackslash{}imprimirfolhadecertificacao}} Imprime a
-folha de certificação, que substitui a antiga folha de aprovação. Nessa folha
-os membros da banca serão listados na ordem em que foram adicionados com o
-comando \mt|\membrobanca{<nome>}{<universidade>}|.
+\paragraph*{\texttt{\textbackslash{}imprimirfolhadecertificacao}\\
+            \texttt{\textbackslash{}imprimirfolhadeaprovacao}
+} 
+Imprime a ``folha de certificação'', que substitui a antiga ``folha de
+aprovação''. Ambos os comandos produzem o mesmo resultado. Nessa folha
+os membros da banca serão listados na ordem em que foram adicionados
+com o comando \mt|\membrobanca{<nome>}{<universidade>}|.
 
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}
