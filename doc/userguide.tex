@@ -258,6 +258,10 @@ tratamento de bibliografia.
 classe (ainda) devido a detalhes técnicos ou devido à forma como o \LaTeX e
 BibTeX funcionam.
 
+\section{Elementos pré- e pós-textuais}
+As regras da BU não alteram (nem alteravam antes) o significado e a ordem de
+elementos pré-textuais definidos pela ABNT. Essa classe não tem como ajudá-lo.
+
 \section{Alinhamento de Figuras}
 O alinhamento de Figuras (ainda) não está totalmente claro nas regras da BU. Os
 documentos da BU apresentam duas formas distintas. O autor do documento é
@@ -267,41 +271,18 @@ atualizada.
 
 \section{URLs de referências em inglês}
 
-Em português, URLS devem ser apresentadas nas referências com os dizeres
-``Disponível em''. Isso já é implementado pelo \texttt{abntex2cite}. Quando o
-documento está em inglês, muitos alunos usam os dizeres ``\textit{Available
-  at}''. No entanto, não há forma conhecida de parametrizar esses dizeres no
-\texttt{abntex2cite-alf.bst}. Até então são conhecidas duas formas de lidar com
-isso.
+Alguns alunos costumam trocar os dizeres ``Disponível em'' gerados pelo
+\texttt{abntex2cite} por ``Available at'' quando redigem o texto em inglês. No
+entanto \textbf{isso é errado}! De acordo com o suporte da BU, apenas o corpo do
+texto está em inglês, e assim como vários elementos pré-textuais permanecem em
+português, os dizeres Disponível em deveriam permanecer em português.
 
-A maneira recomendada é utilizar a chave \texttt{note}, como mostra a linha 3 da
-\autoref{fig:note}. Nesse caso a chave \texttt{url} deve ser removida ou
-desativada (renomeando-a para \texttt{x-url}). A maneira não recomendada é
-alterar o arquivo .bst e permanecer usando a chave \texttt{url}. A documentação
-do \abnTeX{} desaconselha essa abordagem. Quando o \abnTeX{} permitir a configuração
-desses dizeres, essa classe será atualizada.
-
-\begin{figure}[tb]
-  \centering
-  \caption{Uso da chave \texttt{note} para ``Available at''.}
-  \label{fig:note}
-\begin{minted}[highlightlines={3}]{latex}
-@article{Distefano2019,
-  doi = {10.1145/3338112},
-  note = {Available at: \url{https://doi.org/10.1145/3338112}},
-  year = 2019,
-  month = {jul},
-  publisher = {{ACM}},
-  volume = {62},
-  number = {8},
-  pages = {62--70},
-  author = {Dino Distefano and Manuel Fähndrich and Francesco Logozzo and Peter W. O{\textquotesingle}Hearn},
-  title = {Scaling static analyses at Facebook},
-  journal = {Communications of the {ACM}}
-}
-\end{minted}
-  \captionsource{o autor.}
-\end{figure}
+Caso você deseje \textbf{contrariar a orientação acima}, a forma mais segura (no
+sentido do LaTeX, não no sentido da entrega na BU) de \textbf{violá-la} é usar o
+campo \texttt{note} do BibTeX. Você deverá fazer o equivalente a
+\mt|Available at: \url{https://doi.org/10.1145/3338112}| em cada entrada no seu
+arquivo \texttt{.bib}, além de desativar o campo \texttt{url} removendo-o ou renomeando-o
+para. \texttt{x-url}.
 
 \chapter{Referência de opções e macros}
 \label{ch:ref}
@@ -455,7 +436,7 @@ com o comando \mt|\membrobanca{<nome>}{<universidade>}|.
 
 \subsection{Comandos \abnTeX{} modificados}
 
-\paragraph*{\texttt{\textbackslash{}imprimircapa\{<texto>\}}} O modo de uso
+\paragraph*{\texttt{\textbackslash{}imprimircapa}} O modo de uso
 desse comando permanece o mesmo. No entanto, como as novas capas devem incluir o
 brasão da UFSC, há alguns detalhes a serem observados. Ao utilizar a opção
 \texttt{embeddedlogo}, o logo da UFSC é extraíde de um base64 embutido dentro do
@@ -475,6 +456,14 @@ que isso funcione, o \texttt{.cls} inicializa o \mt|\graphicspath| da seguinte f
 Essa inicialização é suficiente para os casos de uso típicos. Note que os
 caminhos são relativos ao \emph{working directory} do \texttt{pdflatex}, não são
 relativos ao \texttt{.cls} ou ao seu \texttt{.tex}.
+
+\paragraph*{\texttt{\textbackslash{}imprimirfolhaderosto}} A folha de rosto foi
+modifica de acordo com as intruções da BU. O elementa com maior diferênça é o
+texto do preambulo (que é inserido abaixo do título). Nessa classe, o texto é
+gerado automáticamente a partir da informação provida pelo uso de \mt|\tese| (ou
+\mt|\dissertacao|), \mt|\programa| e \mt|\titulode|, apresentados
+anteriormente. Ainda é possível usar \mt|\preambulo| diretamente para
+sobreescrever o texto gerado. No entanto, leia as regras da BU com atenção.
 
 
 \chapter{Mais exemplos de formatação}
