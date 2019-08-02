@@ -89,12 +89,19 @@ O próprio [repositório do abnTeX2](https://github.com/abntex/abntex2) aqui no 
 
 ### Eu tenho um template que gosto muito, como passar a usar essa classe?
 
-Há duas situações. Seu template faz um \documentclass{abntex2}? Se sim troque abntex2 por essa classe. Se você incluir um pacote que aplica as regras de formatação antigas da BU, há duas opções:
+A sua situação provavelmente se encaixa em um de três casos.
+
+**No caso 1**, seu template é um pacote (arquivo .sty) e na dissertação o aluno faz um `\usepackage{}` após o `\documentclass[abntex2]`. Há duas soluções possíveis:
 
 1. Editar o .sty do pacote e apagar as instruções de formatação
 2. Deixar de importar esse pacote antigo.
 
-Na segunda situação você está usando uma classe que customiza a abntex2, como é o caso da ufsc-thesis-rn46-2019 e da [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex) de onde os autores dessa partiram. Logo você deveria modificar a sua classe para trocar o `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`. Ao fazer isso a sua classe ainda vai sobrescrever as novas regras com as antigas. Basta navegar pelo código da sua classe e remover instruções relativas a formatação, deixando apenas as features super legais que estão faltando na `ufsc-thesis-rn46-2019`.
+**No caso 2**, seu template é um arquivo .cls que carrega o abntex2 via `\LoadClass{abntex2}` (um exemplo é a [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex) original). O seu .cls pode ser atualizado para as novas regras seguindo esses passos:
+
+1. Troque `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`
+2. Remova do seu .cls todas as instruções de formatação (margens, fontes, espaçamentos, bibliografia, etc.)
+
+**No caso 3**, seu template é um arquivo .tex que faz um `\documentclass{abntex2}`. Simplesmente troque abntex2 por essa classe.
 
 ## Quais são as mudanças além do da página A4?
 
