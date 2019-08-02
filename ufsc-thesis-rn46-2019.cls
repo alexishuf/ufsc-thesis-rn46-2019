@@ -260,7 +260,7 @@
     \renewcommand{\subsubsectionautorefname}{Subsubsection}%
   }
   \addto\captionsbrazil{%
-    \renewcommand{\chapterautorefname}{Capítulo}%
+    \renewcommand{\chapterautorefname}{Cap\'{i}tulo}%
     \renewcommand{\sectionautorefname}{Se\c{c}\~{a}o}%
     \renewcommand{\subsectionautorefname}{Subse\c{c}\~{a}o}%
     \renewcommand{\subsubsectionautorefname}{Subsubse\c{c}\~{a}o}%
