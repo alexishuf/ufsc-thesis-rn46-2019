@@ -9,11 +9,25 @@ Referências normativas relevantes consideradas no desenvolvimento dessa classe:
 - [Tutorial oficial de configuração do Word](https://repositorio.ufsc.br/handle/123456789/198045)
 - [Tutorial oficial sobre as normas de formatação ABNT da BU](https://repositorio.ufsc.br/handle/123456789/180829)
 
-A leitura da documentação do abnTeX também é recomendada. Essa classe foi inspirida na [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex), embora pouco tenha restado.
+A classe tenta uma boa compatibilidade com o abnTeX. No entanto a BU tem algumas exigências que motivaram a criação de novos comandos como `\programa{}`, `\tese`, `\dissertacao` e `\titulode{Doutor em Ciência da Computação}`.
+
+Embora o manual pareça longo, ele o é apenas pois demonstra vários elementos pré-textuais. A seção de quickstart possui apenas 2 páginas e deve ser suficiente. A seção de problemas conhecidos tem uma página e sua leitura é **fortemente** recomendada.
+
+A leitura da documentação do abnTeX também é recomendada. Essa classe foi inspirada na [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex), embora pouco tenha restado.
+
+Essa classe foi uma iniciativa do Alexis Armin Huf e do Gustavo Zambonin, alunos do PPGCC/UFSC. Contribuições e issies são bem-vindos!
+
+## Manual 
+
+Leia o [manual completo aqui](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf).
 
 ## Como usar?
 
-Há dois modos principais. As subseções abaixo discutem os passos iniciais de cada modo. A leitura do [manual completo](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é encorajada.
+Há três modos principais.
+
+### Overleaf
+
+Copie [esse projeto no overleaf](https://www.overleaf.com/read/xqcswqpqyjpz). Uma vez copiado você deverá atualizar a classe baixando o .cls desse repositório e substituindo na sua cópia.
 
 ### Submodulo/Diretório
 
@@ -51,9 +65,7 @@ No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca 
 \documentclass[embeddedlogo]{ufsc-thesis-rn46-2019}
 ```
 
-Esse modo **funciona no [overleaf](https://www.overleaf.com/)** out of the box. Veja um [documento que pode ser usado como ponto de partida](https://www.overleaf.com/read/xqcswqpqyjpz).
-
-Se você estiver trabalhando localmente, precisará estar em um ambiente UNIX-like e adicionar a opção `-shell-escape` ao compilar:
+Esse modo é o usado no overleaf. Se você estiver trabalhando localmente, precisará estar em um ambiente UNIX-like e adicionar a opção `-shell-escape` ao compilar:
 
 ```bash
 pdflatex -shell-escape arquivo.tex
