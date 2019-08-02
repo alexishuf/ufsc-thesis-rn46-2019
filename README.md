@@ -1,6 +1,6 @@
 # ufsc-thesis-rn46-2019
 
-Essa classe LaTeX extende a classe abnTeX2 para atender as novas normas específicas à UFSC publicadas pela BU da UFSC em virtude da RN nº 46/2019/CPG que entrou em vigência em 1 de Agosto de 2019.
+Essa classe LaTeX estende a classe abnTeX2 para atender as novas normas específicas à UFSC publicadas pela BU da UFSC em virtude da RN nº 46/2019/CPG que entrou em vigência em 1 de Agosto de 2019.
 
 Referências normativas relevantes consideradas no desenvolvimento dessa classe:
 
@@ -15,7 +15,7 @@ Embora o manual pareça longo, ele o é apenas pois demonstra vários elementos 
 
 A leitura da documentação do abnTeX também é recomendada. Essa classe foi inspirada na [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex), embora pouco tenha restado.
 
-Essa classe foi uma iniciativa do Alexis Armin Huf e do Gustavo Zambonin, alunos do PPGCC/UFSC. Contribuições e issies são bem-vindos!
+Essa classe foi uma iniciativa do Alexis Armin Huf e do Gustavo Zambonin, alunos do PPGCC/UFSC. Contribuições e issues são bem-vindos!
 
 ## Manual 
 
@@ -59,7 +59,7 @@ Se você mudou o nome ou local do diretório de uma forma que o .cls não conseg
 
 ### Modo rústico
 
-No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca no seu projeto LaTeX. O .cls possui o logo da UFSC embarcado, mas vocẽ precisa solicitar o uso dessa feature:
+No modo rústico você simplesmente copia o arquivo .cls (e nada mais) e coloca no seu projeto LaTeX. O .cls possui o logo da UFSC embarcado, mas você precisa solicitar o uso dessa feature:
 
 ```tex
 \documentclass[embeddedlogo]{ufsc-thesis-rn46-2019}
@@ -75,7 +75,7 @@ pdflatex -shell-escape arquivo.tex
 
 ### Legal, mas e como eu faço uma dissertação com isso?
 
-Leia o [manual em doc/userguide.pdf](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf). Logo na introdução há um quickstart de 2 páginas que cobre tudo que é importante. É sempre uma boa idéia consultar o capítulo de referência das opções da classe e de comandos.
+Leia o [manual em doc/userguide.pdf](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf). Logo na introdução há um quickstart de 2 páginas que cobre tudo que é importante. É sempre uma boa ideia consultar o capítulo de referência das opções da classe e de comandos.
 
 ### Há um preview ou exemplo?
 
@@ -91,10 +91,10 @@ O próprio [repositório do abnTeX2](https://github.com/abntex/abntex2) aqui no 
 
 Há duas situações. Seu template faz um \documentclass{abntex2}? Se sim troque abntex2 por essa classe. Se você incluir um pacote que aplica as regras de formatação antigas da BU, há duas opções:
 
-1. Editar o .sty do pacote e apagar as intruções de formatação
+1. Editar o .sty do pacote e apagar as instruções de formatação
 2. Deixar de importar esse pacote antigo.
 
-Na segunda situação você está usando uma classe que customiza a abntex2, como é o caso da ufsc-thesis-rn46-2019 e da [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex) de onde os autores dessa partiram. Logo você deveriá modificar a sua classe para trocar o `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`. Ao fazer isso a sua classe ainda vai sobreescrever as novas regras com as antigas. Basta navegar pelo código da sua classe e remover instruções relativas a formatação, deixando apenas as features super legais que estão faltando na `ufsc-thesis-rn46-2019`.
+Na segunda situação você está usando uma classe que customiza a abntex2, como é o caso da ufsc-thesis-rn46-2019 e da [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex) de onde os autores dessa partiram. Logo você deveria modificar a sua classe para trocar o `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`. Ao fazer isso a sua classe ainda vai sobrescrever as novas regras com as antigas. Basta navegar pelo código da sua classe e remover instruções relativas a formatação, deixando apenas as features super legais que estão faltando na `ufsc-thesis-rn46-2019`.
 
 ## Quais são as mudanças além do da página A4?
 
@@ -115,6 +115,3 @@ Há uma profusão de templates já usados na UFSC, com vários níveis de aderê
 * Indentação do parágrafo de 1,5cm na primeira linha, que no deve ser aplicada em títulos
 * Itens das referências devem ser separados pelo equivalente à uma linha em branco
 * O destaque de títulos nas referências deve ser negrito
-
-
-
