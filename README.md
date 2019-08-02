@@ -9,6 +9,8 @@ Referências normativas relevantes consideradas no desenvolvimento dessa classe:
 - [Tutorial oficial de configuração do Word](https://repositorio.ufsc.br/handle/123456789/198045)
 - [Tutorial oficial sobre as normas de formatação ABNT da BU](https://repositorio.ufsc.br/handle/123456789/180829)
 
+A leitura da documentação do abnTeX também é recomendada. Essa classe foi inspirida na [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex), embora pouco tenha restado.
+
 ## Como usar?
 
 Há dois modos principais. As subseções abaixo discutem os passos iniciais de cada modo. A leitura do [manual completo](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é encorajada.
@@ -36,7 +38,6 @@ Se você mudou o nome ou local do diretório de uma forma que o .cls não conseg
   {.}%
   {ufsc-thesis-rn46-2019/}%
   {../ufsc-thesis-rn46-2019/}%
-  {../../ufsc-thesis-rn46-2019/}%
 }
 ```
 
@@ -82,3 +83,26 @@ Há duas situações. Seu template faz um \documentclass{abntex2}? Se sim troque
 2. Deixar de importar esse pacote antigo.
 
 Na segunda situação você está usando uma classe que customiza a abntex2, como é o caso da ufsc-thesis-rn46-2019 e da [ufsc-thesis](https://github.com/mateusduboli/ufsc-thesis-latex) de onde os autores dessa partiram. Logo você deveriá modificar a sua classe para trocar o `\LoadClass[]{abntex2}`  por `\LoadClass[]{ufsc-thesis-rn46-2019}`. Ao fazer isso a sua classe ainda vai sobreescrever as novas regras com as antigas. Basta navegar pelo código da sua classe e remover instruções relativas a formatação, deixando apenas as features super legais que estão faltando na `ufsc-thesis-rn46-2019`.
+
+## Quais são as mudanças além do da página A4?
+
+Há uma profusão de templates já usados na UFSC, com vários níveis de aderências às antigas normas da BU. A seguir seguem as principais alterações em relação à classe abnTeX2 que são específicas da UFSC:
+
+* Capa específica da UFSC, com brasão
+* Folha de rosto (incluindo texto do preâmbulo que essa classe gera)
+* Uso apenas do ano na capa e folha de rosto
+* Folha de certificação (modelo exclusivo da UFSC)
+* Cabeçalho e rodapé sem filete e nome de seção
+* Formatação de títulos de seção (escala de caixa alta, negrito e itálico)
+* Sumário deve manter destaques usados nos títulos de seção
+* Numeração de página deve manter mesmo tamanho de fonte (10pt) mesmo na abertura de capítulos
+* Após títulos de capítulos e seções deve-se inserir o espaçamento equivalente a uma linha em branco
+* Espaçamento 1,5 por todo o texto (exceto footnotes, referencias e floats)
+* Fonte 10pt para floats, footnotes e cabeçalhos.
+* Espaçamento entre parágrafos de 0cm
+* Indentação do parágrafo de 1,5cm na primeira linha, que no deve ser aplicada em títulos
+* Itens das referências devem ser separados pelo equivalente à uma linha em branco
+* O destaque de títulos nas referências deve ser negrito
+
+
+

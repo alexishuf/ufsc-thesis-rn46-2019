@@ -246,6 +246,59 @@ tratamento de bibliografia.
   \captionsource{o autor.}
 \end{figure}
 
+
+\chapter{Problemas conhecidos}
+\label{ch:problems}
+
+\textbf{Atenção!} Há regras de formatação que não podem ser garantidas por essa
+classe (ainda) devido a detalhes técnicos ou devido à forma como o \LaTeX e
+BibTeX funcionam.
+
+\section{Alinhamento de Figuras}
+O alinhamento de Figuras (ainda) não está totalmente claro nas regras da BU. Os
+documentos da BU apresentam duas formas distintas. O autor do documento é
+encorajado a continuar usando o alinhamento que usava até então. Essa dúvida
+deverá ser esclarecida pela BU em breve, ocasão na qual essa classe será
+atualizada.
+
+\section{URLs de referências em inglês}
+
+Em português, URLS devem ser apresentadas nas referências com os dizeres
+``Disponível em''. Isso já é implementado pelo \texttt{abntex2cite}. Quando o
+documento está em inglês, muitos alunos usam os dizeres ``\textit{Available
+  at}''. No entanto, não há forma conhecida de parametrizar esses dizeres no
+\texttt{abntex2cite-alf.bst}. Até então são conhecidas duas formas de lidar com
+isso.
+
+A maneira recomendada é utilizar a chave \texttt{note}, como mostra a linha 3 da
+\autoref{fig:note}. Nesse caso a chave \texttt{url} deve ser removida ou
+desativada (renomeando-a para \texttt{x-url}). A maneira não recomendada é
+alterar o arquivo .bst e permanecer usando a chave \texttt{url}. A documentação
+do \abnTeX desaconcelha essa abordagem. Quando o \abnTeX permitir a configuração
+desses dizeres, essa classe será atualizada.
+
+\begin{figure}[tb]
+  \centering
+  \caption{Uso da chave \texttt{note} para ``Available at''.}
+  \label{fig:note}
+\begin{minted}[highlightlines={3}]{latex}
+@article{Distefano2019,
+  doi = {10.1145/3338112},
+  note = {Available at: \url{https://doi.org/10.1145/3338112}},
+  year = 2019,
+  month = {jul},
+  publisher = {{ACM}},
+  volume = {62},
+  number = {8},
+  pages = {62--70},
+  author = {Dino Distefano and Manuel Fähndrich and Francesco Logozzo and Peter W. O{\textquotesingle}Hearn},
+  title = {Scaling static analyses at Facebook},
+  journal = {Communications of the {ACM}}
+}
+\end{minted}
+  \captionsource{o autor.}
+\end{figure}
+
 \chapter{Referência de opções e macros}
 \label{ch:ref}
 
@@ -296,6 +349,15 @@ esse comportamento, passando a opção \texttt{hidelinks} ao \texttt{hyperref}.
 Ao ativar essa opção o \texttt{hyperref} voltará ao seu próprio comportamento
 padrão.
 
+\paragraph*{\texttt{noangleurl}} O \texttt{abntex2cite} usa
+\texttt{\textless\textgreater} para denotar URLs. No entanto, o resultado do
+comando \mt|\url{}| é independente do resultado do resultado produzido pelo
+\texttt{abntex2cite}. Visando estabelecer uma uniformidade, essa classe por
+padrão configura o pacote \texttt{url} para gerar urls da mesma forma que o
+\texttt{abntex2cite}. Ao utilizar essa opção, a alteração deixará de ser
+feita. Note que se o documento estiver em inglês, a alteração do comando
+\mt|\url| ainda será feita, mas ficará restrita à seção de referencias.
+
 \paragraph*{\texttt{nocleanheader}} O \abnTeX{} gera cabeçalhos na página que
 incluem o título da seção. Essa classe suprime esse estilo de página,
 proveniente da classe base \texttt{memoir}, pois eles não existem no template
@@ -304,7 +366,7 @@ da BU. Ao passar essa opção o cabeçalho padrão do \abnTeX{} será restaurado
 \paragraph*{\texttt{*}} Quaisquer outras opções não listadas anteriormente são
 repassadas à classe \abnTeX{} sem manipulação.
 
-\section{Novas macros}
+\section{Novas Macros}
 
 Essa seção apresenta macros novas, não presentes no \abnTeX{} ou
 \texttt{abntex2cite}.
@@ -386,6 +448,30 @@ Imprime a ``folha de certificação'', que substitui a antiga ``folha de
 aprovação''. Ambos os comandos produzem o mesmo resultado. Nessa folha
 os membros da banca serão listados na ordem em que foram adicionados
 com o comando \mt|\membrobanca{<nome>}{<universidade>}|.
+
+\subsection{Comandos \abnTeX modificados}
+
+\paragraph*{\texttt{\textbackslash{}imprimircapa\{<texto>\}}} O modo de uso
+desse comando permanece o mesmo. No entanto, como as novas capas devem incluir o
+brasão da UFSC, há alguns detalhes a serem observados. Ao utilizar a opção
+\texttt{embeddedlogo}, o logo da UFSC é extraíde de um base64 embutido dentro do
+próprio \texttt{.cls}. Sem usar essa opção é necessário que o arquivo
+\texttt{logo-ufsc.pdf} seja encontrado pelo comando \mt|\includegraphics|. Para
+que isso funcione, o .cls inicializa o \mt|\graphicspath| da seguinte forma:
+
+\begin{minted}{latex}
+  \graphicspath{%
+    {.}%
+    {ufsc-thesis-rn46-2019/}%
+    {../ufsc-thesis-rn46-2019/}%
+    {ufsc-thesis/}%
+    {../ufsc-thesis/}%
+\end{minted}
+
+Essa inicialização é suficiente para os casos de uso típicos. Note que os
+caminhos são relativos ao working directory do \texttt{pdflatex}, não são
+relativos ao \texttt{.cls} ou ao seu \texttt{.tex}.
+
 
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}
