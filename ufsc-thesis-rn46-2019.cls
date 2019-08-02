@@ -95,14 +95,14 @@
   \ufscthesis@nohidelinkstrue%
 }
 
-% [noangleurl] 
-% abntex2cite usa <http://...> para formatar URLs. No entanto o
-% comando \url{} por padrão usa \langle e \rangle. Por padrão essa classe força o
-% \url a usar <>. Se essa opção for fornecida, o default do \url será
-% mantido sem alteração
-\newif\ifufscthesis@noangleurl
-\DeclareOption{noangleurl}{%
-  \ufscthesis@noangleurltrue%
+% [noplainurl] 
+% Como informado pela BU, a ABNT NBR 6023:2018 não utiliza mais <>
+% em URLs nas referências. A NBR 14724:2011 não apresenta nenhuma
+% URL. Logo, visando a uniformização de estilo, <>'s são removidos do
+% comando \url{}
+\newif\ifufscthesis@noplainurl
+\DeclareOption{noplainurl}{%
+  \ufscthesis@noplainurltrue%
 }
 
 % [nocleanheader]
@@ -181,7 +181,7 @@
 % Citações
 \ifufscthesis@noabntexcite\else
   % @buDoc e @buABNT mostram títulos destacados em negrito
-  \PassOptionsToPackage{alf,abnt-emphasize=bf,abnt-doi=doi,abnt-url-package=hyperref}{abntex2cite}
+  \PassOptionsToPackage{alf,abnt-emphasize=bf,abnt-doi=doi,abnt-url-package=url}{abntex2cite}
   \ifufscthesis@eng
     % Em inglês, usa & no lugar de "e"
     \PassOptionsToPackage{abnt-and-type=&}{abntex2cite}
@@ -196,10 +196,10 @@
   \AtBeginDocument{\hypersetup{hidelinks}}
 \fi
 
-\ifufscthesis@noangleurl\else
-  % Aplica formatação de URLs como <htp://...>. Isso não é mencionado
-  % pela BU, mas visa uniformizar com o estilo adotado pelo abntex2cite
-  \DeclareUrlCommand\url{\def\UrlLeft{\texttt{\textless}}\def\UrlRight{\texttt{\textgreater}}}%
+\ifufscthesis@noplainurl\else 
+  % remove os <> do \url{X} para consistencia com as referencias (cf. NBR 6023:2018)
+  \DeclareUrlCommand\url{\def\UrlLeft{}\def\UrlRight{}}
+  \renewcommand{\nolinkurl}[1]{#1}
 \fi
 
 % Usado para incluir o logo da UFSC
@@ -540,14 +540,11 @@
 % De acordo com @buABNT, na bibliografia deve haver uma linha em branco entre entradas
 \let\ufscthesis@oldthebibliography\thebibliography
 \renewcommand{\thebibliography}[1]{%
-  % abntex2 define <http://...> e BU também usava URLs com <> até
-  % então. No entanto, se o documento estiver em inglẽs e o usuário
-  % adotar a estratégia do note = {Available at: \url{...}}, o \url{}
-  % pode gerar um resultado diferente. Por esse motivo, dentro da
-  % bibliografia o comando a baixo força \url{X} a gerar <X>.
-  \ifufscthesis@eng%
-    \DeclareUrlCommand\url{\def\UrlLeft{\texttt{\textless}}\def\UrlRight{\texttt{\textgreater}}}%
-  \fi%
+  % @bibliotecaria: em email privado a BU informou que a NBR 6023:2018
+  % não usa <> em referências. Isso causa o desaparecimento dos <>
+  % caso \url{} seja usado no bib. Como o abntex2cite foi configurado
+  % para usar \url, ele também será afetado
+  \DeclareUrlCommand\url{\def\UrlLeft{}\def\UrlRight{}}%
   % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a
   % heresia de separar as entradas com uma quebra de parágrafo isso é exigência do @buABNT
   \setlength{\parskip}{1.2em}%

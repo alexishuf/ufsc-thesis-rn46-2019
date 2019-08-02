@@ -326,8 +326,8 @@ o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
 submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
 projeto para outro. Entretanto, há uma desvantagem, e por isso essa opção não é
 padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma
-ambiente \emph{UNIX-like}. O logo foi obtido da \href{página de identidade
-visual da UFSC}{http://identidade.ufsc.br/}.
+ambiente \emph{UNIX-like}. O logo foi obtido da \href{http://identidade.ufsc.br/}{página de identidade
+visual da UFSC}.
 
 \paragraph*{\texttt{times}, \texttt{lmodern}, \texttt{arial}} Escolhe a fonte
 do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e
@@ -353,14 +353,14 @@ esse comportamento, passando a opção \texttt{hidelinks} ao \texttt{hyperref}.
 Ao ativar essa opção o \texttt{hyperref} voltará ao seu próprio comportamento
 padrão.
 
-\paragraph*{\texttt{noangleurl}} O \texttt{abntex2cite} usa
-\texttt{\textless\textgreater} para denotar URLs. No entanto, o resultado do
-comando \mt|\url{}| é independente do resultado do resultado produzido pelo
-\texttt{abntex2cite}. Visando estabelecer uma uniformidade, essa classe por
-padrão configura o pacote \texttt{url} para gerar urls da mesma forma que o
-\texttt{abntex2cite}. Ao utilizar essa opção, a alteração deixará de ser
-feita. Note que se o documento estiver em inglês, a alteração do comando
-\mt|\url| ainda será feita, mas ficará restrita à seção de referencias.
+\paragraph*{\texttt{noplainurl}} A norma ABNT NBR6023:2018 não utiliza mais URLs
+na forma <http://example.org>, e apresenta a URL diretamente, sem os <>.  Esse
+comportamento sempre é aplicado (a menos que seja usada a opção
+\texttt{noabntexcite}). Para uniformizar o estilo, essa classe aplica a mesma
+configuração no corpo do documento (nas instâncias onde se usaria
+\mt|\url{http://example.org}|. Ao fornecer a opção \texttt{noplainurl} as
+configurações do comando \mt|\url| não são alteradas.
+
 
 \paragraph*{\texttt{nocleanheader}} O \abnTeX{} gera cabeçalhos na página que
 incluem o título da seção. Essa classe suprime esse estilo de página,
@@ -510,7 +510,7 @@ A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções
 
 Citações são feitas com \mt|\begin{citacao}...\end{citacao}|. A BU faz
 as mesmas exigências que já são o \textit{default} na classe
-\abnTeX2\footnote{O alinhamento e o filete de notas de rodapé também
+\abnTeX\footnote{O alinhamento e o filete de notas de rodapé também
 não necessitou de modificações, além do tamanho da fonte. Essa frase
 não serve a nenhum propósito além de causar uma quebra de linha para
 que o alinhamento seja avaliado.}.
@@ -579,3 +579,4 @@ capitalizadas.
 % LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
+% LocalWords:  noplainurl noabntexcite
