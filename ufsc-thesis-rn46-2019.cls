@@ -17,7 +17,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2019/08/02 v0.1 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2019/08/02 v0.1.1alpha ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -138,7 +138,20 @@
 %%% Carregar abnTeX2 e outros pacotes                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% O abnTeX2 faz \RequirePackage do babel após o hyperref. Em situações
+% normais (fora da abntex). Isso realmente faria com que o \autoref{}
+% continuasse usando nomes não-localizados. Mas usando abntex fora da
+% nossa classe, algo evitava o bug. Esse algo parou de funcionar então
+% é preciso pedir pelo babel antes mesmo do abntex2.
+%
+% Outro detalhe: brazil sempre precisa ser carregado (vide abntex2)
+\RequirePackage[brazil]{babel}
+
 % Carrega como base a classe 'abntex2'
+\ifufscthesis@eng\else
+  % Isso precisa ser feito antes do LoadClass[]{abntex2}
+  \PassOptionsToClass{brazil}{abntex2}
+\fi
 \LoadClass[%
   12pt, %@buWord, @buABNT, @buDoc
   a4paper, %@rn46
@@ -204,6 +217,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifufscthesis@eng
   \newcommand{\ufscthesis@captionsourcelabel}[0]{Source}
+  
+  % Ativa o idioma em cada uma das partes
   \let\ufscthesis@oldpretextual\pretextual
   \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
   \let\ufscthesis@oldtextual\textual
@@ -221,6 +236,16 @@
 \else
   % Nomenclatura cf @buDoc e @buABNT
   \newcommand{\ufscthesis@captionsourcelabel}[0]{Fonte}
+
+  % Ativa o idioma em cada uma das partes
+  \let\ufscthesis@oldpretextual\pretextual
+  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{brazil}}
+  \let\ufscthesis@oldtextual\textual
+  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{brazil}}
+  \let\ufscthesis@oldpostextual\postextual
+  \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{brazil}}
+  \selectlanguage{brazil}
+
   \addto\captionsbrazil{%
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
@@ -228,17 +253,18 @@
 \fi
 
 \ifufscthesis@nocapautoref\else
-  \addto\extrasenglish{%
+  \addto\captionsenglish{%
     \renewcommand{\chapterautorefname}{Chapter}%
     \renewcommand{\sectionautorefname}{Section}%
     \renewcommand{\subsectionautorefname}{Subsection}%
     \renewcommand{\subsubsectionautorefname}{Subsubsection}%
   }
-  \addto\extrasbrazil{%
+  \addto\captionsbrazil{%
     \renewcommand{\chapterautorefname}{Capítulo}%
     \renewcommand{\sectionautorefname}{Se\c{c}\~{a}o}%
     \renewcommand{\subsectionautorefname}{Subse\c{c}\~{a}o}%
     \renewcommand{\subsubsectionautorefname}{Subsubse\c{c}\~{a}o}%
+    %\providecommand{\subsubsubsectionautorefname}{Subsubsubse\c{c}\~{a}o}%
   }
 \fi
 
