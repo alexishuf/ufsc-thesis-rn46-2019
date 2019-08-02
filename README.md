@@ -115,3 +115,6 @@ Há uma profusão de templates já usados na UFSC, com vários níveis de aderê
 * Indentação do parágrafo de 1,5cm na primeira linha, que no deve ser aplicada em títulos
 * Itens das referências devem ser separados pelo equivalente à uma linha em branco
 * O destaque de títulos nas referências deve ser negrito
+
+Existe um rastreamento das regras implementadas como comentários nos neste [PDF](https://github.com/alexishuf/ufsc-thesis-rn46-2019-test/raw/master/regulations/tutorial-word.pdf) da BU e neste [outro](https://github.com/alexishuf/ufsc-thesis-rn46-2019-test/raw/master/regulations/tutorial-abnt.pdf).
+
