@@ -83,7 +83,7 @@ O [manual](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/use
 
 ### Não gostei do exemplo, não há um exemplo mais parecido com uma dissertação?
 
-Há vários! Essa mudança de regras da RN 46/2019/CPG mudou principalmente procedimentos de entrega e detalhes de formatação. Todos os exemplos de como fazer uma dissertação com abnTeX2 continuam aplicáveis. Você apenas precisa cuidar para não copiar configurações de formatação dos templates já em circulação.
+Há vários! Essa mudança de regras da RN 46/2019/CPG mudou principalmente procedimentos de entrega e detalhes de formatação. Todos os exemplos de como fazer uma dissertação com abnTeX2 e os templates antigos aqui da UFSC continuam aplicáveis, exceto pela formatação. Você apenas precisa cuidar para não copiar configurações de formatação dos templates já em circulação.
 
 O próprio [repositório do abnTeX2](https://github.com/abntex/abntex2) aqui no github possui referências interessantes. Se estiver em dúvida sobre a ordem dos elementos necessários e opcionais, uma fonte rápida de consulta é o próprio [documento da BU sobre ABNT](https://repositorio.ufsc.br/handle/123456789/180829).
 
