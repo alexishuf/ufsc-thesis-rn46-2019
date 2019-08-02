@@ -681,7 +681,7 @@
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
     \vspace*{\fill}
     Certificamos que esta \'{e} a {\bfseries vers\~{a}o original e final} do trabalho
-      de conclusão que foi julgado adequado para obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode. \par
+      de conclu\~{a}o que foi julgado adequado para obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode. \par
     \vspace*{\fill}
     \vspace*{\fill}
     % Pessoas que assinam o documento (por isso eles tem a linha)
