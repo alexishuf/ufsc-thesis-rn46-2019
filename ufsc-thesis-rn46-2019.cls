@@ -219,9 +219,9 @@
   }
   \addto\extrasbrazil{%
     \renewcommand{\chapterautorefname}{Capítulo}%
-    \renewcommand{\sectionautorefname}{Seção}%
-    \renewcommand{\subsectionautorefname}{Subseção}%
-    \renewcommand{\subsubsectionautorefname}{Subsubseção}%
+    \renewcommand{\sectionautorefname}{Se\c{c}\~{a}o}%
+    \renewcommand{\subsectionautorefname}{Subse\c{c}\~{a}o}%
+    \renewcommand{\subsubsectionautorefname}{Subsubse\c{c}\~{a}o}%
   }
 \fi
 
@@ -243,8 +243,8 @@
 \providecommand{\imprimirfichacatalografica}[0]{%
 \clearpage\begingroup\centering\bfseries %
   \vspace*{\fill}%
-  A ficha catalográfica deve ser gerada usando o sistema da BU em
-  \url{https://ficha.bu.ufsc.br/}. Posteriormente o PDF deve ser incluído via
+  A ficha catalogr\'{a}fica deve ser gerada usando o sistema da BU em
+  \url{https://ficha.bu.ufsc.br/}. Posteriormente o PDF deve ser inclu\'{i}do via
   \textbackslash{}includepdf{nome.pdf}%
   \vspace*{\fill}%
 \endgroup\clearpage}
@@ -336,7 +336,7 @@
 % dessa classe, \tese ou \dissertacao, foram usados
 \renewcommand{\imprimirpreambulo}{%
 \imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
-\imprimirprograma{} para a obtenção do título de \ufscthesis@titulode{}.%
+\imprimirprograma{} para a obtenção do t\'{i}tulo de \ufscthesis@titulode{}.%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2602,12 +2602,12 @@ MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
     {\centering\bfseries \imprimirtitulo} \par
     \vspace*{\fill}
     %\ufscthesis@lbreak % uma linha em branco
-    O presente trabalho em nível de \imprimirnivel{} foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
+    O presente trabalho em n\'{i}vel de \imprimirnivel{} foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
     % Imprime os membros (sem linhas para assinatura)
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
     \vspace*{\fill}
-    Certificamos que esta é a {\bfseries versão original e final} do trabalho
-      de conclusão que foi julgado adequado para obtenção do título de \ufscthesis@titulode. \par
+    Certificamos que esta \'{e} a {\bfseries vers\~{a}o original e final} do trabalho
+      de conclusão que foi julgado adequado para obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode. \par
     \vspace*{\fill}
     \vspace*{\fill}
     % Pessoas que assinam o documento (por isso eles tem a linha)
