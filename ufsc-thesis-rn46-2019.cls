@@ -631,9 +631,9 @@
         \SingleSpacing
         \imprimirpreambulo
         % Nomes do orientador e coorientador
-        {\imprimirorientadorRotulo~\imprimirorientador\par}
+        {\par \imprimirorientadorRotulo~\imprimirorientador\par}
         \abntex@ifnotempty{\imprimircoorientador}{%
-           {\imprimircoorientadorRotulo~\imprimircoorientador}%
+           {\par\imprimircoorientadorRotulo~\imprimircoorientador}%
         }%
       \end{minipage}%
       \vspace*{\fill}
