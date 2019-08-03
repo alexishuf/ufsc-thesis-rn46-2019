@@ -463,6 +463,22 @@ gerado automáticamente a partir da informação provida pelo uso de \mt|\tese| 
 anteriormente. Ainda é possível usar \mt|\preambulo| diretamente para
 sobreescrever o texto gerado. No entanto, leia as regras da BU com atenção.
 
+\paragraph*{\texttt{\textbackslash{}begin\{dedicatoria\}...\textbackslash{}end\{dedicatoria\}}}
+O ambiente \texttt{dedicatoria} do \abnTeX não aplica nenhuma
+formatação. O ambiente foi alterado para que o texto fique alinhado a
+direita, com recuo de 5cm, ancorado na parte inferior da página. Essa
+formatação se originou do documento da BU que explica as normas
+ABNT. A medida de 5cm foi tomada do template \texttt{.doc}
+disponibilizado pela BU.
+
+\paragraph*{\texttt{\textbackslash{}begin\{epigrafe\}...\textbackslash{}end\{epigrafe\}}}
+O ambiente \texttt{epigrafe} do \abnTeX não aplica nenhuma
+formatação. O ambiente foi alterado para que o texto fique alinhado a
+direita, com recuo de 4cm, espaçamento entre linhas simples e fonte
+10. Essas são as mesmas configurações do ambiente citação. o template
+\texttt{.doc} aplica todas, exceto pela fonte 11, apesar de citar a
+ABNT NBR 10520. Visando maior consistência, optou-se por usar a fonte
+10pt.
 
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}
@@ -569,4 +585,5 @@ capitalizadas.
 % LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
-% LocalWords:  noplainurl noabntexcite
+% LocalWords:  noplainurl noabntexcite begin dedicatoria end
+% LocalWords:  corretude

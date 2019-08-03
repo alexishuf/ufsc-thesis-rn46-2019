@@ -700,6 +700,32 @@
 \newcommand{\imprimirfolhadecertificacao}[0]{\cleardoublepage\folhadecertificacaocontent\cleardoublepage}
 \newcommand{\imprimirfolhadeaprovacao}[0]{\imprimirfolhadecertificacao}
 
+% @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
+% recuo de 5cm foi medido no @buDoc
+\apptocmd{\dedicatoria}{%
+  \selectlanguage{brazil}
+  \vspace*{\fill}%
+  \flushright%
+  \minipage{\dimexpr\linewidth-5cm\relax}%
+  \noindent\flushright%
+}{}{}
+\pretocmd{\enddedicatoria}{\endminipage}{}{} 
+
+% @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
+% @buDoc diz que devem ser usadas as regras da ABNT NBR 10520, e aplica todas as
+% regras do ambiente citacao, exceto pelo tamanho da fonte, 11, ao invés de
+% 10. Provavelmente um acidente. Portanto aplicamos todas as regras do ambiente
+% citacao O recuo de 4cm foi medido no @buDoc
+\apptocmd{\epigrafe}{%
+  \selectlanguage{brazil}
+  \vspace*{\fill}%
+  \flushright%
+  \minipage{\dimexpr\linewidth-5cm\relax}%
+  \SingleSpacing\ABNTEXfontereduzida%
+  \noindent\flushright%
+}{}{}
+\pretocmd{\endepigrafe}{\endminipage}{}{} 
+
 \ifufscthesis@nocleardoublepage\else
   \AtBeginDocument{
     \preto{\listoftables}{\cleardoublepage}
