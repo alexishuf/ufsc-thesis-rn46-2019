@@ -229,12 +229,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifufscthesis@eng
   % Ativa o idioma em cada uma das partes
-  \let\ufscthesis@oldpretextual\pretextual
-  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{english}}
-  \let\ufscthesis@oldtextual\textual
-  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{english}}
-  \let\ufscthesis@oldpostextual\postextual
-  \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{english}}
+  \appto{\pretextual}{\selectlanguage{english}}
+  \appto{\textual}{\selectlanguage{english}}
+  \appto{\postextual}{\selectlanguage{english}}
   \selectlanguage{english}
 
   % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
@@ -245,12 +242,9 @@
   }
 \else
   % Ativa o idioma em cada uma das partes
-  \let\ufscthesis@oldpretextual\pretextual
-  \renewcommand{\pretextual}[0]{\ufscthesis@oldpretextual\selectlanguage{brazil}}
-  \let\ufscthesis@oldtextual\textual
-  \renewcommand{\textual}[0]{\ufscthesis@oldtextual\selectlanguage{brazil}}
-  \let\ufscthesis@oldpostextual\postextual
-  \renewcommand{\postextual}[0]{\ufscthesis@oldpostextual\selectlanguage{brazil}}
+  \appto{\pretextual}{\selectlanguage{brazil}}
+  \appto{\textual}{\selectlanguage{brazil}}
+  \appto{\postextual}{\selectlanguage{brazil}}
   \selectlanguage{brazil}
 
   \addto\captionsbrazil{%
