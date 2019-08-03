@@ -48,14 +48,12 @@
 \pretextual%
 \imprimircapa%
 \imprimirfolhaderosto*
+% Atenção! \cleardoublepages são inseridos automaticamente
+% Atenção! esse \protect é importante
 \protect\incluirfichacatalografica{ficha.pdf}
 \imprimirfolhadecertificacao
-%%% Atenção!
-%%% Usar \cleardoublepage na sua disssertação. Aqui é um clearpage
-%%% simples para que o leitor cheque mais rápido ao efetivo conteúdo do
-%%% documento.
-\clearpage \listoffigures*
-\clearpage \tableofcontents*%
+\listoffigures*  % O * evita que apareça no sumário
+\tableofcontents*%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Corpo do texto                                               %%%
@@ -344,6 +342,13 @@ configurações do comando \mt|\url| não são alteradas.
 incluem o título da seção. Essa classe suprime esse estilo de página,
 proveniente da classe base \texttt{memoir}, pois eles não existem no template
 da BU. Ao passar essa opção o cabeçalho padrão do \abnTeX{} será restaurado.
+
+\paragraph*{\texttt{\textbackslash{}nocleardoublepage}} Por padrão, os comandos
+\mt|\tableofcontents| \mt|\listoftables|, \mt|\listoffigures|,
+\mt|\listoflistings| (se estiver definido) são modificados logo após o
+\mt|\begin{document}| para que realizem um \mt|\cleardoublepage|. Logo,
+esseselementos serão impressos garantidamente em uma nóva página que ficará no
+anverso. Essa opção, se presente, desativa a injeção dessa alteração
 
 \paragraph*{\texttt{*}} Quaisquer outras opções não listadas anteriormente são
 repassadas à classe \abnTeX{} sem manipulação.

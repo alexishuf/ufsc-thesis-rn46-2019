@@ -126,6 +126,18 @@
   \ufscthesis@embeddedlogotrue%
 }
 
+% [noautocleardoublepage]
+% Por padrão, os comandos \tableofcontents \listoftables, \listoffigures,
+% \listoflistings (se estiver definido) são modificados logo após
+% o \begin{document} para que realizem um \cleardoublepage (portanto sendo
+% impressos garantidamente em uma nóva página que ficará no anverso).
+% Essa opção desativa a injeção dessa alteração
+\newif\ifufscthesis@nocleardoublepage
+\DeclareOption{nocleardoublepage}{%
+  \ufscthesis@nocleardoublepagetrue%
+}
+
+
 % Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
 \DeclareOption*{%
  \PassOptionsToClass{\CurrentOption}{abntex2}%
@@ -647,6 +659,7 @@
     \par{\imprimirano}
     \vspace*{1cm}
   \end{center}
+  \newpage
 }
 
 % Origem: @buDoc e @buABNT Atenção o uso de \vspace*{\fill} nos
@@ -689,8 +702,17 @@
   \end{center}
 }
 
-\newcommand{\imprimirfolhadecertificacao}[0]{\clearpage\folhadecertificacaocontent\clearpage}
+\newcommand{\imprimirfolhadecertificacao}[0]{\cleardoublepage\folhadecertificacaocontent\cleardoublepage}
 \newcommand{\imprimirfolhadeaprovacao}[0]{\imprimirfolhadecertificacao}
+
+\ifufscthesis@nocleardoublepage\else
+  \AtBeginDocument{
+    \preto{\listoftables}{\cleardoublepage}
+    \preto{\listoffigures}{\cleardoublepage}
+    \preto{\tableofcontents}{\cleardoublepage}
+    \ifdef{\listoflistings}{\preto{\listoflistings}{\cleardoublepage}}{}
+  }
+\fi
 
 \ifufscthesis@embeddedlogo
 \begin{filecontents*}{\jobname.64}
