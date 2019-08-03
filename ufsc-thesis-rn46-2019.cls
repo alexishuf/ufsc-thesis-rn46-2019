@@ -545,7 +545,7 @@
   \DeclareUrlCommand\url{\def\UrlLeft{}\def\UrlRight{}}%
   % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a
   % heresia de separar as entradas com uma quebra de parágrafo isso é exigência do @buABNT
-  \setlength{\parskip}{1.2em}%
+  \setlength{\parskip}{\baselineskip}%
   \ufscthesis@oldthebibliography{#1}%
 }
 % Indent da primeira linha do parágrafo @buDoc @buWord
