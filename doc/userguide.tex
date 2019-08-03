@@ -81,10 +81,9 @@ nº 46/2019/CPG}.
 Essa classe foi escrita inicialmente por dois alunos do
 \href{http://ppgcc.posgrad.ufsc.br/}{PPGCC da UFSC}:
 \href{mailto:alexishuf@gmail.com}{Alexis Huf} e
-\href{mailto:gustavo.zambonin@posgrad.ufsc.br}{Gustavo Zambonin}.  
-Há o risco de esse arquivo não ser atualizado a cada \textit{pull request},
-então confira a lista de mártires no GitHub. Essa classe é mantida no
-repositório
+\href{mailto:gustavo.zambonin@posgrad.ufsc.br}{Gustavo Zambonin}.  Há o risco de
+esse arquivo não ser atualizado a cada \textit{pull request}, então confira a
+lista de mártires no GitHub. Essa classe é mantida no repositório
 \href{https://github.com/alexishuf/ufsc-thesis-rn46-2019/}{alexishuf/ufsc-thesis-rn46-2019}.
 Atualizações podem ser encontradas nesse repositório. \textit{Issues} e PRs são
 bem vindos.
@@ -129,11 +128,11 @@ Há duas principais formas de incluir essa classe no seu projeto.
 
 Esse guia rápido assume que você está começando do zero, sem um template
 anterior, com intuito de ser didático. Se o seu trabalho for escrito em língua
-inglesa, você deverá passar uma opção \mt|english| para a classe. Caso
-contrário não precisa passar nenhuma opção. Logo após chamar a classe, você
-deverá fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo
-completo de exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue
-um rápido \emph{overview} sobre o significado de cada um dos comandos usados (a maior
+inglesa, você deverá passar uma opção \mt|english| para a classe. Caso contrário
+não precisa passar nenhuma opção. Logo após chamar a classe, você deverá
+fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo completo de
+exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue um rápido
+\emph{overview} sobre o significado de cada um dos comandos usados (a maior
 parte deles continua funcionando como no \abnTeX).
 
 \begin{itemize}
@@ -304,11 +303,11 @@ classe \abnTeX.
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
 o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
-submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
+  submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
 projeto para outro. Entretanto, há uma desvantagem, e por isso essa opção não é
-padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma
-ambiente \emph{UNIX-like}. O logo foi obtido da \href{http://identidade.ufsc.br/}{página de identidade
-visual da UFSC}.
+padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma ambiente
+\emph{UNIX-like}. O logo foi obtido da \href{http://identidade.ufsc.br/}{página
+  de identidade visual da UFSC}.
 
 \paragraph*{\texttt{times}, \texttt{lmodern}, \texttt{arial}} Escolhe a fonte
 do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e
@@ -489,7 +488,8 @@ A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções
 \item Há coisas na \autoref{sec:stuff}.
 \item Há coisas na \autoref{sec:more}.
 \item Há coisas na \autoref{sec:yet-more}.
-\item Há coisas na \autoref{sec:yet-another} (\abnTeX{} come um ``sub'' intencionalmente). 
+\item Há coisas na \autoref{sec:yet-another} (\abnTeX{} come um ``sub''
+  intencionalmente no português e o mantem em inglês).
 \end{itemize}
 
 Citações são feitas com \mt|\begin{citacao}...\end{citacao}|. A BU faz
