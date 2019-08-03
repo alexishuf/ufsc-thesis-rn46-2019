@@ -157,7 +157,8 @@
 % é preciso pedir pelo babel antes mesmo do abntex2.
 %
 % Outro detalhe: brazil sempre precisa ser carregado (vide abntex2)
-\RequirePackage[brazil]{babel}
+% Outro detalhe(2): english sempre precisa ser carregado, devido ao abstract
+\RequirePackage[brazil,english]{babel}
 
 % Carrega como base a classe 'abntex2'
 \ifufscthesis@eng\else
