@@ -246,11 +246,6 @@
   \appto{\textual}{\selectlanguage{brazil}}
   \appto{\postextual}{\selectlanguage{brazil}}
   \selectlanguage{brazil}
-
-  \addto\captionsbrazil{%
-    \renewcommand{\orientadorname}{Orientador:}%
-    \renewcommand{\coorientadorname}{Coorientador:}%
-  }
 \fi
 
 \ifufscthesis@nocapautoref\else
