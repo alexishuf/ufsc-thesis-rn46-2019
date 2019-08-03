@@ -477,9 +477,12 @@
     \makeoddfoot{estiloufsctextual} %%pagina ímpar ou com oneside
        {}{}{}
   % Aplica o estilo no modo textual
-  \let\ufscthesis@oldtextualii\textual
-  \renewcommand{\textual}[0]{\ufscthesis@oldtextualii\pagestyle{estiloufsctextual}}
+  \appto{\textual}{\pagestyle{estiloufsctextual}}
 \fi
+
+% \tableofcontents usa o estilo chapter, força uso de empty (remove numeração de
+% página) @buDoc.
+\AtBeginDocument{\protect\aliaspagestyle{chapter}{empty}}
 
 % Tamanhos e estilos de fontes para chapter e (sub)*section
 % Também aplica \noindent @buWord[p.10]
