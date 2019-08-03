@@ -480,9 +480,12 @@
   \appto{\textual}{\pagestyle{estiloufsctextual}}
 \fi
 
-% \tableofcontents usa o estilo chapter, força uso de empty (remove numeração de
-% página) @buDoc.
-\AtBeginDocument{\protect\aliaspagestyle{chapter}{empty}}
+% Remove numeração de página) @buDoc.
+\AtBeginDocument{
+  \protect\pagestyle{empty}
+  \addtocontents{toc}{\protect\thispagestyle{empty}}
+}
+\AtEndDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
 
 % Tamanhos e estilos de fontes para chapter e (sub)*section
 % Também aplica \noindent @buWord[p.10]
