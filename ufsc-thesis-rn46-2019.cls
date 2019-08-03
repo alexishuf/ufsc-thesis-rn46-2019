@@ -579,6 +579,7 @@
 \renewcommand{\imprimircapa}{%
   \begin{capa}
     \begin{center}
+      \selectlanguage{brazil}
       \includegraphics[height=2.54cm,width=1.84cm]{\ufscthesis@logo}
 
       {
@@ -615,6 +616,7 @@
 % Folha de rosto segundo modelo novo da BU
 \renewcommand{\folhaderostocontent}{
   \begin{center}
+    \selectlanguage{brazil} 
     % Nome do autor em caixa baixa sem negrito
     {\ABNTEXchapterfont\textmd\imprimirautor}
     \vspace*{\fill}
@@ -656,6 +658,7 @@
 %    dobro de força nos casos onde o @buDoc usava 2+ linhas
 \newcommand{\folhadecertificacaocontent}{
   \begin{center}
+    \selectlanguage{brazil} 
     \normalsize
     \OnehalfSpacing %usado na folha inteira
     % Nome do autor em caixa baixa sem negrito
