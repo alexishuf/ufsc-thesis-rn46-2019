@@ -10,6 +10,7 @@
 %% - @rn46 The RN document: https://repositorio.ufsc.br/handle/123456789/197121
 %% - @buDoc MS Word template: https://repositorio.ufsc.br/handle/123456789/197457
 %% - @buWord MS Word Formatting guide: https://repositorio.ufsc.br/handle/123456789/198045
+%% - buResumo MS Word template for "Resumo Estendido": https://repositorio.ufsc.br/handle/123456789/197458
 %% - @buABNT ABNT NBR 14721:2011 : https://repositorio.ufsc.br/handle/123456789/180829
 %% - @ABNT ABNT NBR 14721:2011
 
@@ -726,6 +727,47 @@
   \noindent\flushright%
 }{}{}
 \pretocmd{\endepigrafe}{\endminipage}{}{} 
+
+% @buDoc e @buResumo exigem para os resumos (incluindo o estendido e o
+% abstract) espaçamento simples e paragrafos sem indentação Como a
+% abnTeX2 define resumo em cima de \begin{abstract}, essas coisas
+% podem ser aplicadas diretamenteo no abstract. No caso do resumo
+% estendido o @buResumo mostra que não deve ser aplicado o
+% espaçamento após os títulos. Como resumo chama abstract e uma
+% implementação usando \AtBeginEnvironment estava muito fŕagil, os
+% ambientes do abnTeX2 foram refeitos
+\newenvironment{ufscthesisresumo}[2]{%
+  \chapter*{#1}%
+  \begingroup
+  % remove espaçamentos após seções (resumo estendido -- @buResumo)
+  \setlength{\afterchapskip}{1pt}% 0pt tirar a quebra de linha!
+  \setlength{\aftersecskip}{1pt}%
+  \setlength{\aftersubsecskip}{1pt}%
+  \setlength{\aftersubsubsecskip}{1pt}%
+  % @buResumo adota formatação de subsection no maior nível. Caso o
+  % aluno use section, formate como subsection
+  \boolfalse{ABNTEXuppersection}%
+  \renewcommand{\ABNTEXsectionfont}{\noindent\bfseries}% @buDoc @buWord
+  % Altera linguagem e aplica formatação @buDoc e @buResumo
+  \selectlanguage{#2}%
+  \setlength{\parindent}{0pt}% 
+  \SingleSpacing%
+  \ignorespaces% evita typeset de espaços antes do texto
+}{\endgroup}
+\renewenvironment{resumo}[1][Resumo]{%
+  % Se o aluno originalmente escreveu seu documento para o abnTeX2,
+  % ele vai tentar passar Abstract aqui esperando que a linguagem seja
+  % inglês...
+  \ifstrequal{#1}{Abstract}{\def\ufscthesis@resumoabstract{1}}{}%
+  \ifstrequal{#1}{ABSTRACT}{\def\ufscthesis@resumoabstract{1}}{}%
+  \ifdef{\ufscthesis@resumoabstract}%
+    {\begin{ufscthesisresumo}{#1}{english}}%
+    {\begin{ufscthesisresumo}{#1}{brazil}}%
+}{\end{ufscthesisresumo}}
+\renewenvironment{abstract}[0]%
+  {\begin{ufscthesisresumo}{Abstract}{english}}
+  {\end{ufscthesisresumo}}
+
 
 \ifufscthesis@nocleardoublepage\else
   \AtBeginDocument{

@@ -8,6 +8,7 @@
 % Usado para mostrar código
 \usepackage[cache=false]{minted}
 \newmintinline[mt]{latex}{fontsize=\normalsize}
+\newmintinline[mft]{latex}{fontsize=\footnotesize}
 \setminted{fontsize=\tiny,linenos,xleftmargin=2em}
 \setmintedinline{breaklines,breakbytokenanywhere}
 
@@ -464,21 +465,44 @@ anteriormente. Ainda é possível usar \mt|\preambulo| diretamente para
 sobreescrever o texto gerado. No entanto, leia as regras da BU com atenção.
 
 \paragraph*{\texttt{\textbackslash{}begin\{dedicatoria\}...\textbackslash{}end\{dedicatoria\}}}
-O ambiente \texttt{dedicatoria} do \abnTeX não aplica nenhuma
-formatação. O ambiente foi alterado para que o texto fique alinhado a
-direita, com recuo de 5cm, ancorado na parte inferior da página. Essa
-formatação se originou do documento da BU que explica as normas
-ABNT. A medida de 5cm foi tomada do template \texttt{.doc}
-disponibilizado pela BU.
+O ambiente \texttt{dedicatoria} do \abnTeX não aplica nenhuma formatação. O
+ambiente foi alterado para que o texto fique alinhado a direita, com recuo de
+5cm, ancorado na parte inferior da página. Essa formatação se originou do
+documento da BU que explica as normas ABNT. A medida de 5cm foi tomada do
+template \texttt{.doc} disponibilizado pela BU.
 
 \paragraph*{\texttt{\textbackslash{}begin\{epigrafe\}...\textbackslash{}end\{epigrafe\}}}
-O ambiente \texttt{epigrafe} do \abnTeX não aplica nenhuma
-formatação. O ambiente foi alterado para que o texto fique alinhado a
-direita, com recuo de 4cm, espaçamento entre linhas simples e fonte
-10. Essas são as mesmas configurações do ambiente citação. o template
-\texttt{.doc} aplica todas, exceto pela fonte 11, apesar de citar a
-ABNT NBR 10520. Visando maior consistência, optou-se por usar a fonte
-10pt.
+O ambiente \texttt{epigrafe} do \abnTeX não aplica nenhuma formatação. O
+ambiente foi alterado para que o texto fique alinhado a direita, com recuo de
+4cm, espaçamento entre linhas simples e fonte 10. Essas são as mesmas
+configurações do ambiente citação. o template \texttt{.doc} aplica todas, exceto
+pela fonte 11, apesar de citar a ABNT NBR 10520. Visando maior consistência,
+optou-se por usar a fonte 10pt.
+
+\paragraph*{\texttt{\textbackslash{}begin\{abstract\}[<nome>]...\textbackslash{}end\{abstract\}}}
+Em abnTeX2, não se deve chamar o ambiente abstract diretamente. Caso o alune o
+chame, será interpretado como se o aluno tivesse chamado
+\mt|\begin{resumo}[Abstract]| e a linguagem (controlando hifenização) será
+alterada para inglês.
+
+\paragraph*{\texttt{\textbackslash{}begin\{resumo\}[<nome>]...\textbackslash{}end\{resumo\}}}
+Ambiente usado para gerar os resumos (para documentos em inglês é necessário um
+resumo estendido) e \emph{abstracts}. A BU fornece além do template geral .doc,
+fornece um template para o resumo estendido, que também deve ser gerado usando
+esse ambiente. Nos três tipos de resumo exigidos, o aluno é responsável por
+incluir um parágrafo ao final contendo as Palavras-chave\footnote{Sugestão:
+  \mft|\vspace{\baselineskip}Palavras-chave: Kw1. Kw2. Kw3.|}: Regras
+implementadas nesse ambiente:
+\begin{itemize}
+\item Espaçamento simples, fonte 12, sem indentação de parágrafos;
+\item A formatação de \mt|\section| torna-se igual à formatação de
+  \mt|\subsection|, para garantir cumprimento da formatação usada no template de
+  resumo estendido;
+\item Espaçamentos após títulos não são aplicados (resumo estendido);
+\item A hifenização é alterada para \textit{brazil}, a menos que o autor tenha
+  usado o ambiente abstract ou tenha usado Abstract, abstract ou ABSTRACT como
+  argumento \texttt{<nome>} do ambiente.
+\end{itemize}
 
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}
@@ -581,9 +605,9 @@ capitalizadas.
 % LocalWords:  alexishuf Issues alpha drop-in template cls shell-escape ZIP Git
 % LocalWords:  UNIX-like Makefile git submodule shame on you Overleaf english
 % LocalWords:  overview Pós-Graduação Prof BU pdfpages bug BibTeX URLs at bst
-% LocalWords:  Available cite-alf url x-url brazil embeddedlogo auto-contido
+% LocalWords:  Available cite-alf url x-url brazil embeddedlogo auto-contido pt
 % LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
-% LocalWords:  noplainurl noabntexcite begin dedicatoria end
-% LocalWords:  corretude
+% LocalWords:  noplainurl noabntexcite begin dedicatoria end doc abstracts
+% LocalWords:  corretude indentação
