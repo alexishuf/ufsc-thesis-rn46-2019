@@ -441,7 +441,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Margens
-\setlrmarginsandblock{2cm}{3cm}{*}  % {left}{right} no anverso (p. ímpar) @buABNT
+\setlrmarginsandblock{3cm}{2cm}{*}  % {left}{right} no anverso (p. ímpar) @buABNT
 \setulmarginsandblock{3cm}{2cm}{*}  % {upper}{lower}                      @buABNT
 \checkandfixthelayout%
 
