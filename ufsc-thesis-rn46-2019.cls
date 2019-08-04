@@ -230,19 +230,35 @@
 %%% i18n                                                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifufscthesis@eng
-  % Ativa o idioma em cada uma das partes
-  \appto{\pretextual}{\selectlanguage{english}}
-  \appto{\textual}{\selectlanguage{english}}
-  \appto{\postextual}{\selectlanguage{english}}
-  \selectlanguage{english}
-
   % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
   % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês
   \addto\captionsenglish{%
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
   }
+
+  % Ativa o idioma em cada uma das partes
+  \appto{\pretextual}{\selectlanguage{english}}
+  \appto{\textual}{\selectlanguage{english}}
+  \appto{\postextual}{\selectlanguage{english}}
+  \selectlanguage{english}
 \else
+  \addto\captionsbrazil{%
+    % abntex2 não algumas macros dentro da linguagem BR. Após fazer
+    % essa sequência de trocas: br -> en -> br, \essas macros permanecem
+    % em en, quando deveriam ter voltado para br.
+    \renewcommand{\orientadorname}{Orientador:}%
+    \renewcommand{\coorientadorname}{Coorientador:}%
+    \renewcommand{\agradecimentosname}{Agradecimentos}%
+    \renewcommand{\anexoname}{ANEXO}%
+    \renewcommand{\anexosname}{Anexos}%
+    \renewcommand{\apendicename}{AP\^ENDICE}%
+    \renewcommand{\apendicesname}{Ap\^endices}%
+    \renewcommand{\listadesiglasname}{Lista de abreviaturas e siglas}%
+    \renewcommand{\listadesimbolosname}{Lista de s\'imbolos}%
+    \renewcommand{\fontename}{Fonte}%
+    \renewcommand{\notaname}{Nota}%
+  }
   % Ativa o idioma em cada uma das partes
   \appto{\pretextual}{\selectlanguage{brazil}}
   \appto{\textual}{\selectlanguage{brazil}}
@@ -701,6 +717,11 @@
 
 \newcommand{\imprimirfolhadecertificacao}[0]{\cleardoublepage\folhadecertificacaocontent\cleardoublepage}
 \newcommand{\imprimirfolhadeaprovacao}[0]{\imprimirfolhadecertificacao}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Ambientes modificados                                          %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
 % recuo de 5cm foi medido no @buDoc
