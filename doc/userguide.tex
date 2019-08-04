@@ -298,6 +298,14 @@ português do Brasil. Entretanto, note que para utilizar outros idiomas além de
 inglês e português, é necessário repassar todos os idiomas explicitamente à
 classe \abnTeX.
 
+\paragraph*{\texttt{oneside}} Essa opção é destinada à classe \texttt{memoir} (a
+classe \abnTeX) é uma extensão do \texttt{memoir}. Ela fará com que todas as
+páginas sejam tratadas como anverso, eliminando a alternância na largura das
+margens esquerda e direita. Essa opção também \textbf{elimina a inserção de
+  páginas em branco}. Embora isso viole as instruções da BU, é uma \emph{feature} útil
+para alunos apresentando relatórios parciais, como EQM, SAD e EQD. Alguns
+programas, como o PPGCC impõem limites nominais à quantidade de páginas.
+
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
 o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
@@ -609,5 +617,5 @@ capitalizadas.
 % LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
-% LocalWords:  noplainurl noabntexcite begin dedicatoria end doc abstracts
-% LocalWords:  corretude indentação
+% LocalWords:  noplainurl noabntexcite begin dedicatoria end doc abstracts EQM
+% LocalWords:  corretude indentação oneside memoir feature SAD EQD

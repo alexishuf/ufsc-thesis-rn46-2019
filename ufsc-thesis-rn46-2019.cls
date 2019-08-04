@@ -37,6 +37,17 @@
 % Por padrão, assume-se pt_BR, por isso a opção é ignorada
 \DeclareOption{brazil}{\OptionNotUsed}
 
+% [oneside]
+% Por padrão o documento será twosided, mas o usuário pode pedir isso
+% se estiver fazendo EQM/SAD/EQD no PPGCC onde há limites hard
+% (20/40/60) no número de páginas do documento (o que inclui páginas
+% em branco).
+\newif\ifufscthesis@oneside
+\DeclareOption{oneside}{%
+  \ufscthesis@onesidetrue%
+  \PassOptionsToClass{\CurrentOption}{abntex2}%
+}
+
 % [lmodern] [times] [arial]
 % Escolhe a fonte: lmodern, times (default), ou arial.
 %Veja cada um dos \newif para detalhes
@@ -166,10 +177,14 @@
   % Isso precisa ser feito antes do LoadClass[]{abntex2}
   \PassOptionsToClass{brazil}{abntex2}
 \fi
+\ifufscthesis@oneside
+  \PassOptionsToClass{oneside}{abntex2} % violação consciente
+\else
+  \PassOptionsToClass{twoside}{abntex2} % @buABNT
+\fi
 \LoadClass[%
   12pt, %@buWord, @buABNT, @buDoc
   a4paper, %@rn46
-  twoside, % @buABNT
   chapter=TITLE, % Caixa alta @buDoc @buWord
   section=TITLE  % Caixa alta @buDoc @buWord
                  % Capitalizado para subseção e menor @buDoc @buWord
@@ -302,6 +317,12 @@
 
 % O @buDoc usa extensivamente linhas em branco como recurso estético
 \newcommand{\ufscthesis@lbreak}[0]{\par\vspace{\baselineskip}\par}
+
+% \ifufscthesis@oneside
+%   \newcommand{\ufscthesis@cleardoublepage}[0]{\clearpage}
+% \else
+%   \newcommand{\ufscthesis@cleardoublepage}[0]{\cleardoublepage}
+% \fi
 
 \providecommand{\imprimirfichacatalografica}[0]{%
 \clearpage\begingroup\centering\bfseries %
