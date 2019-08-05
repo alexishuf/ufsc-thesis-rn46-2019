@@ -439,6 +439,13 @@ incluem o título da seção. Essa classe suprime esse estilo de página,
 proveniente da classe base \texttt{memoir}, pois eles não existem no template
 da BU. Ao passar essa opção o cabeçalho padrão do \abnTeX{} será restaurado.
 
+\paragraph*{\texttt{nopretextualbookmark}} O \abnTeX{} gera \emph{bookmarks} no
+PDF para cada elemento pré-textual, exceto sumário, \lacmd{listoffigures} e
+similares. Esses \emph{bookmarks} são o que alimenta o ``table of contents'' que
+os leitores PDF apresentam, usualmente em uma barra lateral.  Ao fornecer essa
+opção, o \abnTeX{} deixará de criar esses \emph{bookmarks} para os elementos
+pré-textuais (e continuará criando para os elementos textuais e pós-textuais.
+
 \paragraph*{\texttt{\textbackslash{}nocleardoublepage}} Por padrão, os comandos
 \lacmd{tableofcontents} \lacmd{listoftables}, \lacmd{listoffigures},
 \lacmd{listoflistings} (se estiver definido) são modificados logo após o
@@ -702,4 +709,5 @@ capitalizadas.
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
 % LocalWords:  noplainurl noabntexcite begin dedicatoria end doc abstracts EQM
-% LocalWords:  corretude indentação oneside memoir feature SAD EQD
+% LocalWords:  corretude indentação oneside memoir feature SAD EQD bookmarks of
+% LocalWords:  nopretextualbookmark listoffigures table contents

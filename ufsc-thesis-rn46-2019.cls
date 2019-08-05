@@ -138,7 +138,17 @@
   \ufscthesis@embeddedlogotrue%
 }
 
-% [noautocleardoublepage]
+% [nopretextualbookmarks]
+% Se ativa essa opção impede o abnTeX de gerar bookmarks para
+% elementos pré-textuais. Bookmarks são o que dão origem às entradas
+% constituem o table of contents exibido pelos leitores PDF,
+% usualmente em barras laterais.
+\newif\ifufscthesis@nopretextualbookmarks
+\DeclareOption{nopretextualbookmarks}{%
+  \ufscthesis@nopretextualbookmarkstrue%
+}
+
+% [nocleardoublepage]
 % Por padrão, os comandos \tableofcontents \listoftables, \listoffigures,
 % \listoflistings (se estiver definido) são modificados logo após
 % o \begin{document} para que realizem um \cleardoublepage (portanto sendo
@@ -264,6 +274,8 @@
     % em en, quando deveriam ter voltado para br.
     \renewcommand{\orientadorname}{Orientador:}%
     \renewcommand{\coorientadorname}{Coorientador:}%
+    \renewcommand{\epigraphname}{Ep\'igrafe}%
+    \renewcommand{\dedicatorianame}{Dedicat\'oria}%
     \renewcommand{\agradecimentosname}{Agradecimentos}%
     \renewcommand{\anexoname}{ANEXO}%
     \renewcommand{\anexosname}{Anexos}%
@@ -744,6 +756,17 @@
 %%% Ambientes modificados                                          %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Desativa bookmarks para elementos pré-textuais
+\ifufscthesis@nopretextualbookmarks
+  \apptocmd{\pretextual}{%
+    \let\ufscthesis@oldPRIVATEbookmarkthis\PRIVATEbookmarkthis
+    \renewcommand{\PRIVATEbookmarkthis}[1]{}
+  }{}{}
+  \apptocmd{\textual}{%
+    \renewcommand{\PRIVATEbookmarkthis}[1]{\ufscthesis@oldPRIVATEbookmarkthis{#1}}
+  }{}{}  
+\fi
+
 % @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
 % recuo de 5cm foi medido no @buDoc
 \apptocmd{\dedicatoria}{%
@@ -779,7 +802,7 @@
 % implementação usando \AtBeginEnvironment estava muito fŕagil, os
 % ambientes do abnTeX2 foram refeitos
 \newenvironment{ufscthesisresumo}[2]{%
-  \chapter*{#1}%
+  \pretextualchapter{#1}%
   \begingroup
   % remove espaçamentos após seções (resumo estendido -- @buResumo)
   \setlength{\afterchapskip}{1pt}% 0pt tirar a quebra de linha!
