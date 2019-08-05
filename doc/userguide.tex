@@ -6,7 +6,7 @@
 \usepackage{pdfpages} % Inclui PDF externo (ficha catalográfica)
 
 % Usado para mostrar código
-\usepackage[cache=false]{minted}
+\usepackage{minted}
 \newmintinline[mt]{latex}{fontsize=\normalsize}
 \newmintinline[mft]{latex}{fontsize=\footnotesize}
 \setminted{fontsize=\tiny,linenos,xleftmargin=2em}
@@ -14,7 +14,7 @@
 
 % Usado para mostrar comandos latex nesse guia:
 \newcommand{\lacmd}[1]{\texttt{\textbackslash{}#1}}
-\newcommand{\laenv}[1]{\texttt{\textbackslash{}begin\{#1\}...\textbackslash{}end\{#1\}}}
+\newcommand{\laenv}[2][]{\texttt{\textbackslash{}begin\{#2\}#1...\textbackslash{}end\{#2\}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Configurações da classe (dados do trabalho)                  %%%
@@ -58,6 +58,57 @@
 % Atenção! esse \protect é importante
 \protect\incluirfichacatalografica{ficha.pdf}
 \imprimirfolhadecertificacao
+
+\begin{dedicatoria}
+  Este trabalho é dedicado à wikipedia e ao stackoverflow. 
+\end{dedicatoria}
+
+\begin{agradecimentos}
+  O presente trabalho foi realizado com apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior -- Brasil (CAPES) -- Código de Financiamento 001.
+\end{agradecimentos}
+
+\begin{epigrafe}
+  For a number of years I have been familiar with the observation that the quality of programmers is a decreasing function of the density of go to statements in the programs they produce \\
+  \cite{dijkstra1968}
+\end{epigrafe}
+
+
+\begin{resumo}[Resumo]
+  Aqui deve ser inserido um resumo de 150 a 500 palavras (limitação de tamanho dada pela BU). A linguagem deve ser português e a hifenização já foi alterada. O resumo em português deve preceder o resumo em inglês, mesmo que o trabalho seja escrito em inglês. A BU também diz que deve ser usada a voz ativa e o discurso deve ser na 3ª pessoa. A estrutura do resumo pode ser similar a estrutura usada em artigos: Contexto -- Problema -- Estado da arte -- Solução proposta  -- Resultados.
+
+  % Atenção! a BU exige separação através de ponto (.). Ela recomanda de 3 a 5 keywords
+  \vspace{\baselineskip} 
+  \textbf{Palavras-chave:} Palavra-chave. Ponto como separador. Bla.
+\end{resumo}
+
+
+\begin{resumo}[Resumo Estendido]
+  \section*{Introdução} 
+  A hifenização é alterada para \texttt{brazil}, mesmo para documentos em inglês. Descrever brevemente esses itens exigidos pela BU. Como a RN 95/CUn/2017 é mais recente e impõe outras regras a revelia de regimentos e regulamentos, é mais sábio obedecê-la. Lembre que esse resumo estendido deve term entre 2 e 5 páginas.
+  
+  \lipsum[1]
+  \section*{Objetivos} 
+  \lipsum[2]
+  \section*{Metodologia} 
+  \lipsum[3]
+  \section*{Resultados e Discussão} 
+  \lipsum[4]
+  \section*{Considerações Finais} 
+  \lipsum[5]
+
+  \vspace{\baselineskip}  % Atenção! manter igual ao resumo
+  \textbf{Palavras-chave:} Palavra-chave. Outra Palavra-chave composta. Bla.
+\end{resumo}
+
+
+\begin{abstract}
+  Enlish version of the plain ``resumo'' above. Done with environment
+  \texttt{abstract}. Hyphenization is automatically changed to english.
+
+  \vspace{\baselineskip} 
+  \textbf{Keywords:} Keyword. Another Compound Keyword. Bla.
+\end{abstract}
+
 \listoffigures*  % O * evita que apareça no sumário
 \tableofcontents*%
 
@@ -106,7 +157,7 @@ A classe \texttt{ufsc-thesis-rn46-2019} deveria ser encarada como um
 \emph{drop-in} para o \abnTeX. Você pode começar a escrever uma tese do zero
 usando apenas esta classe, mas talvez você queira usar algum template indicado
 por algum colega. Na maioria dos casos, bastará usar
-\mt|\documentclass{ufsc-thesis-rn46-2019}|, ajustando o caminho se necessário.
+\lacmd{documentclass\{ufsc-thesis-rn46-2019\}}, ajustando o caminho se necessário.
 Há duas principais formas de incluir essa classe no seu projeto.
 
 \begin{enumerate}
@@ -117,7 +168,7 @@ Há duas principais formas de incluir essa classe no seu projeto.
         exemplo.
   \item Copie a pasta do repositório do GitHub para dentro do seu projeto.
       Nesse caso você deverá adicionar o caminho dessa pasta ao fazer o
-        \mt|\documentclass|. Há 3 formas de incluir essa pasta:
+        \lacmd{documentclass}. Há 3 formas de incluir essa pasta:
   \begin{enumerate}
     \item Use a opção ``\emph{Download ZIP}'' do GitHub se você não sabe o que
         é Git.
@@ -128,12 +179,42 @@ Há duas principais formas de incluir essa classe no seu projeto.
     \end{enumerate}
 \end{enumerate}
 
+\begin{figure}[tb]
+  \centering
+  \caption{Preâmbulo de uma tese (ou dissertação) típica usando esta classe.}
+  \label{fig:preambulo}
+
+  \begin{minted}{latex}
+\documentclass[english]{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
+
+% \usepackage's a gosto
+
+\titulo{Template \LaTeX~ seguindo a RN 46/2019/CPG da UFSC}
+\autor{Fulano da Silva}
+\data{1 de Agosto de 2019}
+\instituicao{Universidade Federal de Santa Catarina}
+\centro{Centro Tecnológico}
+\programa{Programa de Pós-Graduação em Ciências da Computação}
+\local{Florianópolis} % Apenas cidade! Sem estado
+\tese % ou \dissertacao
+\titulode{Doutor em Ciência da Computação}
+\orientador{Prof. Dr. Ben Trovato}
+\coorientador{Prof. Dr. Lars Thørväld}
+
+\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
+\coordenador{Prof. Dr. Charles Palmer}
+  \end{minted}
+  \fonte{o autor.}
+\end{figure}
+
 Esse guia rápido assume que você está começando do zero, sem um template
 anterior, com intuito de ser didático. Se o seu trabalho for escrito em língua
 inglesa, você deverá passar uma opção \texttt{english} para a classe. Caso
 contrário não precisa passar nenhuma opção. Logo após chamar a classe, você
 deverá fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo
-completo de exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue um
+completo de exemplo na \autoref{fig:preambulo}. Os próximos parágrafos mostram um
 rápido \emph{overview} sobre o significado de cada um dos comandos usados (a
 maior parte deles continua funcionando como no \abnTeX).
 
@@ -168,36 +249,6 @@ nome e o ``Prof(a).'' deve preceder o nome.
 coordenador(a) do Programa de Pós-Graduação.
 \end{itemize}
 
-\begin{figure}[tb]
-  \centering
-  \caption{Preâmbulo de uma tese (ou dissertação) típica usando esta classe.}
-  \label{fig:preambulo}
-
-  \begin{minted}{latex}
-\documentclass[english]{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
-
-% \usepackage's a gosto
-
-\titulo{Template \LaTeX~ seguindo a RN 46/2019/CPG da UFSC}
-\autor{Fulano da Silva}
-\data{1 de Agosto de 2019}
-\instituicao{Universidade Federal de Santa Catarina}
-\centro{Centro Tecnológico}
-\programa{Programa de Pós-Graduação em Ciências da Computação}
-\local{Florianópolis} % Apenas cidade! Sem estado
-\tese % ou \dissertacao
-\titulode{Doutor em Ciência da Computação}
-\orientador{Prof. Dr. Ben Trovato}
-\coorientador{Prof. Dr. Lars Thørväld}
-
-\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
-\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
-\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
-\coordenador{Prof. Dr. Charles Palmer}
-  \end{minted}
-  \fonte{o autor.}
-\end{figure}
-
 Os elementos pré-textuais permanecem em grande parte tendo seu comportamento
 determinado pelo \abnTeX. Alguns elementos incluídos nesse guia foram alterados
 para satisfazer normas da UFSC. Esses elementos também presentes nesse guia são
@@ -206,6 +257,44 @@ folha de rosto (\lacmd{imprimirfolhaderosto*}) listas (\emph{e.g.}
 \lacmd{listoffigures*}) e o sumário \lacmd{tableofcontents*} são obtidos através
 dos mesmos comandos do \abnTeX, mas agora respeitam novas regras definidas pela
 BU.
+
+\begin{figure}[tb]
+  \centering
+  \caption{Elementos pré-textuais.}
+  \label{fig:pre}
+  \begin{minted}{latex}
+\pretextual%
+\imprimircapa%
+\imprimirfolhaderosto*
+\protect\incluirfichacatalografica{ficha.pdf}
+\imprimirfolhadecertificacao
+
+\begin{dedicatoria}...\end{dedicatoria}  % opcional
+\begin{agradecimentos}...\end{agradecimentos} % opcional
+\begin{epigrafe}...\end{epigrafe} % opcional
+\begin{resumo}...\end{resumo} 
+
+\begin{resumo}[Resumo Estendido] % opcional se trabalho for em português
+  \section*{Introdução}
+  \section*{Objetivos} 
+  \section*{Metodologia} 
+  \section*{Resultados e Discussão} 
+  \section*{Considerações Finais} 
+
+  % Keywords devem devem ser iguais (mas traduzidas) nos 3 resumos  
+  \vspace{\baselineskip}
+  \textbf{Palavras-chave:} Palavra 1. Palavra 2. Palavra 3. 
+\end{resumo}
+
+\begin{abstract}...\end{abstract}
+\listoffigures* % primeiro \listof na ABNT
+\listoftables*  
+% sugestão: adicionar outros \listof* aqui
+\begin{siglas}...\end{siglas} % há pacotes alternativos que podem agilizar
+\tableofcontents*  %deve ser o último
+  \end{minted}
+  \fonte{o autor.}
+\end{figure}
 
 A ficha catalográfica deve ser gerada em sistema próprio da BU, que produz um
 PDF. Esse PDF deve ser salvo no seu projeto e incluído no documento.
@@ -216,21 +305,6 @@ pacote \href{https://www.ctan.org/pkg/pdfpages}{\texttt{pdfpages}}. O
 substitui o \lacmd{protect}).  A folha de certificação é gerada pelo comando
 \lacmd{imprimirfolhadecertificacao} de acordo (e na ordem) com os comandos de
 dados emitidos anteriormente.
-
-\begin{figure}[tb]
-  \centering
-  \caption{Elementos pré-textuais.}
-  \label{fig:pre}
-  \begin{minted}{latex}
-\pretextual%
-\imprimircapa%|*
-\protect\incluirfichacatalografica{ficha.pdf}
-\cleardoublepage \imprimirfolhadecertificacao
-\cleardouplepage \listoffigures*
-\cleardoublepage \tableofcontents*
-  \end{minted}
-  \fonte{o autor.}
-\end{figure}
 
 Antes de iniciar o primeiro capítulo é necessário chamar a macro
 \lacmd{textual}, como em todo documento \abnTeX. Após os elementos textuais, os
@@ -246,6 +320,15 @@ de bibliografia.
   \begin{minted}{latex}
 \postextual
 \bibliography{example}
+
+% Atenção! todos os elementos a seguir são opcionais
+
+\apendices
+\chapter{Exemplo de Apêndice}
+...
+
+\cleardoublepage \printnoidxglossary % Exemplo do pacote glossaries)
+\cleardoublepage \printindex % Índice remissívo, e.g., makeidx)
   \end{minted}
   \fonte{o autor.}
 \end{figure}
@@ -489,13 +572,13 @@ configurações do ambiente citação. o template \texttt{.doc} aplica todas, ex
 pela fonte 11, apesar de citar a ABNT NBR 10520. Visando maior consistência,
 optou-se por usar a fonte 10pt.
 
-\paragraph*{\laenv[<nome>]{abstract}}
+\paragraph*{\laenv[[<nome>]]{abstract}}
 Em abnTeX2, não se deve chamar o ambiente abstract diretamente. Caso o alune o
 chame, será interpretado como se o aluno tivesse chamado
-\mt|\begin{resumo}[Abstract]| e a linguagem (controlando hifenização) será
+\lacmd{begin\{resumo\}[Abstract]} e a linguagem (controlando hifenização) será
 alterada para inglês.
 
-\paragraph*{\laenv[<nome>]{resumo}}
+\paragraph*{\laenv[[<nome>]]{resumo}}
 Ambiente usado para gerar os resumos (para documentos em inglês é necessário um
 resumo estendido) e \emph{abstracts}. A BU fornece além do template geral .doc,
 fornece um template para o resumo estendido, que também deve ser gerado usando
