@@ -12,6 +12,10 @@
 \setminted{fontsize=\tiny,linenos,xleftmargin=2em}
 \setmintedinline{breaklines,breakbytokenanywhere}
 
+% Usado para mostrar comandos latex nesse guia:
+\newcommand{\lacmd}[1]{\texttt{\textbackslash{}#1}}
+\newcommand{\laenv}[1]{\texttt{\textbackslash{}begin\{#1\}...\textbackslash{}end\{#1\}}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Configurações da classe (dados do trabalho)                  %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,43 +130,42 @@ Há duas principais formas de incluir essa classe no seu projeto.
 
 Esse guia rápido assume que você está começando do zero, sem um template
 anterior, com intuito de ser didático. Se o seu trabalho for escrito em língua
-inglesa, você deverá passar uma opção \mt|english| para a classe. Caso contrário
-não precisa passar nenhuma opção. Logo após chamar a classe, você deverá
-fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo completo de
-exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue um rápido
-\emph{overview} sobre o significado de cada um dos comandos usados (a maior
-parte deles continua funcionando como no \abnTeX).
+inglesa, você deverá passar uma opção \texttt{english} para a classe. Caso
+contrário não precisa passar nenhuma opção. Logo após chamar a classe, você
+deverá fornecer dados para a classe (e para o \abnTeX). Veja um preâmbulo
+completo de exemplo na \autoref{fig:preambulo}. Os próximos parágrafos. Segue um
+rápido \emph{overview} sobre o significado de cada um dos comandos usados (a
+maior parte deles continua funcionando como no \abnTeX).
 
 \begin{itemize}
-  \item \mt|\titulode|, \mt|\autor|, \mt|\instituicao|, \mt|\orientador| e
-      \mt|\coorientador|: esses comandos continuam com o mesmo significado e
-        uso que possuem no \abnTeX. Para facilitar o uso, também foram
-        adicionados \mt|\orientadora| e \mt|\coorientadora|.
-  \item \mt|\data|: as regras da UFSC exigem que apenas o ano esteja presente
-      na capa e folha de rosto. No entanto, a nova folha de certificação, que é
-        gerada por essa classe precisa da data completa. Forneça a data
-        completa \textbf{em português} (mesmo para documentos em inglês). A
-        classe irá extrair o ano.
-  \item \mt|\programa| e \mt|\centro|: nome do Programa de Pós-Graduação, por
-      extenso, e nome do centro, \emph{e.g.} Centro Tecnológico.
-  \item \mt|\tese| e \mt|\dissertacao|: o texto a ser colocado abaixo do título
-      na folha de rosto tem regras bem definidas. Você deve usar um desses dois
-        comandos para indicar o tipo de trabalho (e consequentemente o nível).
-        Evidentemente, são mutuamente exclusivos.
-  \item \mt|\preambulo|: Esse comando fornecido pelo \abnTeX{} é desnecessário
-      nessa classe. Entretanto, você pode usar ele para sobrescrever o texto
-        gerado automaticamente a partir do uso de \mt|\tese| e \mt|\titulode|.
+  \item \lacmd{titulode}, \lacmd{autor}, \lacmd{instituicao}, \lacmd{orientador}
+e \lacmd{coorientador}: esses comandos continuam com o mesmo significado e uso
+que possuem no \abnTeX. Para facilitar o uso, também foram adicionados
+\lacmd{orientadora} e \lacmd{coorientadora}.
+  \item \lacmd{data}: as regras da UFSC exigem que apenas o ano esteja presente
+na capa e folha de rosto. No entanto, a nova folha de certificação, que é gerada
+por essa classe precisa da data completa. Forneça a data completa \textbf{em
+português} (mesmo para documentos em inglês). A classe irá extrair o ano.
+  \item \lacmd{programa} e \lacmd{centro}: nome do Programa de Pós-Graduação,
+por extenso, e nome do centro, \emph{e.g.}  Centro Tecnológico.
+  \item \lacmd{tese} e \lacmd{dissertacao}: o texto a ser colocado abaixo do
+título na folha de rosto tem regras bem definidas. Você deve usar um desses dois
+comandos para indicar o tipo de trabalho (e consequentemente o nível).
+Evidentemente, são mutuamente exclusivos.
+  \item \lacmd{preambulo}: Esse comando fornecido pelo \abnTeX{} é desnecessário
+nessa classe. Entretanto, você pode usar ele para sobrescrever o texto gerado
+automaticamente a partir do uso de \lacmd{tese} e \lacmd{titulode}.
 \end{itemize}
 
 A ``folha de certificação'', que substituiu a antiga folha de aprovação, agora
 é gerada em \LaTeX. O nome do orientador já foi fornecido anteriormente, resta
 apenas indicar os membros avaliadores da banca e o coordenador do programa:
 \begin{itemize}
-  \item \mt|\membrobanca{<nome>}{<instituição>}|: adiciona um membro da banca.
-      \textbf{Atenção}: para membros avaliadores, o ``Dr.'' deve ser inserido
-        após o nome e o ``Prof(a).'' deve preceder o nome.
-  \item \mt|\coordenador| e \mt|\coordenadora|: Configura o nome do(a)
-      coordenador(a) do Programa de Pós-Graduação.
+  \item \lacmd{membrobanca{<nome>}{<instituição>}}: adiciona um membro da banca.
+\textbf{Atenção}: para membros avaliadores, o ``Dr.'' deve ser inserido após o
+nome e o ``Prof(a).'' deve preceder o nome.
+  \item \lacmd{coordenador} e \lacmd{coordenadora}: Configura o nome do(a)
+coordenador(a) do Programa de Pós-Graduação.
 \end{itemize}
 
 \begin{figure}[tb]
@@ -179,13 +182,13 @@ apenas indicar os membros avaliadores da banca e o coordenador do programa:
 \autor{Fulano da Silva}
 \data{1 de Agosto de 2019}
 \instituicao{Universidade Federal de Santa Catarina}
+\centro{Centro Tecnológico}
 \programa{Programa de Pós-Graduação em Ciências da Computação}
 \local{Florianópolis} % Apenas cidade! Sem estado
 \tese % ou \dissertacao
 \titulode{Doutor em Ciência da Computação}
 \orientador{Prof. Dr. Ben Trovato}
 \coorientador{Prof. Dr. Lars Thørväld}
-\centro{Centro Tecnológico}
 
 \membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
 \membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
@@ -197,21 +200,21 @@ apenas indicar os membros avaliadores da banca e o coordenador do programa:
 
 Os elementos pré-textuais permanecem em grande parte tendo seu comportamento
 determinado pelo \abnTeX. Alguns elementos incluídos nesse guia foram alterados
-para satisfazer normas da UFSC. Esses elementos também presentes
-nesse guia são obtidos com o código mostrado na \autoref{fig:pre}. Capa
-(\mt|\imprimircapa|), folha de rosto (\mt|\imprimirfolhaderosto*|) listas
-(\emph{e.g.} \mt|\listoffigures*|) e o sumário \mt|\tableofcontents*| são
-obtidos através dos mesmos comandos do \abnTeX, mas agora respeitam novas
-regras definidas pela BU.
+para satisfazer normas da UFSC. Esses elementos também presentes nesse guia são
+obtidos com o código mostrado na \autoref{fig:pre}. Capa (\lacmd{imprimircapa}),
+folha de rosto (\lacmd{imprimirfolhaderosto*}) listas (\emph{e.g.}
+\lacmd{listoffigures*}) e o sumário \lacmd{tableofcontents*} são obtidos através
+dos mesmos comandos do \abnTeX, mas agora respeitam novas regras definidas pela
+BU.
 
 A ficha catalográfica deve ser gerada em sistema próprio da BU, que produz um
 PDF. Esse PDF deve ser salvo no seu projeto e incluído no documento.
 
-A macro \mt|\incluirfichacatalografica{<pdf>}| faz essa inclusão usando o
-pacote \href{https://www.ctan.org/pkg/pdfpages}{\mt|pdfpages|}. O \mt|\protect|
-é necessário para evitar um \emph{bug} (uma linha em branco substitui o
-\mt|\protect|).  A folha de certificação é gerada pelo comando
-\mt|\imprimirfolhadecertificacao| de acordo (e na ordem) com os comandos de
+A macro \lacmd{incluirfichacatalografica{<pdf>}} faz essa inclusão usando o
+pacote \href{https://www.ctan.org/pkg/pdfpages}{\texttt{pdfpages}}. O
+\lacmd{protect} é necessário para evitar um \emph{bug} (uma linha em branco
+substitui o \lacmd{protect}).  A folha de certificação é gerada pelo comando
+\lacmd{imprimirfolhadecertificacao} de acordo (e na ordem) com os comandos de
 dados emitidos anteriormente.
 
 \begin{figure}[tb]
@@ -229,12 +232,12 @@ dados emitidos anteriormente.
   \fonte{o autor.}
 \end{figure}
 
-Antes de iniciar o primeiro capítulo é necessário chamar a macro \mt|\textual|,
-como em todo documento \abnTeX. Após os elementos textuais, os pós-textuais
-devem ser precedidos por um \mt|\postextual|. Para fazer uso da bibliografia,
-basta fazer como mostra a \autoref{fig:pos}. A classe já inclui o
-\texttt{abntex2cite} e o configura. A UFSC impôs poucas alterações no
-tratamento de bibliografia.
+Antes de iniciar o primeiro capítulo é necessário chamar a macro
+\lacmd{textual}, como em todo documento \abnTeX. Após os elementos textuais, os
+pós-textuais devem ser precedidos por um \lacmd{postextual}. Para fazer uso da
+bibliografia, basta fazer como mostra a \autoref{fig:pos}. A classe já inclui o
+\texttt{abntex2cite} e o configura. A UFSC impôs poucas alterações no tratamento
+de bibliografia.
 
 \begin{figure}[tb]
   \centering
@@ -277,9 +280,9 @@ português, os dizeres Disponível em deveriam permanecer em português.
 Caso você deseje \textbf{contrariar a orientação acima}, a forma mais segura (no
 sentido do LaTeX, não no sentido da entrega na BU) de \textbf{violá-la} é usar o
 campo \texttt{note} do BibTeX. Você deverá fazer o equivalente a
-\mt|Available at: \url{https://doi.org/10.1145/3338112}| em cada entrada no seu
-arquivo \texttt{.bib}, além de desativar o campo \texttt{url} removendo-o ou renomeando-o
-para. \texttt{x-url}.
+\texttt{Available at: \lacmd{url}\{https://doi.org/10.1145/3338112\}} em cada
+entrada no seu arquivo \texttt{.bib}, além de desativar o campo \texttt{url}
+removendo-o ou renomeando-o para. \texttt{x-url}.
 
 \chapter{Referência de opções e macros}
 \label{ch:ref}
@@ -324,7 +327,7 @@ opção \texttt{lmodern} corresponde à fonte Latin Modern, a fonte padrão do
 oficial da BU.
 
 \paragraph*{\texttt{nocapautoref}} Essa classe configura o comando
-\mt{\autoref} para que nomes de capítulos e seções sejam capitalizados. Ao
+\lacmd{autoref} para que nomes de capítulos e seções sejam capitalizados. Ao
 fornecer essa opção essa alteração deixará de ser feita.
 
 \paragraph*{\texttt{noabntexcite}} Essa classe inclui o pacote
@@ -344,8 +347,8 @@ na forma <http://example.org>, e apresenta a URL diretamente, sem os <>.  Esse
 comportamento sempre é aplicado (a menos que seja usada a opção
 \texttt{noabntexcite}). Para uniformizar o estilo, essa classe aplica a mesma
 configuração no corpo do documento (nas instâncias onde se usaria
-\mt|\url{http://example.org}|. Ao fornecer a opção \texttt{noplainurl} as
-configurações do comando \mt|\url| não são alteradas.
+\lacmd{url\{http://example.org\}}. Ao fornecer a opção \texttt{noplainurl} as
+configurações do comando \lacmd{url} não são alteradas.
 
 
 \paragraph*{\texttt{nocleanheader}} O \abnTeX{} gera cabeçalhos na página que
@@ -354,9 +357,9 @@ proveniente da classe base \texttt{memoir}, pois eles não existem no template
 da BU. Ao passar essa opção o cabeçalho padrão do \abnTeX{} será restaurado.
 
 \paragraph*{\texttt{\textbackslash{}nocleardoublepage}} Por padrão, os comandos
-\mt|\tableofcontents| \mt|\listoftables|, \mt|\listoffigures|,
-\mt|\listoflistings| (se estiver definido) são modificados logo após o
-\mt|\begin{document}| para que realizem um \mt|\cleardoublepage|. Logo,
+\lacmd{tableofcontents} \lacmd{listoftables}, \lacmd{listoffigures},
+\lacmd{listoflistings} (se estiver definido) são modificados logo após o
+\lacmd{begin\{document\}} para que realizem um \lacmd{cleardoublepage}. Logo,
 esseselementos serão impressos garantidamente em uma nóva página que ficará no
 anverso. Essa opção, se presente, desativa a injeção dessa alteração
 
@@ -376,80 +379,79 @@ comandos de saída discutidos na próxima seção. \textbf{Importante:} não esq
 de preencher os comandos de dados do próprio \abnTeX, como mostrado na
 \autoref{sec:quick}.
 
-\paragraph*{\texttt{\textbackslash{}programa\{<nome>\}}} Configura o nome do
+\paragraph*{\lacmd{programa\{<nome>\}}} Configura o nome do Programa de
+Pós-Graduação.
+
+\paragraph*{\lacmd{titulode\{<texto>\}}} Define o título alvo.  O título
+\textit{deve ser escrito incluindo a especialidade}. Por exemplo, \emph{Mestre
+  em Ciência da Computação}.
+
+\paragraph*{\lacmd{tese}} Comando sem argumentos. Marca o documento como uma
+tese de doutorado. Isso irá alterar o preâmbulo e a folha de certificação.
+
+\paragraph*{\lacmd{dissertacao}} Comando sem argumentos. Marca o documento como
+uma dissertação de mestrado. Esse é o padrão quando nem \lacmd{dissertacao} nem
+\lacmd{tese} são usados.
+
+\paragraph*{\lacmd{nivel\{<nivel>\}}} Deve ser o nível do título almejado, em
+minúsculas. O valor padrão é inferido a partir do uso (ou não uso) de
+\lacmd{tese} e \lacmd{dissertacao}.
+
+\paragraph*{\lacmd{centro\{<texto>\}}} Centro da UFSC onde está sediado o
 Programa de Pós-Graduação.
 
-\paragraph*{\texttt{\textbackslash{}titulode\{<texto>\}}} Define o título alvo.
-O título \textit{deve ser escrito incluindo a especialidade}. Por exemplo,
-\emph{Mestre em Ciência da Computação}.
+\paragraph*{\lacmd{data\{<data por extenso>\}}} Define a data a ser usada na
+folha de certificação. O ano dessa data será usado na capa e na folha de
+rosto. Se esse comando for omitido, a data atual do sistema será utilizada. Não
+utilize \lacmd{today} como argumento em documentos em inglês. Isso fará com que
+a data da folha de aprovação (que é em português) apareça em inglês! Exemplo:
+\lacmd{data\{1 de Agosto de 2019\}}.
 
-\paragraph*{\texttt{\textbackslash{}tese}} Comando sem argumentos. Marca o
-documento como uma tese de doutorado. Isso irá alterar o preâmbulo e a folha de
-certificação.
-
-\paragraph*{\texttt{\textbackslash{}dissertacao}} Comando sem argumentos. Marca
-o documento como uma dissertação de mestrado. Esse é o padrão quando nem
-\mt|\dissertacao| nem \mt|\tese| são usados.
-
-\paragraph*{\texttt{\textbackslash{}nivel\{<nivel>\}}} Deve ser o nível do
-título almejado, em minúsculas. O valor padrão é inferido a partir do uso (ou
-não uso) de \mt|\tese| e \mt|\dissertacao|.
-
-\paragraph*{\texttt{\textbackslash{}centro\{<texto>\}}} Centro da UFSC onde
-está sediado o Programa de Pós-Graduação.
-
-\paragraph*{\texttt{\textbackslash{}data\{<data por extenso>\}}} Define a data
-a ser usada na folha de certificação. O ano dessa data será usado na capa e na
-folha de rosto. Se esse comando for omitido, a data atual do sistema será
-utilizada. Não utilize \mt|\today| como argumento em documentos em inglês. Isso
-fará com que a data da folha de aprovação (que é em português) apareça em
-inglês! Exemplo: \mt|\data{1 de Agosto de 2019}|.
-
-\paragraph*{\texttt{\textbackslash{}ano\{<ano>\}} \\
-            \texttt{\textbackslash{}mes\{<nome do mes>\}} \\
-            \texttt{\textbackslash{}dia\{<dia>\}}}
+\paragraph*{\lacmd{ano\{<ano>\}} \\
+            \lacmd{mes\{<nome do mes>\}} \\
+            \lacmd{dia\{<dia>\}}}
 Define cada componente da data individualmente.
 
-\paragraph*{\texttt{\textbackslash{}membrobanca\{<nome com
+\paragraph*{\lacmd{membrobanca\{<nome com
 títulos>\}\{<universidade por extenso>\}}}
-Nome do professor avaliador da banca, incluíndo Prof. (ou Profa.) antes do
-nome e o título \textbf{após} o nome. Exemplo: \emph{Prof. Mordecai
-Malignatus, Dr.}. O orientador não deve ser incluído nessa seção. Não está
-claro nas instruções da UFSC se o coorientador também não deveria. Note que
-esse é o único lugar onde o título deve vir após o nome. Para orientador e
-coordenador a BU coloca o título antes.
+Nome do professor avaliador da banca, incluíndo Prof. (ou Profa.) antes do nome
+e o título \textbf{após} o nome. Exemplo: \emph{Prof. Mordecai Malignatus,
+  Dr.}. O orientador não deve ser incluído nessa seção. Não está claro nas
+instruções da UFSC se o coorientador também não deveria. Note que esse é o único
+lugar onde o título deve vir após o nome. Para orientador e coordenador a BU
+coloca o título antes.
 
-\paragraph*{\texttt{\textbackslash{}coordenadora\{<nome>\}}} Nome do
-coordenador do programa. Nesse caso a BU usa títulos antes do nome. No caso de
-coordenadora, o comando \mt|\coordenadora| pode ser usado. Exemplo:
-\mt|\coordenador{ Prof. Dr. Mordecai Malignatus}|.
+\paragraph*{\lacmd{coordenadora\{<nome>\}}} Nome do coordenador do
+programa. Nesse caso a BU usa títulos antes do nome. No caso de coordenadora, o
+comando \lacmd{coordenadora} pode ser usado. Exemplo: \lacmd{coordenador\{
+  Prof. Dr. Mordecai Malignatus\}}.
 
 \subsection{Comandos de saída}
 
 Esses comandos produzem resultados visíveis. Devem ser usados dentro do
 ambiente \texttt{document}.
 
-\paragraph*{\texttt{\textbackslash{}incluirfichacatalografica\{<arquivo>\}}}
+\paragraph*{\lacmd{incluirfichacatalografica\{<arquivo>\}}}
 Inclui a ficha catalográfica proveniente de \texttt{arquivo} que foi gerado em
 \href{http://ficha.bu.ufsc.br/}{ficha.bu.ufsc.br}.
 
-\paragraph*{\texttt{\textbackslash{}imprimirfolhadecertificacao}\\
-            \texttt{\textbackslash{}imprimirfolhadeaprovacao}
+\paragraph*{\lacmd{imprimirfolhadecertificacao}\\
+            \lacmd{imprimirfolhadeaprovacao}
 } 
 Imprime a ``folha de certificação'', que substitui a antiga ``folha de
 aprovação''. Ambos os comandos produzem o mesmo resultado. Nessa folha
 os membros da banca serão listados na ordem em que foram adicionados
-com o comando \mt|\membrobanca{<nome>}{<universidade>}|.
+com o comando \lacmd{membrobanca\{<nome>\}\{<universidade>\}}.
 
 \subsection{Comandos \abnTeX{} modificados}
 
-\paragraph*{\texttt{\textbackslash{}imprimircapa}} O modo de uso
-desse comando permanece o mesmo. No entanto, como as novas capas devem incluir o
-brasão da UFSC, há alguns detalhes a serem observados. Ao utilizar a opção
-\texttt{embeddedlogo}, o logo da UFSC é extraíde de um base64 embutido dentro do
-próprio \texttt{.cls}. Sem usar essa opção é necessário que o arquivo
-\texttt{logo-ufsc.pdf} seja encontrado pelo comando \mt|\includegraphics|. Para
-que isso funcione, o \texttt{.cls} inicializa o \mt|\graphicspath| da seguinte forma:
+\paragraph*{\lacmd{imprimircapa}} O modo de uso desse comando permanece o
+mesmo. No entanto, como as novas capas devem incluir o brasão da UFSC, há alguns
+detalhes a serem observados. Ao utilizar a opção \texttt{embeddedlogo}, o logo
+da UFSC é extraíde de um base64 embutido dentro do próprio \texttt{.cls}. Sem
+usar essa opção é necessário que o arquivo \texttt{logo-ufsc.pdf} seja
+encontrado pelo comando \lacmd{includegraphics}. Para que isso funcione, o
+\texttt{.cls} inicializa o \lacmd{graphicspath} da seguinte forma:
 
 \begin{minted}{latex}
   \graphicspath{%
@@ -464,22 +466,22 @@ Essa inicialização é suficiente para os casos de uso típicos. Note que os
 caminhos são relativos ao \emph{working directory} do \texttt{pdflatex}, não são
 relativos ao \texttt{.cls} ou ao seu \texttt{.tex}.
 
-\paragraph*{\texttt{\textbackslash{}imprimirfolhaderosto}} A folha de rosto foi
-modifica de acordo com as intruções da BU. O elementa com maior diferênça é o
-texto do preambulo (que é inserido abaixo do título). Nessa classe, o texto é
-gerado automáticamente a partir da informação provida pelo uso de \mt|\tese| (ou
-\mt|\dissertacao|), \mt|\programa| e \mt|\titulode|, apresentados
-anteriormente. Ainda é possível usar \mt|\preambulo| diretamente para
+\paragraph*{\lacmd{imprimirfolhaderosto}} A folha de rosto foi modifica de
+acordo com as intruções da BU. O elementa com maior diferênça é o texto do
+preambulo (que é inserido abaixo do título). Nessa classe, o texto é gerado
+automáticamente a partir da informação provida pelo uso de \lacmd{tese} (ou
+\lacmd{dissertacao}), \lacmd{programa} e \lacmd{titulode}, apresentados
+anteriormente. Ainda é possível usar \lacmd{preambulo} diretamente para
 sobreescrever o texto gerado. No entanto, leia as regras da BU com atenção.
 
-\paragraph*{\texttt{\textbackslash{}begin\{dedicatoria\}...\textbackslash{}end\{dedicatoria\}}}
+\paragraph*{\laenv{dedicatoria}}
 O ambiente \texttt{dedicatoria} do \abnTeX não aplica nenhuma formatação. O
 ambiente foi alterado para que o texto fique alinhado a direita, com recuo de
 5cm, ancorado na parte inferior da página. Essa formatação se originou do
 documento da BU que explica as normas ABNT. A medida de 5cm foi tomada do
 template \texttt{.doc} disponibilizado pela BU.
 
-\paragraph*{\texttt{\textbackslash{}begin\{epigrafe\}...\textbackslash{}end\{epigrafe\}}}
+\paragraph*{\laenv{epigrafe}}
 O ambiente \texttt{epigrafe} do \abnTeX não aplica nenhuma formatação. O
 ambiente foi alterado para que o texto fique alinhado a direita, com recuo de
 4cm, espaçamento entre linhas simples e fonte 10. Essas são as mesmas
@@ -487,24 +489,24 @@ configurações do ambiente citação. o template \texttt{.doc} aplica todas, ex
 pela fonte 11, apesar de citar a ABNT NBR 10520. Visando maior consistência,
 optou-se por usar a fonte 10pt.
 
-\paragraph*{\texttt{\textbackslash{}begin\{abstract\}[<nome>]...\textbackslash{}end\{abstract\}}}
+\paragraph*{\laenv[<nome>]{abstract}}
 Em abnTeX2, não se deve chamar o ambiente abstract diretamente. Caso o alune o
 chame, será interpretado como se o aluno tivesse chamado
 \mt|\begin{resumo}[Abstract]| e a linguagem (controlando hifenização) será
 alterada para inglês.
 
-\paragraph*{\texttt{\textbackslash{}begin\{resumo\}[<nome>]...\textbackslash{}end\{resumo\}}}
+\paragraph*{\laenv[<nome>]{resumo}}
 Ambiente usado para gerar os resumos (para documentos em inglês é necessário um
 resumo estendido) e \emph{abstracts}. A BU fornece além do template geral .doc,
 fornece um template para o resumo estendido, que também deve ser gerado usando
 esse ambiente. Nos três tipos de resumo exigidos, o aluno é responsável por
 incluir um parágrafo ao final contendo as Palavras-chave\footnote{Sugestão:
-  \mft|\vspace{\baselineskip}Palavras-chave: Kw1. Kw2. Kw3.|}: Regras
+  \lacmd{vspace\{\lacmd{baselineskip}\}Palavras-chave: Kw1. Kw2. Kw3.}}: Regras
 implementadas nesse ambiente:
 \begin{itemize}
 \item Espaçamento simples, fonte 12, sem indentação de parágrafos;
-\item A formatação de \mt|\section| torna-se igual à formatação de
-  \mt|\subsection|, para garantir cumprimento da formatação usada no template de
+\item A formatação de \lacmd{section} torna-se igual à formatação de
+  \lacmd{subsection}, para garantir cumprimento da formatação usada no template de
   resumo estendido;
 \item Espaçamentos após títulos não são aplicados (resumo estendido);
 \item A hifenização é alterada para \textit{brazil}, a menos que o autor tenha
@@ -515,10 +517,10 @@ implementadas nesse ambiente:
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}
 
-Essa frase é verdadeira pois tem um \mt|\cite| no final \cite{turing1937}. Essa
-é mais verdadeira ainda pois tem um (\mt|\cite{turing1937,dijkstra1968}|) no
+Essa frase é verdadeira pois tem um \lacmd{cite} no final \cite{turing1937}. Essa
+é mais verdadeira ainda pois tem um (\lacmd{cite\{turing1937,dijkstra1968\}}) no
 final \cite{turing1937,dijkstra1968}. Já esta frase inofensiva usa
-\mt|\citeonline{dijkstra1968}| para citar \citeonline{dijkstra1968}
+\lacmd{citeonline\{dijkstra1968\}} para citar \citeonline{dijkstra1968}
 nominalmente. O trabalho de \citeonline{diffie1976} foi altamente influente
 \cite{diffie1976}. Essa outra frase cita o trabalho que \citeonline{Saleem2018}
 escreveu com outros 4 autores. Para algo completamente novo, veja um footnote
@@ -526,15 +528,15 @@ com url\footnote{\url{http://example.org/}}
 
 Mais algumas citações de tipos específicos de documentos:
 \begin{itemize}
-\item \mt|@inproceedings|: \citeonline{Ullman1989magic}. Jabuti
+\item \texttt{@inproceedings}: \citeonline{Ullman1989magic}. Jabuti
   \cite{Ullman1989magic}.
-\item \mt|@article|: \citeonline{Distefano2019}, framboesa \cite{Distefano2019};
-\item \mt|@book|: \citeonline{Abiteboul1995}, goiaba \cite{Abiteboul1995};
-\item \mt|@incollection|: \citeonline{Forgy1989}, melancia \cite{Forgy1989};
-\item \mt|@techreport|: \citeonline{rdf11}, figo \cite{rdf11}.
+\item \texttt{@article}: \citeonline{Distefano2019}, framboesa \cite{Distefano2019};
+\item \texttt{@book}: \citeonline{Abiteboul1995}, goiaba \cite{Abiteboul1995};
+\item \texttt{@incollection}: \citeonline{Forgy1989}, melancia \cite{Forgy1989};
+\item \texttt{@techreport}: \citeonline{rdf11}, figo \cite{rdf11}.
 \end{itemize}
 
-A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções.
+A lista abaixo mostra o efeito de \lacmd{autoref{}} com capítulos e (sub)seções.
 
 \begin{itemize}
 \item Há coisas na \autoref{ch:ex};
@@ -545,12 +547,11 @@ A lista abaixo mostra o efeito de \mt|\autoref{}| com capítulos e (sub)seções
   intencionalmente no português e o mantem em inglês).
 \end{itemize}
 
-Citações são feitas com \mt|\begin{citacao}...\end{citacao}|. A BU faz
-as mesmas exigências que já são o \textit{default} na classe
-\abnTeX\footnote{O alinhamento e o filete de notas de rodapé também
-não necessitou de modificações, além do tamanho da fonte. Essa frase
-não serve a nenhum propósito além de causar uma quebra de linha para
-que o alinhamento seja avaliado.}.
+Citações são feitas com \laenv{citacao}. A BU faz as mesmas exigências que já
+são o \textit{default} na classe \abnTeX\footnote{O alinhamento e o filete de
+  notas de rodapé também não necessitou de modificações, além do tamanho da
+  fonte. Essa frase não serve a nenhum propósito além de causar uma quebra de
+  linha para que o alinhamento seja avaliado.}.
 
 \begin{citacao}
   A elaboração do trabalho de conclusão de curso em nível de mestrado
@@ -561,14 +562,14 @@ que o alinhamento seja avaliado.}.
 \end{citacao}
 
 Atenção! O template da BU deixa figuras e tabelas alinhadas à esquerda. No
-entanto, o tutorial de Word disponibilizado pela BU diz que o \mt|\caption{}|
-(legenda acima) e o \mt|\fonte{}| (o ``Fonte: o autor.'', abaixo) devem
+entanto, o tutorial de Word disponibilizado pela BU diz que o \lacmd{caption\{\}}
+(legenda acima) e o \lacmd{fonte\{\}} (o ``Fonte: o autor.'', abaixo) devem
 respeitar o ``alinhamento da ilustração''. Esse tutorial apresenta apenas uma
 ilustração alinhada à esquerda). O tutorial explicando a ABNT mostra uma figura
 centralizada com legendas alinhadas a esquerda e com recuo até o começo da
 figura. O autor do \texttt{.cls} se exime de qualquer culpa. Alinhe aqui (com
-\mt|\centering|, \mt|\flushright| ou \mt|\flushleft|) como mandar o seu
-coração. Veja na \autoref{fig:logo} o efeito de se usar \mt|\centering|.
+\lacmd{centering}, \lacmd{flushright} ou \lacmd{flushleft}) como mandar o seu
+coração. Veja na \autoref{fig:logo} o efeito de se usar \lacmd{centering}.
 
 \begin{figure}[t]
   \centering
