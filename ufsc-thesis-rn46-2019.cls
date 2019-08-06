@@ -530,7 +530,7 @@
 % Tamanhos e estilos de fontes para chapter e (sub)*section
 % Também aplica \noindent @buWord[p.10]
 % Para títulos de capítulo ainda parece existir 1em de recuo na esquerda, mas parece ser algo do memoir
-\renewcommand{\ABNTEXchapterfont}{\hspace{-.2em}\noindent\bfseries} % @buDoc @buWord[p. 8]
+\renewcommand{\ABNTEXchapterfont}{\bfseries} % @buDoc @buWord[p. 8]
 \renewcommand{\ABNTEXchapterfontsize}{\normalsize}    % @buDoc @buWord
 \renewcommand{\ABNTEXsectionfont}{\noindent\normalfont} % @buDoc @buWord
 \renewcommand{\ABNTEXsectionfontsize}{\normalsize}      % @buDoc @buWord
