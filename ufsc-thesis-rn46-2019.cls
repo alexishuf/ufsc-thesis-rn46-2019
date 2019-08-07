@@ -617,7 +617,7 @@
   % 
   \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}
   \AtBeginDocument{%
-    \immediate\write18{base64 -d \jobname.64 > \jobname-logo.pdf}
+    \immediate\write18{base64 --decode \jobname.64 > \jobname-logo.pdf}
   }
 \else
   % Alguns caminhos possíveis onde o aluno poderia ter nos largado
