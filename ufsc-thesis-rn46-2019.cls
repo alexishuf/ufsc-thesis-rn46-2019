@@ -432,7 +432,7 @@
 % dessa classe, \tese ou \dissertacao, foram usados
 \renewcommand{\imprimirpreambulo}{%
 \imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
-\imprimirprograma{} para a obtenção do t\'{i}tulo de \ufscthesis@titulode{}.%
+\imprimirprograma{} para a obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode{}.%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -731,7 +731,7 @@
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
     \vspace*{\fill}
     Certificamos que esta \'{e} a {\bfseries vers\~{a}o original e final} do trabalho
-      de conclu\~{a}o que foi julgado adequado para obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode. \par
+      de conclus\~{a}o que foi julgado adequado para obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode. \par
     \vspace*{\fill}
     \vspace*{\fill}
     % Pessoas que assinam o documento (por isso eles tem a linha)
