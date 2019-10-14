@@ -668,6 +668,7 @@
       \vspace*{1cm}
     \end{center}
   \end{capa}
+  \setcounter{page}{1}
 }
 
 
