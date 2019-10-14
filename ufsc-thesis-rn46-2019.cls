@@ -745,7 +745,10 @@
     \vspace*{\fill}
     \vspace*{\fill}
     % Local e data em caixa baixa sem negrito
-    \imprimirlocal, \imprimirdataext.
+    % Em algum momento de setembro ou outubro (hoje é 14 do 10 de
+    % 2019) a BU trocou a data extensa (\imprimirdataext) por
+    % simplemente ano (\imprimirano) no template docx.
+    \imprimirlocal, \imprimirano.
   \end{center}
 }
 
