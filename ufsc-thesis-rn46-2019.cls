@@ -294,12 +294,12 @@
 \fi
 
 % \*name's que só existem nessa classe
-\providecommand{\listadesimbolosname}{Lista de Símbolos}%
+\providecommand{\listadesimbolosname}{Lista de S\'imbolos}%
 \addto\captionsenglish{
   \renewcommand{\listadesimbolosname}{List of Symbols}%
 }
 \addto\captionsbrazil{
-  \renewcommand{\listadesimbolosname}{Lista de Símbolos}%
+  \renewcommand{\listadesimbolosname}{Lista de S\'imbolos}%
 }
 
 \ifufscthesis@nocapautoref\else
