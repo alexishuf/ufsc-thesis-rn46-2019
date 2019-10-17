@@ -111,6 +111,22 @@
 \end{abstract}
 
 \listoffigures*  % O * evita que apareça no sumário
+
+\begin{listadesimbolos}
+  $\gets$   & Atribuição \\
+  $\exists$   & Quantificação existencial \\
+  $\rightarrow$   & Implicação \\
+  $\wedge$   & E lógico \\
+  $\vee$   & Ou lógico \\
+  $\neg$   & Negação lógica \\
+  $\mapsto$   & Mapeia para \\
+  $\sqsubseteq$   & Subclasse (em ontologias) \\
+  $\subseteq$   & Subconjunto: $\forall x\;.\; x \in A \rightarrow x \in B$ \\
+  $\langle\ldots\rangle$ & Tupla \\
+  $\forall$   & Quantificação universal \\
+  mmmmm & Nenhum sentido, apenas estou aqui para demonstrar a largura máxima dessas colunas. Ao abrir o ambiente \texttt{listadesimbolos}, pode-se fornecer um argumento opcional indicando a largura da coluna da esquerda (o default é de 5em): \texttt{\textbackslash{}begin\{listadesimbolos\}[2cm] .... \textbackslash{}end\{listadesimbolos\}} \\
+\end{listadesimbolos}
+
 \tableofcontents*%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -447,7 +463,7 @@ os leitores PDF apresentam, usualmente em uma barra lateral.  Ao fornecer essa
 opção, o \abnTeX{} deixará de criar esses \emph{bookmarks} para os elementos
 pré-textuais (e continuará criando para os elementos textuais e pós-textuais.
 
-\paragraph*{\texttt{\textbackslash{}nocleardoublepage}} Por padrão, os comandos
+\paragraph*{\texttt{nocleardoublepage}} Por padrão, os comandos
 \lacmd{tableofcontents} \lacmd{listoftables}, \lacmd{listoffigures},
 \lacmd{listoflistings} (se estiver definido) são modificados logo após o
 \lacmd{begin\{document\}} para que realizem um \lacmd{cleardoublepage}. Logo,
@@ -526,13 +542,20 @@ ambiente \texttt{document}.
 Inclui a ficha catalográfica proveniente de \texttt{arquivo} que foi gerado em
 \href{http://ficha.bu.ufsc.br/}{ficha.bu.ufsc.br}.
 
-\paragraph*{\lacmd{imprimirfolhadecertificacao}\\
-            \lacmd{imprimirfolhadeaprovacao}
-} 
-Imprime a ``folha de certificação'', que substitui a antiga ``folha de
-aprovação''. Ambos os comandos produzem o mesmo resultado. Nessa folha
-os membros da banca serão listados na ordem em que foram adicionados
-com o comando \lacmd{membrobanca\{<nome>\}\{<universidade>\}}.
+\paragraph*{\laenv{listadesimbolos}}
+Define uma lista de símbolos. O ambiente pode receber um argumento opcional que
+especifica a largura da coluna esquerda (onde devem ser inseridos os símbolos. O
+valor padrão dessa largura é de \texttt{5em}, o suficiente para conter mmmmm. A
+largura da coluna da direita é computada automaticamente de modo que toda a
+tabela respeite as margens. Exemplo:
+
+\begin{minted}{latex}
+\begin{listadesimbolos}[2cm]
+  $\langle\ldots\rangle$ & Tupla \\
+  $\forall$   & Quantificação universal \\
+  % ....
+\end{listadesimbolos}
+\end{minted}
 
 \subsection{Comandos \abnTeX{} modificados}
 

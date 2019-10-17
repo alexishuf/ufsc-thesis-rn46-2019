@@ -293,6 +293,15 @@
   \selectlanguage{brazil}
 \fi
 
+% \*name's que só existem nessa classe
+\providecommand{\listadesimbolosname}{Lista de Símbolos}%
+\addto\captionsenglish{
+  \renewcommand{\listadesimbolosname}{List of Symbols}%
+}
+\addto\captionsbrazil{
+  \renewcommand{\listadesimbolosname}{Lista de Símbolos}%
+}
+
 \ifufscthesis@nocapautoref\else
   \addto\captionsenglish{%
     \renewcommand{\chapterautorefname}{Chapter}%
@@ -837,11 +846,29 @@
   {\begin{ufscthesisresumo}{Abstract}{english}}
   {\end{ufscthesisresumo}}
 
+% \begin{listadesimbolos}[symbolwdith]
+%   $\neg$ & Logical negation \\
+%   .....
+% \end{listadesimbolos}
+% 
+% Ambiente tabular para construção de Lista de Símbolos
+% A coluna da esquerda deve conter os símbolos e terá largura symbolwidth, que
+% por default é 5em (equivalente a mmmmm)
+\providecommand{\listadesimboloslabel}{list-of-symbols}
+\newenvironment{listadesimbolos}[1][4em]%
+  {%
+    \chapter*{\listadesimbolosname}%
+    \label{\listadesimboloslabel}%
+    \noindent
+    \begin{tabular}{p{#1}p{\dimexpr 16cm-\tabcolsep-#1\relax}}%
+  }%
+  {\end{tabular}}
 
 \ifufscthesis@nocleardoublepage\else
   \AtBeginDocument{
     \preto{\listoftables}{\cleardoublepage}
     \preto{\listoffigures}{\cleardoublepage}
+    \preto{\listadesimbolos}{\cleardoublepage}
     \preto{\tableofcontents}{\cleardoublepage}
     \ifdef{\listoflistings}{\preto{\listoflistings}{\cleardoublepage}}{}
   }
