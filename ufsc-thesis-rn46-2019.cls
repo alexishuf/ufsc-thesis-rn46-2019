@@ -597,17 +597,25 @@
 \setlength{\parskip}{0.0cm}
 % De acordo com @buABNT, na bibliografia deve haver uma linha em branco entre entradas
 \let\ufscthesis@oldthebibliography\thebibliography
+\let\ufscthesis@url\url
+%\renewcommand{\htmladdnormallink}[2]{\href{#2}{#2}}
 \renewcommand{\thebibliography}[1]{%
   % @bibliotecaria: em email privado a BU informou que a NBR 6023:2018
   % não usa <> em referências. Isso causa o desaparecimento dos <>
   % caso \url{} seja usado no bib. Como o abntex2cite foi configurado
   % para usar \url, ele também será afetado
   \DeclareUrlCommand\url{\def\UrlLeft{}\def\UrlRight{}}%
+  % Em um mundo ideal o comando acima deveria ser suficiente. No entanto, \url
+  % está teimando em transformar _ e # em \_ e \#. A gambiarra abaixo evita isso.
+  % Surpreendentemente continua funcionando quando o usuário coloca # e _ não 
+  % escapados no campo url.
+  \def\url#1{\href{#1}{#1}}
   % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a
   % heresia de separar as entradas com uma quebra de parágrafo isso é exigência do @buABNT
   \setlength{\parskip}{\baselineskip}%
   \ufscthesis@oldthebibliography{#1}%
 }
+\let\url\ufscthesis@url
 % Indent da primeira linha do parágrafo @buDoc @buWord
 \setlength{\parindent}{1.5cm}
 % Espaçamento entre linhas de 1,5 @buDoc @buWord @buABNT
