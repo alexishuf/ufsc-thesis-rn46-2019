@@ -9,6 +9,7 @@
 %% This class file was based on https://github.com/mateusduboli/ufsc-thesis-latex
 %% - @rn46 The RN document: https://repositorio.ufsc.br/handle/123456789/197121
 %% - @buDoc MS Word template: https://repositorio.ufsc.br/handle/123456789/197457
+%% - @buDocTCC MS Word Formatting guide for TCCs: https://repositorio.ufsc.br/handle/123456789/174345
 %% - @buWord MS Word Formatting guide: https://repositorio.ufsc.br/handle/123456789/198045
 %% - buResumo MS Word template for "Resumo Estendido": https://repositorio.ufsc.br/handle/123456789/197458
 %% - @buABNT ABNT NBR 14721:2011 : https://repositorio.ufsc.br/handle/123456789/180829
@@ -377,28 +378,55 @@
 \newcommand{\ufscthesis@titulode}[0]{%
   \iftoggle{ufscthesishastitulode}%
     {\imprimirtitulode}%
-    {\begingroup \bfseries Erro: defina \textbackslash{}titulode\endgroup}%
+    {\begingroup \bfseries Erro: chame \textbackslash{}titulode\endgroup}%
 }%
 
 % \tese
 % \dissertacao
+% \tcc
 % Define o tipo de trabalho. Você pode usar o \tipotrabalho definido no abnTeX2,
 % mas alguns defaults dessa classe deixarão de ser computados.
 % O mais importante deles é o \preambulo
 \newtoggle{ufscthesistese}
-\newcommand{\tese}[0]{\toggletrue{ufscthesistese}\renewcommand{\imprimirtipotrabalho}{Tese}}
+\newtoggle{ufscthesistcc}
+\newcommand{\tese}[0]{%
+  \toggletrue{ufscthesistese}
+  \renewcommand{\imprimirtipotrabalho}{Tese}%
+}
 \newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Dissertação}}
+\newcommand{\tcc}[0]{%
+  \toggletrue{ufscthesistcc}%
+  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclusão do Curso}%
+}
 
-% \nivel{<mestrado/doutorado>}
+% \nivel{<mestrado/doutorado/graduação>}
 % Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT
-% O valor padrão é inferido pelo uso de \tese ou \dissertacao
-\providecommand{\imprimirnivel}{\iftoggle{ufscthesistese}{doutorado}{mestrado}}
+% O valor padrão é inferido pelo uso de \tese, \dissertacao ou \tcc
+\providecommand{\imprimirnivel}{%
+  \iftoggle{ufscthesistese}%
+    {doutorado}%
+    {\iftoggle{ufscthesistcc}%
+      {gradua\c{c}\~{a}o}%
+      {mestrado}}%
+}
 \newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
 
 % \centro{<centro>}
 % Configura o nome do centro da UFSC
 \providecommand{\imprimircentro}{}
 \newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
+
+% \departamento{<departamento>}
+% Configura o nome do departamento (apenas para TCCs (\tcc))
+\providecommand{\imprimirdepartamento}%
+  {\begingroup \bfseries Erro: chame \textbackslash{}departamento\{...\}\endgroup}
+\newcommand{\departamento}[1]{\renewcommand{\imprimirdepartamento}{#1}}
+
+% \curso{<curso>}
+% Configura o nome do curso (apenas para TCCs (\tcc))
+\providecommand{\imprimircurso}%
+  {\begingroup \bfseries Erro: chame \textbackslash{}curso\{...\}\endgroup}
+\newcommand{\curso}[1]{\renewcommand{\imprimircurso}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Banca e coordenação (folha de certificação)                    %%%
@@ -409,11 +437,23 @@
 % Uso interno. Lista de membros da banca
 \newcommand{\ufscthesis@membrobanca}[2]{#1\par#2}
 % 6.61cm medido no template oficial @buWord
-\newcommand{\ufscthesis@certificador}[2]{\rule{6.61cm}{1pt}\par#1\par#2\par}
+\newcommand{\ufscthesis@certificador}[3][]{\rule{6.61cm}{1pt}\par#2\par#3\par\ifblank{#1}{}{#1\par}}
 
-% \membrobanca{<nome>}{<Universidade>}
-% Adiciona um membro da
-\newcommand{\membrobanca}[2]{\listadd{\ufscthesis@banca}{#1\par#2}}
+% \membrobanca[<papel>]{<nome>}{<Universidade>}
+% \membrabanca{<nome>}{<Universidade>}
+%
+% Adiciona um membro da banca.
+% O argumento opcional <papel> só é utilizado para TCCs (\tcc) e o seu valor
+% padrão é Avaliador. No caso de avaliadoras, é possível alterar esse argumento
+% ou usar o comando \mebrabanca.
+\newcommand{\membrobanca}[3][Avaliador]{%
+  \listadd{\ufscthesis@banca}{%
+    \iftoggle{ufscthesistcc}%
+    {\rule{6.61cm}{1pt}\par#2\par#1\par#3}
+    {#2\par#3}
+  }%
+}
+\newcommand{\membrabanca}[2]{\membrobanca[Avaliadora]{#1}{#2}}
 
 % \coordenador[a]{<nome>}
 % Configura o nome do(a) Coordenador(a) do programa
@@ -425,12 +465,39 @@
 }
 \newcommand{\coordenadora}[1]{\coordenador[a]{#1}}
 
+% \orientadora
+% \coorientadora
+%
+% Versões femininas dos comandos abnTeX2
 \newtoggle{ufscthesisfemsupervisor}
 \newcommand{\orientadora}[1]{
   \toggletrue{ufscthesisfemsupervisor}
   \orientador[Orientadora:]{#1}
 }
-\newcommand{\coorientadora}[1]{\coorientador[Coorientadora:]{#1}}
+\newtoggle{ufscthesisfemcosupervisor}
+\newcommand{\coorientadora}[1]{%
+  \toggletrue{ufscthesisfemcosupervisor}
+  \coorientador[Coorientadora:]{#1}
+}
+
+% \afiliacaoorientador{<universidade/empresa/instituição>}
+% \afiliacaoorientadora{<universidade/empresa/instituição>}
+% \afiliacaocoorientador{<universidade/empresa/instituição>}
+% \afiliacaocoorientadora{<universidade/empresa/instituição>}
+%
+% Define a afiliação do orientador e coorientador. Por padrão a afiliação de
+% ambos é Universidade Federal de Santa Catarina. A afiliação apenas é exibida
+% em TCCs, configurados com \tcc.
+\newcommand{\imprimirafiliacaoorientador}{Universidade Federal de Santa Catarina}%
+\newcommand{\imprimirafiliacaocoorientador}{Universidade Federal de Santa Catarina}%
+\newcommand{\afiliacaoorientador}[1]{%
+  \renewcommand{\imprimirafiliacaoorientador}{#1}%
+}
+\newcommand{\afiliacaocoorientador}[1]{%
+  \renewcommand{\imprimirafiliacaocoorientador}{#1}%
+}
+\newcommand{\afiliacaoorientadora}[1]{\afiliacaoorientador{#1}}
+\newcommand{\afiliacaocoorientadora}[1]{\afiliacaocoorientador{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Padrões para Comandos de dados do abnTeX2                      %%%
@@ -440,9 +507,17 @@
 % Texto padrão conforme @buABNT. Esse default só é configurado se os comandos
 % dessa classe, \tese ou \dissertacao, foram usados
 \renewcommand{\imprimirpreambulo}{%
-\imprimirtipotrabalho~\iftoggle{ufscthesistese}{submetida}{submetido}~ao %
-\imprimirprograma{} para a obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode{}.%
-}
+  \iftoggle{ufscthesistcc}%
+  {%
+    \imprimirtipotrabalho~do Curso de Gradua\c{c}\~{a}o em %
+    \imprimircurso~do \imprimircentro~da Universidade Federal de Santa Catarina %
+    como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
+    \ufscthesis@titulode{}.%
+  }{%
+    \imprimirtipotrabalho~submetida~ao \imprimirprograma{} para a %
+    obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode{}.%
+  }%
+}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos para configurar data                                  %%%
@@ -655,15 +730,23 @@
   \begin{capa}
     \begin{center}
       \selectlanguage{brazil}
-      \includegraphics[height=2.54cm,width=1.84cm]{\ufscthesis@logo}
+      \iftoggle{ufscthesistcc}%
+        {}%
+        {\includegraphics[height=2.54cm,width=1.84cm]{\ufscthesis@logo}}
 
       {
         \ABNTEXsectionfont
         \MakeTextUppercase{\imprimirinstituicao}
 
         \MakeTextUppercase{\imprimircentro}
+        
+        \iftoggle{ufscthesistcc}{
+          \MakeTextUppercase{\imprimirdepartamento}
 
-        \MakeTextUppercase{\imprimirprograma}
+          \MakeTextUppercase{\imprimircurso}
+        }{
+          \MakeTextUppercase{\imprimirprograma}
+        }
       }
       \vspace*{4cm}
 
@@ -769,7 +852,60 @@
   \end{center}
 }
 
-\newcommand{\imprimirfolhadecertificacao}[0]{\cleardoublepage\folhadecertificacaocontent\cleardoublepage}
+% Mesma origem que \folhadecertificacaocontent e adicionalmente, @buDocTCC.
+% Usado apenas com TCCs
+\newcommand{\folhadeaprovacaocontent}{
+  \begin{center}
+    \selectlanguage{brazil} 
+    \normalsize
+    \OnehalfSpacing %usado na folha inteira
+    % Nome do autor em caixa baixa sem negrito
+    {\imprimirautor} \par
+    % Apenas 1,5 de espaço Título em negrito (e subtitulo sem)
+    {\centering\bfseries \imprimirtitulo} \par
+    \vspace*{\fill}
+    %\ufscthesis@lbreak % uma linha em branco
+    Este \imprimirtipotrabalho{} foi julgado adequado para obten\c{c}\~{a}o do T\'{i}tulo de \ufscthesis@titulode{} e aprovado em sua forma final pelo curso de Gradua\c{c}\~{a}o em \imprimircurso. \par
+    \vspace{1em}
+    % Para TCCs, tanto @buABNT quanto @buDocTCC usam a data por extenso
+    \imprimirlocal, \imprimirdataext. \par
+    \vspace*{\fill}
+    % Imprime coordenador
+    \imprimircoordenador
+    % Imprime a banca (incluindo orientador e coorientador
+    \vspace*{\fill}
+    \vspace*{\fill}
+    {\centering\bfseries Banca Examinadora: \par}%
+    \vspace*{\fill}
+    \ufscthesis@certificador%
+      [\imprimirafiliacaoorientador]%
+      {\imprimirorientador}%
+      {Orientador\iftoggle{ufscthesisfemsupervisor}{a}{}}%
+    \vspace*{\fill}
+    \abntex@ifnotempty{\imprimircoorientador}{%%
+      \ufscthesis@certificador%
+        [\imprimirafiliacaocoorientador]%
+        {\imprimircoorientador}%
+        {Coorientador\iftoggle{ufscthesisfemcosupervisor}{a}{}}%
+    }%
+    \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
+  \end{center}
+}
+
+% \imprimirfolhadecertificacao
+% \imprimirfolhadeaprovacao 
+%
+% Ambos são equivalentes. O tipo de folha (aprovação ou certificação) será
+% definido de acordo com tipo de trabalho definido (via \tcc, \dissertacao ou
+% \tese). TCCs usam "Folha de aprovação" enquando teses e dissertações usam
+% folha de certificação.
+\newcommand{\imprimirfolhadecertificacao}[0]{%
+  \cleardoublepage%
+  \iftoggle{ufscthesistcc}%
+    {\folhadeaprovacaocontent}%
+    {\folhadecertificacaocontent}%
+  \cleardoublepage%
+}
 \newcommand{\imprimirfolhadeaprovacao}[0]{\imprimirfolhadecertificacao}
 
 

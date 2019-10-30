@@ -14,7 +14,8 @@
 
 % Usado para mostrar comandos latex nesse guia:
 \newcommand{\lacmd}[1]{\texttt{\textbackslash{}#1}}
-\newcommand{\laenv}[2][]{\texttt{\textbackslash{}begin\{#2\}#1...\textbackslash{}end\{#2\}}}
+\newcommand{\laenv}[1]{\texttt{\textbackslash{}begin\{#1\}...\textbackslash{}end\{#1\}}}
+\newcommand{\laenvi}[2]{\texttt{\textbackslash{}begin\{#1\}[#2]...\textbackslash{}end\{#1\}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Configurações da classe (dados do trabalho)                  %%%
@@ -29,8 +30,20 @@
 \local{Florianópolis} % Apenas cidade! Sem estado
 \programa{Programa de Pós-Graduação em Ciência da Computação}
 % Os dois próximos itens são usados para gerar o \preambulo
-\tese % ou \dissertacao
-\titulode{Doutor em Ciência da Computação}
+\tese % ou \dissertacao ou \tcc
+\titulode{doutor em Ciência da Computação}
+
+%%% Atenção! No caso de TCC, além de usar \tcc, outros comandos devem ser fornecidos:
+%%%
+% \tcc
+% \departamento{Departamento de Informática e Estatística}
+% \curso{Ciência da Computação}
+% \titulode{Bacharel em Ciência da Computação}
+% %% Para TCCs, orientadores e coorientadores podem ser externos, logo a
+% %% BU exige que sua afiliação seja explicitada. Por padrão, assume-se
+% %% UFSC. Você pode alterar a afiliação com os comandos abaixo:
+% \afiliacaoorientador{Universidade Federal de Santa Catarina}
+% \afiliacaocoorientador{Universidade Federal da Terra de Ninguém}
 
 % Orientador, coorientador, membros da banca e coordenador
 % As regras da BU agora exigem que Dr. apareça **depois** do nome
@@ -38,9 +51,9 @@
 % Dica 2: para feminino use \orientadora e \coorientadora
 \orientador{Prof. Ben Trovato, Dr.}
 \coorientador{Prof. Lars Thørväld, Dr.}
-\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
+\membrabanca{Prof\textsuperscript{a}. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
 \membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
-\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal da Terra de Ninguém}
 % Dica: se feminino, \coordenadora
 \coordenador{Prof. Charles Palmer, Dr}
 
@@ -162,6 +175,8 @@ bem vindos.
 
 Lista de versões (pelo menos das versões que receberam um número):
 \begin{description}
+\item[v0.2] (2019-10-30) Engloba alterações feitas pela BU na segunda metade de
+  setembro, bugfixes, \lacmd{listadesimbolos} e \lacmd{tcc}.
 \item[v0.1] (2019-08-02) Primeira versão completa e documentada.
 \item[v0.1-alpha] (2019-08-01) Primeira versão para ajudar alunos com pouco
     prazo de entrega.
@@ -350,6 +365,45 @@ de bibliografia.
   \fonte{o autor.}
 \end{figure}
 
+\subsection{TCCs}
+\label{sec:tcc}
+
+A BU também definiu regras para Trabalhos de Conclusão de Curso (TCCs). As
+diferenças para a pós-graduação estão na capa, folha de rosto e folha de
+aprovação (não é feita assinatura digital dos TCCs). Para criar um TCC usando
+esse template, você deverá utilizar o comando \lacmd{tcc} no lugar de
+\lacmd{tese} ou \lacmd{dissertacao}. No modo TCC, será necessário fornecer
+alguns comandos de dados adicionais, como apresentado na
+\autoref{fig:tccs-conf}.
+
+No modo TCC, a capa não inclui o brasão da UFSC, mas inclui o nome do
+departamento e do curso. Na folha de rosto, a única alteração ocorre no
+preâmbulo (abaixo do título). No caso da folha de aprovação as mudanças são
+múltiplas. Tanto o Orientador quanto o Coorientador devem ser inseridos na
+condição de membros da banca examinadora. Além disso, todos os membros da banca
+e o coordenador do curso devem ser apresentados como se assinassem a folha de
+aprovação (com linhas horizontais). Orientador e Coorientador precisam ter sua
+afiliação explicitada e os demais membros da banca devem ser listados com o
+papel de Avaliador (o que não ocorre na folha de certificação).
+
+\begin{figure}[tb]
+  \centering
+  \caption{Configuração para TCCs.}
+  \label{fig:tccs-conf}
+\begin{minted}{latex}
+\tcc
+\departamento{Departamento de Informática e Estatística}
+\curso{Ciência da Computação}
+\titulode{Bacharel em Ciência da Computação}
+\afiliacaoorientador{Universidade Federal de Santa Catarina} %default
+\afiliacaocoorientador{Universidade Federal da Terra de Ninguém}
+\end{minted}
+  \fonte{o autor.}
+\end{figure}
+
+
+
+
 
 \chapter{Problemas conhecidos}
 \label{ch:problems}
@@ -500,6 +554,17 @@ tese de doutorado. Isso irá alterar o preâmbulo e a folha de certificação.
 uma dissertação de mestrado. Esse é o padrão quando nem \lacmd{dissertacao} nem
 \lacmd{tese} são usados.
 
+\paragraph*{\lacmd{tcc}} Comando sem argumentos. Marca o documento como um
+TCC. As diferenças nesse modo são discutidas na \autoref{sec:tcc}.
+
+\paragraph*{\lacmd{departamento\{<departamento>\}}} Informa o departamento ao
+qual o curso de graduação ou especialização está vinculado. O Departamento é
+incluído na capa.
+
+\paragraph*{\lacmd{curso\{<curso>\}}} Informa o curso de graduação
+ou especialização do trabalho. Essa informação é incluída na parte superior da
+capa, na folha de rosto e na folha de aprovação.
+
 \paragraph*{\lacmd{nivel\{<nivel>\}}} Deve ser o nível do título almejado, em
 minúsculas. O valor padrão é inferido a partir do uso (ou não uso) de
 \lacmd{tese} e \lacmd{dissertacao}.
@@ -519,16 +584,21 @@ a data da folha de aprovação (que é em português) apareça em inglês! Exemp
             \lacmd{dia\{<dia>\}}}
 Define cada componente da data individualmente.
 
-\paragraph*{\lacmd{membrobanca\{<nome com
-títulos>\}\{<universidade por extenso>\}}}
-Nome do professor avaliador da banca, incluíndo Prof. (ou Profa.) antes do nome
-e o título \textbf{após} o nome. Exemplo: \emph{Prof. Mordecai Malignatus,
-  Dr.}. O orientador não deve ser incluído nessa seção. Não está claro nas
-instruções da UFSC se o coorientador também não deveria. 
+\paragraph*{\lacmd{membrobanca[<papel>]\{<nome>\}\{<universidade>\}} \\
+            \lacmd{membrabanca\{<nome>\}\{<universidade>\}}}
+Nome do professor avaliador da banca, incluíndo Prof. (ou
+Prof\textsuperscript{a}.) antes do nome e o título \textbf{após} o
+nome. Exemplo: \emph{Prof. Mordecai Malignatus, Dr.}. O orientador não deve ser
+incluído nessa seção, nem mesmo para TCCs. Não está claro nas instruções da UFSC
+se o coorientador deveria ser incluído no caso de trabalhos de pós-graduação. O
+argumento opcional \texttt{<papel>}, cujo valor padrão é \texttt{Avaliador} só é
+utilizado em TCCs (cf. \autoref{sec:tcc}). No caso de TCCs com mulheres na banca
+o papel deve ser alterado para \texttt{Avaliadora}, ou deve ser utilizado o
+comando \lacmd{membrabanca}
 
-\paragraph*{\lacmd{coordenadora\{<nome>\}}} Nome do coordenador do
-programa. Nesse caso a BU usa títulos antes do nome. No caso de coordenadora, o
-comando \lacmd{coordenadora} pode ser usado. Exemplo: \lacmd{coordenador\{
+\paragraph*{\lacmd{coordenadora\{<nome>\}}} Nome do coordenador do programa ou
+do curso, no caso de TCCs. No caso de coordenadora, o comando
+\lacmd{coordenadora} pode ser usado. Exemplo: \lacmd{coordenador\{
   Prof. Mordecai Malignatus, Dr.\}}.
 
 \subsection{Comandos de saída}
@@ -601,13 +671,13 @@ configurações do ambiente citação. o template \texttt{.doc} aplica todas, ex
 pela fonte 11, apesar de citar a ABNT NBR 10520. Visando maior consistência,
 optou-se por usar a fonte 10pt.
 
-\paragraph*{\laenv[[<nome>]]{abstract}}
+\paragraph*{\laenvi{abstract}{<nome>}}
 Em abnTeX2, não se deve chamar o ambiente abstract diretamente. Caso o alune o
 chame, será interpretado como se o aluno tivesse chamado
 \lacmd{begin\{resumo\}[Abstract]} e a linguagem (controlando hifenização) será
 alterada para inglês.
 
-\paragraph*{\laenv[[<nome>]]{resumo}}
+\paragraph*{\laenvi{resumo}{<nome>}}
 Ambiente usado para gerar os resumos (para documentos em inglês é necessário um
 resumo estendido) e \emph{abstracts}. A BU fornece além do template geral .doc,
 fornece um template para o resumo estendido, que também deve ser gerado usando
