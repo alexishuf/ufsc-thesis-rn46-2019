@@ -461,7 +461,7 @@
 \newcommand{\imprimircoordenador}[0]{}
 \newcommand{\coordenador}[2][]{%
   \renewcommand{\imprimircoordenador}%
-    {\ufscthesis@certificador{#2}{Coordenador#1 do Programa}}%
+    {\ufscthesis@certificador{#2}{Coordenador#1 do \iftoggle{ufscthesistcc}{Curso}{Programa}}}%
 }
 \newcommand{\coordenadora}[1]{\coordenador[a]{#1}}
 
