@@ -712,7 +712,7 @@
   % está teimando em transformar _ e # em \_ e \#. A gambiarra abaixo evita isso.
   % Surpreendentemente continua funcionando quando o usuário coloca # e _ não 
   % escapados no campo url.
-  \def\url#1{\href{#1}{#1}}
+  \def\url#1{#1}
   % o +.2 é o interlineskip, pra criar a ilusão de que o autor cometeu a
   % heresia de separar as entradas com uma quebra de parágrafo isso é exigência do @buABNT
   \setlength{\parskip}{\baselineskip}%
