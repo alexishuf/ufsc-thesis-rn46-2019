@@ -73,6 +73,14 @@
 \protect\incluirfichacatalografica{ficha.pdf}
 \imprimirfolhadecertificacao
 
+% Listas de "coisas". O * no final faz com que as listas não sejam 
+% incluídas como entratas do sumário (\tableofcontents)
+
+% \listoftables*
+% \listofalgorithms*
+% \listoffigures*
+% \tableofcontents*
+
 \begin{dedicatoria}
   Este trabalho é dedicado à wikipedia e ao stackoverflow. 
 \end{dedicatoria}
@@ -321,6 +329,7 @@ BU.
 \begin{abstract}...\end{abstract}
 \listoffigures* % primeiro \listof na ABNT
 \listoftables*  
+\listofalgorithms*
 % sugestão: adicionar outros \listof* aqui
 \begin{siglas}...\end{siglas} % há pacotes alternativos que podem agilizar
 \tableofcontents*  %deve ser o último
@@ -695,6 +704,18 @@ implementadas nesse ambiente:
   usado o ambiente abstract ou tenha usado Abstract, abstract ou ABSTRACT como
   argumento \texttt{<nome>} do ambiente.
 \end{itemize}
+
+\subsection{Comandos de outros pacotes modificados}
+
+\paragraph*{\lacmd{listofalgorithms}} O nome é alterado para
+\lacmd{ufscthesisalgorithmname} (Algoritmo em portugês e Algorithm em inglês) e
+a formatação é ajustada para a BU. O uso do pacote algorithm2e é
+auto-detectado. O pacote não será importado automáticamente e o suporte ao
+pacote não é uma recomendação do seu uso. \textbf{Caso o comando não seja
+  definido por nenhum outro pacote}, a presente classe o definirá utilizando o
+pacote \texttt{newfloat}, em conjunto com um ambiente
+\lacmd{begin\{algorithm\}...\lacmd{end\{algorithm\}}}.
+
 
 \chapter{Mais exemplos de formatação}
 \label{ch:ex}

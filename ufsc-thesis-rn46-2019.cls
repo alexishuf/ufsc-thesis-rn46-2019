@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2019/08/02 v0.2snapshot ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/20 v0.3 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -296,11 +296,17 @@
 
 % \*name's que só existem nessa classe
 \providecommand{\listadesimbolosname}{Lista de S\'imbolos}%
+\providecommand{\ufscthesisalgorithmname}{Algoritmo}%
+\providecommand{\ufscthesislistofalgorithmsname}{Lista de Algoritmos}%
 \addto\captionsenglish{
   \renewcommand{\listadesimbolosname}{List of Symbols}%
+  \renewcommand{\ufscthesisalgorithmname}{Algorithm}%
+  \renewcommand{\ufscthesislistofalgorithmsname}{List of Algorithms}%
 }
 \addto\captionsbrazil{
   \renewcommand{\listadesimbolosname}{Lista de S\'imbolos}%
+  \renewcommand{\ufscthesisalgorithmname}{Algoritmo}%
+  \renewcommand{\ufscthesislistofalgorithmsname}{Lista de Algoritmos}%
 }
 
 \ifufscthesis@nocapautoref\else
@@ -990,6 +996,7 @@
   {\begin{ufscthesisresumo}{Abstract}{english}}
   {\end{ufscthesisresumo}}
 
+
 % \begin{listadesimbolos}[symbolwdith]
 %   $\neg$ & Logical negation \\
 %   .....
@@ -1014,9 +1021,78 @@
     \preto{\listoffigures}{\cleardoublepage}
     \preto{\listadesimbolos}{\cleardoublepage}
     \preto{\tableofcontents}{\cleardoublepage}
+    \preto{\textual}{\cleardoublepage}
     \ifdef{\listoflistings}{\preto{\listoflistings}{\cleardoublepage}}{}
   }
 \fi
+
+% \listofalgorithms
+% 
+% Esse comando provavelmente será definido antes do \begin{document}. Uma das 
+% três ações abaixo será tomada:
+%   1. Se algorithm2e foi usado, adaptará \listofalgorithms para o padrão da BU
+%   2. Se o ambiente foi definido aplicará um hack pouco nocivo para garantir 
+%      que seja usado Algoritmo ou Algorithm
+%   3. Se o ambiente não foi definido, define-o
+
+\AtEndPreamble{%
+  \ifdef{\SetKwInOut}{%
+    \typeout{ufsc-thesis-rn46-2019: Detected algorithm2e. Will configure its listofalgorithms.}
+    \SetAlgorithmName{\ufscthesisalgorithmname}%
+                     {\ufscthesisalgorithmname}%
+                     {\ufscthesislistofalgorithmsname}
+    \providecommand{\ufscthesisnumberline}[1]{Algoritmo~#1 -- }
+    \pretocmd{\listofalgorithms}{%
+      \begingroup%
+      \renewcommand{\figurename}{\ufscthesisalgorithmname}%
+      \renewcommand{\numberline}[1]{Algoritmo~#1 -- }
+    }{}{}
+    \apptocmd{\listofalgorithms}{\endgroup}{}{}
+  }{%
+    \ifdef{\listofalgorithms}{%
+      \typeout{ufsc-thesis-rn46-2019: listofalgorithms defined. Will set figurename to ufscthesisalgorithmname. This fixes some issues and will only hold within the environment.}
+      \pretocmd{\listofalgorithms}{%
+        \begingroup%
+        \renewcommand{\figurename}{\ufscthesisalgorithmname}%
+      }{}{}
+      \apptocmd{\listofalgorithms}{\endgroup}{}{}
+    }{%
+      \ifdef{\algorithm}{%
+        \typeout{ufsc-thesis-rn46-2019: algorithm env exists! Will not DeclareFloatingEnvironment{algorithm}. I have no reliable way to create a listofalgorithms command!}
+      }{%
+        \typeout{ufsc-thesis-rn46-2019: Will DeclareFloatingEnvironment{algorithm} with listofalgorithms}
+        \RequirePackage{newfloat}
+        \DeclareFloatingEnvironment[%
+          within=none,%
+          listname=\ufscthesislistofalgorithmsname,%
+          name=\ufscthesisalgorithmname%
+        ]{algorithm}
+        \pretocmd{\listofalgorithms}{%
+          \begingroup%
+          \renewcommand{\figurename}{\ufscthesisalgorithmname}%
+        }{}{}
+        \apptocmd{\listofalgorithms}{\endgroup}{}{}
+      }
+    }
+  }
+  \let\ufscthesis@listofalgorithms\listofalgorithms
+  \providecommand{\ufscthesis@listofalgorithmsKFT}{%
+    \begin{KeepFromToc}%
+      \ufscthesis@listofalgorithms%
+    \end{KeepFromToc}%
+  }
+  \renewcommand{\listofalgorithms}{%
+    \@ifstar\ufscthesis@listofalgorithmsKFT\ufscthesis@listofalgorithms
+  }
+
+  % \listadealgoritmos
+  % 
+  % Alias para \listofalgorithms
+  \newcommand{\listadealgoritmos}{%
+    \@ifstar\ufscthesis@listofalgorithmsKFT\ufscthesis@listofalgorithms%
+  }
+}
+
 
 \ifufscthesis@embeddedlogo
 \begin{filecontents*}{\jobname.64}
