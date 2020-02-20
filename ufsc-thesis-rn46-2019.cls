@@ -399,10 +399,10 @@
   \toggletrue{ufscthesistese}
   \renewcommand{\imprimirtipotrabalho}{Tese}%
 }
-\newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Dissertação}}
+\newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Disserta\c{c}\~{a}o}}
 \newcommand{\tcc}[0]{%
   \toggletrue{ufscthesistcc}%
-  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclusão do Curso}%
+  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclus\~{a}o do Curso}%
 }
 
 % \nivel{<mestrado/doutorado/graduação>}
