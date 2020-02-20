@@ -160,6 +160,17 @@
   \ufscthesis@nocleardoublepagetrue%
 }
 
+% [nolatexextra]
+% Se fornecida, essa opção impede o RequirePackage de pacotes em latexextra.
+% Tais pacotes estão disponíveis em qualquer sistema minimamente decente, e
+% se a ausência desses pacotes não causar problemas nessa classe, 
+% certamente causará problemas em outros pacotes utilizados no main file.
+% Se ainda assim for necessário, use essa opção. Note que coisas podem quebrar.
+\newif\ifufscthesis@nolatexextra
+\DeclareOption{nocleardoublepage}{%
+  \ufscthesis@nolatexextratrue%
+}
+
 
 % Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
 \DeclareOption*{%
@@ -182,6 +193,15 @@
 % Outro detalhe: brazil sempre precisa ser carregado (vide abntex2)
 % Outro detalhe(2): english sempre precisa ser carregado, devido ao abstract
 \RequirePackage[brazil,english]{babel}
+
+\ifufscthesis@nolatexextra\else
+  % Esse RequirePackage deve acontecer **antes** do abntex2, pois o
+  % abntex2 definirá alguns comandos de substr caso eles já não estejam
+  % definidos. O efeito colateral é que alguns alunos incluirão pacotes
+  % (como o glossaries) que indiretamente incluirão substr, que então
+  % causará um erro de símbolos já definidos.
+  \RequirePackage{substr}
+\fi
 
 % Carrega como base a classe 'abntex2'
 \ifufscthesis@eng\else
@@ -216,7 +236,9 @@
 \RequirePackage{indentfirst}
 
 % Número da última página
-\RequirePackage{lastpage}
+\ifufscthesis@nolatexextra\else
+  \RequirePackage{lastpage}
+\fi
 
 % Citações
 \ifufscthesis@noabntexcite\else
