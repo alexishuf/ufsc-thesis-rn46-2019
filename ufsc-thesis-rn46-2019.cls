@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/20 v0.3 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/20 v0.4 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -1027,15 +1027,16 @@
 % Ambiente tabular para construção de Lista de Símbolos
 % A coluna da esquerda deve conter os símbolos e terá largura symbolwidth, que
 % por default é 5em (equivalente a mmmmm)
+\RequirePackage{longtable}
 \providecommand{\listadesimboloslabel}{list-of-symbols}
 \newenvironment{listadesimbolos}[1][4em]%
   {%
     \chapter*{\listadesimbolosname}%
     \label{\listadesimboloslabel}%
     \noindent
-    \begin{tabular}{p{#1}p{\dimexpr 16cm-\tabcolsep-#1\relax}}%
+    \begin{longtable}{p{#1}p{\dimexpr 16cm-\tabcolsep-#1\relax}}%
   }%
-  {\end{tabular}}
+  {\end{longtable}}
 
 \ifufscthesis@nocleardoublepage\else
   \AtBeginDocument{
