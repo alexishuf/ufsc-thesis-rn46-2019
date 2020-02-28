@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/20 v0.4 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/28 v0.5 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -251,6 +251,82 @@
     \PassOptionsToPackage{abnt-and-type=e}{abntex2cite}
   \fi
   \RequirePackage{abntex2cite}
+
+  % BEHOLD the gambiarra
+  %
+  % abntex2cite.sty for some obscure reason redefines IfSubStringInString (and
+  % related submacros). This definition is different from that in the substr
+  % package (last updated in 2009). As commented above, we are allowing substr
+  % to be loaded before abntex2cite in order to avoid the issue of other
+  % packages (such as glossaries) including substr and blowing up with "already
+  % defined" errors.
+  %
+  % However, happiness is hard to attain. Somehow the \IfSubStringInString
+  % command from substr as used below outputs **both** cases when the comparison
+  % fails. This leads to two \bibdata commands being written to the \aux file,
+  % causing bibtex to error out with:
+  %
+  %     Illegal, another \bibdata command---line 149 of file main.aux
+  %      : \bibdata
+  %      :         {abntex2-options,main}
+  %     I'm skipping whatever remains of this command
+  %
+  % Usage in abntex2cite appears correct and glossaries appears to work
+  % correctly with vanilla definitions from the substr package. THEREFORE, the
+  % solution here is to discard the \bibliography as defined by abntex2cite and
+  % re-define it after \begin{document} once we know abntex2cite has been
+  % already loaded, but before any usage of \bibliography{}. In this
+  % redefinition we use the definitions that abntex2cite gives for
+  % \IfSubStringInString & friends, but we change the function names to avoid
+  % clashes with substr (if it has been loaded in the end).
+  \AtBeginDocument{
+    \newcommand{\abntexcitesu@ExpandTwoArgs}[3]{%
+      \protected@edef\abntexcitesu@SubString{#1}%
+      \protected@edef\abntexcitesu@String{#2}%
+      \expandafter\expandafter\expandafter#3%
+      \expandafter\expandafter\expandafter{%
+        \expandafter\abntexcitesu@SubString\expandafter
+      }\expandafter{\abntexcitesu@String}%
+    }
+    \newcommand*{\abntexciteIfSubStringInString}[2]{%
+      \abntexcitesu@ExpandTwoArgs{#1}{#2}\abntexcitesu@IfSubStringInString
+    }
+    \newcommand*{\abntexcitesu@IfSubStringInString}[2]{%
+      \def\abntexcitesu@compare##1#1##2\@nil{%
+        \def\abntexcitesu@param{##2}%
+        \ifx\abntexcitesu@param\@empty
+        \expandafter\@secondoftwo
+        \else
+        \expandafter\@firstoftwo
+        \fi
+      }%
+      \abntexcitesu@compare#2#1\@nil
+    }
+    \def\bibliography#1{% ****
+      {
+        \ifx \SingleSpacing\undefined
+        \singlespacing
+        \else
+        \SingleSpacing   
+        \fi  
+        % 
+        \ifthenelse{\boolean{ABCIciteoptionwasused}
+          \and\boolean{ABCIauto-abntoptions}}
+        {
+          % this system of checking is not good...
+          \abntexciteIfSubStringInString{abntex2-options}{#1}
+          {\if@filesw\immediate\write\@auxout{\string\bibdata{#1}}\fi}
+          {\if@filesw\immediate\write\@auxout{\string\bibdata{abntex2-options,#1}}\fi}
+        }
+        {
+          \if@filesw
+          \immediate\write\@auxout{\string\bibdata{#1}}%
+          \fi
+        }
+        \@input@{\jobname.bbl}
+      }
+    }
+  }
 \fi
 
 \ifufscthesis@nohidelinks\else
