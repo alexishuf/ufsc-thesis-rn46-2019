@@ -127,18 +127,6 @@
   \ufscthesis@nocleanheadertrue%
 }
 
-% [embeddedlogo]
-% Se ativa, essa opção usa um logo da UFSC de alta qualidade que está
-% embutido em base64 dentro do próprio arquivo .cls. Essa funcionalidade
-% faz com que o arquivo .cls seja stand-alone.
-% Esse desempacotamento depende de compilação com -shell-escape e de um
-% ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf
-% desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
-\newif\ifufscthesis@embeddedlogo
-\DeclareOption{embeddedlogo}{%
-  \ufscthesis@embeddedlogotrue%
-}
-
 % [nopretextualbookmarks]
 % Se ativa essa opção impede o abnTeX de gerar bookmarks para
 % elementos pré-textuais. Bookmarks são o que dão origem às entradas
