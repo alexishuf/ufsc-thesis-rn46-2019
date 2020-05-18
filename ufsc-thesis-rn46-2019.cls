@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2020/02/28 v0.5 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2020/05/18 v0.6 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -395,6 +395,26 @@
   \renewcommand{\ufscthesislistofalgorithmsname}{Lista de Algoritmos}%
 }
 
+% \autorefnames que costumeiramente não estão definidos
+% Como esses nomes podem eventualmente vir a ser definidos por pacotes, os
+% \providecommand iniciais devem ser feitos após todos os \usepackage's
+\AtEndPreamble{%
+  \providecommand{\listingautorefname}{Listagem}%
+  \providecommand{\algorithmautorefname}{Algoritmo}%
+  \providecommand{\subfigureautorefname}{\figureautorefname}%
+  \providecommand{\sublistingautorefname}{\listingautorefname}%
+  \providecommand{\subalgorithmautorefname}{\algorithmautorefname}%
+}
+\addto\captionsenglish{%
+  \def\listingautorefname{Listing}%
+  \def\algorithmautorefname{Algorithm}%
+}
+\addto\captionsbrazil{%
+  \def\listingautorefname{Listagem}%
+  \def\algorithmautorefname{Algoritmo}%
+}
+
+% Implement class option [nocapautoref]
 \ifufscthesis@nocapautoref\else
   \addto\captionsenglish{%
     \renewcommand{\chapterautorefname}{Chapter}%
