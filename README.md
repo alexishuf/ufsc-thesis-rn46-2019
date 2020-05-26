@@ -73,15 +73,33 @@ pdflatex -shell-escape arquivo.tex
 
 ## FAQ
 
+### Agora a BU possui um template LaTeX, qual devo usar?
+
+Siga seu coração, jovem. As principais diferenças são:
+
+1. Essa classe é minimamente intrusiva;
+2. Essa classe fornece apenas formatação e detecta pacotes para corrigir algumas incompatibilidades;
+3. Essa classe tenta emular o template do Word, que é o mais ativamente mantido pela BU;
+4. Há muitos alunos e poucos bibliotecários, mas nessa classe qualquer um pode abrir um PR.
+
+A diferença 1 implica que nenhum pacote relevante que já não seja carregado pelo próprio abnTeX2 (como o hyperref) será carregado. O objetivo é evitar que a classe carrega algum pacote incompatível com outro que o usuário quer usar. Exemplos de problemas são acronym vs. glossaries, listings vs. minted e opções de \usepackage{}. A diferença 2 significa que ninguém vai ficar frustado pois o template separa a dissertação em 27 arquivos com hard wraps. Sua dissertação, suas regras. A segunda consequência é que bug fixes na classe não precisam de um diff no `main.tex`: basta trocar o `.cls` (ou fazer um `git pull` no submodule). A diferença 3 é uma última linha de defesa para o caso onde o template LaTeX da BU fique sem atualização. Nem todo bibliotecário tem disponibilidade de alterar o LaTex quando descobrem um erro no template.
+
+Independetemente do template que escolher, lembre que **é possível cometer erros com os dois** e os dois podem ter erros. Submeta sua dissertação/tese com antecedência maior do que 15 dias úteis.
+
+
+### A BU usa Arial, por que essa classe usa Times?
+
+A BU usa Arial como exemplo, mas no template word autoriza uso de Times. Fontes serifadas (como Times) são tradicionais em livros impressos e são exigidas em inúmeras editoras científicas, como Elsevier, Springer, IEEE, ACM e SBC. Já fontes sans-serif são mais comuns na internet e em contextos mais informais como magazines (não confundir com journals). Dissertações são essecialmente pequenos livros com conteúdo científico, por isso uma fonte serifada é uma escolha mais adequada. Caso queira algo mais (literalmente) moderno que Times New Roman, você pode usar Latin Modern via a opção de classe `lmodern` ou outras fontes manualmente importando seus pacotes. Cuidado: embora a BU já tenha aceito dissertações usando Latin Modern, apenas Arial ou Times são mencionadas pela BU.
+
 ### Legal, mas e como eu faço uma dissertação com isso?
 
 Leia o [manual em doc/userguide.pdf](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf). Logo na introdução há um quickstart de 2 páginas que cobre tudo que é importante. É sempre uma boa ideia consultar o capítulo de referência das opções da classe e de comandos.
 
 ### Há um preview ou exemplo?
 
-O [manual](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é escrito usando a própria classe e o código fonte está disponível no diretório `doc/`.
+O [manual](https://github.com/alexishuf/ufsc-thesis-rn46-2019/raw/master/doc/userguide.pdf) é escrito usando a própria classe e o código fonte está disponível no diretório `doc/`. Se quiser algo mais parecido com uma dissertação/tese, veja o [exemplo no overleaf](https://www.overleaf.com/read/xqcswqpqyjpz). Se quiser um exemplo de como criar uma classe que customiza essa para uso no seu laboratório ou grupo de pesquisa, veja [este exemplo do Lapesd/INE](https://github.com/lapesd/lapesd-thesis).
 
-### Não gostei do exemplo, não há um exemplo mais parecido com uma dissertação?
+### Não gostei dos exemplos, não há um exemplo mais *X*?
 
 Há vários! Essa mudança de regras da RN 46/2019/CPG mudou principalmente procedimentos de entrega e detalhes de formatação. Todos os exemplos de como fazer uma dissertação com abnTeX2 e os templates antigos aqui da UFSC continuam aplicáveis, exceto pela formatação. Você apenas precisa cuidar para não copiar configurações de formatação dos templates já em circulação.
 
