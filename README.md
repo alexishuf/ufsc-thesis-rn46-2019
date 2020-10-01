@@ -73,6 +73,34 @@ pdflatex -shell-escape arquivo.tex
 
 ## FAQ
 
+### Como gerar um arquivo PDF/A?
+
+#### Conversor [online](http://pdfa.bu.ufsc.br/) da BU
+Tem a facilidade de ser online, mas possui alguns problemas:
+
+1. Pode causar artefatos em imagens e em todo o texto de uma página que tenha imagens. 
+2. De acordo com o validador de referência [VeraPDF](https://verapdf.org/software/), o resultado do conversor possui algumas violações do padrão PDF/A-1b que o PDF resultante declara aderir. 
+
+#### Ghostscript 
+Disponível em praticamente qualquer ambiente linux e produz resultados sem artefatos (confirme isso para o seu documento). O processo envolve mais de um comando, logo recomenda-se usar esse [script](https://github.com/alexishuf/pdfa-gs-converter/releases/download/v0.1/pdfa-gs-converter.sh):
+
+```{bash}
+pdfa-gs-converter.sh arquivo.pdf arquivo-pdfa.pdf
+```
+
+Explicações e detalhes estão no [repositório](https://github.com/alexishuf/pdfa-gs-converter/). O resultado deve ser um PDF/A-1b usando o formato 1.4 (ao invés do 1.7 usado pelos PDF/A-2 e PDF/A-3).
+
+#### Pacote pdfx
+
+Na versão atual, o [pacote](https://ctan.org/pkg/pdfx) resiste em embarcar algumas fontes (causando não conformidades) e há dificuldades técnicas para incorporá-lo na classe ufsc-thesis-rn46-2019 para tornar seu uso transparente. Se você está cogitando usar esse pacote, considere testar Ghostscript antes: para a maioria dos casos ele deve ser suficiente e exigirá menos esforço.
+
+#### Impressora virtual (Windows)
+Essa é a solução [indicada pela própria BU](http://portal.bu.ufsc.br/files/2019/11/Manual_Solucionando-qualidade-grafica-ruim-no-arquivo-PDF.pdf) para os artefatos do conversor online. 
+
+#### Validando o arquivo PDF/A
+
+É possível validar o PDF/A resultante de qualquer ferramenta usando o [VeraPDF](https://verapdf.org/software/). Use a opção `-f 1b` para validar o formato 1b, que supõe-se ser o exigido pela BU já que é esse formato que a ferramenta oficial tenta produzir. No Linux, é possível ver os metadados PDF/A com o comando `exiftool -a -G1 arquivo.pdf` (pacote [perl-image-exiftool](https://search.cpan.org/perldoc?exiftool)). Leitores de PDF e o comando `pdfinfo` usualmente mostram apenas metadados PDF e não os PDF/A.
+
 ### Agora a BU possui um template LaTeX, qual devo usar?
 
 Siga seu coração, jovem. As principais diferenças são:
