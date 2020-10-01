@@ -22,7 +22,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Informações para capa e folha de rosto/certificacao
-\titulo{Template \LaTeX{} seguindo a RN 46/2019/CPG da UFSC}
+
+% Caso o título contenha alguma porção LaTeX ilegível, defina um título
+% alternativo opcional com []'s para ser usado no campo Title do PDF
+% IMPORTANTE: Os títulos deveriam ser iguais. Apenas use um título
+% alternativo se o título não puder ser expresso com letras e números
+\titulo[Template \LaTeX{} com metadados]%
+       {Template \LaTeX{} seguindo a RN 46/2019/CPG da UFSC}
+
 \autor{Omar Ravenhurst}
 \data{1 de agosto de 2019} % ou \today
 \instituicao{Universidade Federal de Santa Catarina}
@@ -560,6 +567,19 @@ pré-textuais (e continuará criando para os elementos textuais e pós-textuais.
 esseselementos serão impressos garantidamente em uma nóva página que ficará no
 anverso. Essa opção, se presente, desativa a injeção dessa alteração
 
+\paragraph*{\texttt{nolatexextra}}
+Se fornecida, essa opção impede o \lacmd{RequirePackage} de pacotes em \texttt{latexextra}.
+Tais pacotes estão disponíveis no overleaf e em práticamente qualquer sistema
+\LaTeX. Caso instalar tais pacotes naõ seja possível, essa opção pode ser usada.
+No entanto, outros pacotes, que o seu documento usa diretamente provavelmente
+continuarão dependendo desses pacotes.
+
+\paragraph*{\texttt{nopdfinfo}} Por padrão, os metadados definidos pelos
+comandos \lacmd{titulo} \lacmd{autor} serão atribuídos aos campos de metadados
+\texttt{Title} e \texttt{Author} do PDF através das opções \texttt{pdftitle} e
+\texttt{pdfauthor} do \texttt{hyperref}. Essa opção se presente impede isso.
+\textbf{Cuidado}: Esses metadados não tem relação com o PDF/A, exigido pela BU.
+
 \paragraph*{\texttt{*}} Quaisquer outras opções não listadas anteriormente são
 repassadas à classe \abnTeX{} sem manipulação.
 
@@ -662,6 +682,10 @@ tabela respeite as margens. Exemplo:
 \end{minted}
 
 \subsection{Comandos \abnTeX{} modificados}
+
+\paragraph*{\lacmd{titulo[Nos metadados]\{No documento\}}} Além de definir o título é
+possível definir uma redação alternativa do título para ser usada nos metadados
+do PDF (caso \texttt{nopdfinfo} não tenha sido fornecido como opção da classe).
 
 \paragraph*{\lacmd{imprimircapa}} O modo de uso desse comando permanece o
 mesmo. No entanto, como as novas capas devem incluir o brasão da UFSC, há alguns

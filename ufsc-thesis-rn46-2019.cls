@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2020/05/18 v0.6 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2020/09/30 v0.7 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -155,8 +155,20 @@
 % certamente causará problemas em outros pacotes utilizados no main file.
 % Se ainda assim for necessário, use essa opção. Note que coisas podem quebrar.
 \newif\ifufscthesis@nolatexextra
-\DeclareOption{nocleardoublepage}{%
+\DeclareOption{nolatexextra}{%
   \ufscthesis@nolatexextratrue%
+}
+
+% [nopdfinfo]
+% Se fornecida impede a geração de um comando
+%   \hypersetup{%
+%     pdftitle={Titulo fornecido em \titulo{...}},%
+%     pdfauthor={Autor dado com \autor{...}}%
+%   }
+% ao final do preambulo. Essa opção de classe impede isso.
+\newif\ifufscthesis@nopdfinfo
+\DeclareOption{nopdfinfo}{%
+  \ufscthesis@nopdfinfotrue%
 }
 
 
@@ -482,6 +494,12 @@
 \providecommand{\imprimirprograma}{}
 \newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
 
+\providecommand{\imprimirtituloalt}{}
+\renewcommand{\titulo}[2][]{%
+  \renewcommand{\imprimirtituloalt}{\ifstrempty{#1}{#2}{#1}}%
+  \title{#2}
+}
+
 % \titulode{Doutor em Ciência da Computação}
 % Define o título ao qual o trabalho corresponde
 \newtoggle{ufscthesishastitulode}
@@ -679,6 +697,19 @@
   \renewcommand{\imprimirdataext}{#1}%
   \renewcommand{\imprimirano}{\ufscthesislastword{#1}}%
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Metadados do PDF                                               %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifufscthesis@nopdfinfo\else
+  \AtEndPreamble{%
+    \hypersetup{%
+      pdfauthor={\theauthor},%
+      pdftitle={\imprimirtituloalt}%
+    }%
+  }
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
