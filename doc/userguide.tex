@@ -510,10 +510,19 @@ programas, como o PPGCC impõem limites nominais à quantidade de páginas.
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
 o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
   submodule} e a diretórios podem simplesmente levar o \texttt{.cls} de um
-projeto para outro. Entretanto, há uma desvantagem, e por isso essa opção não é
-padrão. É necessário compilar com a opção \texttt{-shell-escape} em uma ambiente
-\emph{UNIX-like}. O logo foi obtido da \href{http://identidade.ufsc.br/}{página
-  de identidade visual da UFSC}.
+projeto para outro. Embora versátil, essa opção não é padrão pois exige que a
+compilação seja realizada com a opção \texttt{-shell-escape}. O logo foi obtido
+da \href{http://identidade.ufsc.br/}{página de identidade visual da UFSC}. 
+
+\paragraph*{\texttt{unix}} A opção \texttt{embeddedlogo} implica em uam
+tentativa de auto-detecção de sistema operacional para determinar se deveria ser
+utilizado o comando \texttt{base64} (disponível em sistemas UNIX) ou o comando
+\texttt{certutil} que existe em sistemas Windows. A opção unix desativa a
+auto-detecção e cosnidera que o sistema é um sistema UNIX-like (linux, Mac OS ou
+cygwin).
+
+\paragraph*{\texttt{windows}} Mesmo efeito que \texttt{unix}, mas faz com que o
+sistema seja considerado Windows.
 
 \paragraph*{\texttt{times}, \texttt{lmodern}, \texttt{arial}} Escolhe a fonte
 do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e

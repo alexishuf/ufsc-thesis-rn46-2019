@@ -30,13 +30,15 @@
 \newif\ifufscthesis@eng
 \DeclareOption{english}{%
   \ufscthesis@engtrue%
-  \PassOptionsToPackage{english}{babel}%
   \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
 
 % [brazil]
 % Por padrão, assume-se pt_BR, por isso a opção é ignorada
-\DeclareOption{brazil}{\OptionNotUsed}
+\DeclareOption{brazil}{%
+  \ufscthesis@engfalse%
+  \PassOptionsToClass{\CurrentOption}{abntex2}%
+}
 
 % [oneside]
 % Por padrão o documento será twosided, mas o usuário pode pedir isso
@@ -81,6 +83,25 @@
 \newif\ifufscthesis@embeddedlogo
 \DeclareOption{embeddedlogo}{%
   \ufscthesis@embeddedlogotrue%
+}
+\newif\ifufscthesis@detectos
+\ufscthesis@detectostrue
+
+% [windows]
+% Se presente, a implementação de embeddedlogo assume que o sistema é windows,
+% sem tentar detectar o SO.
+\newif\ifufscthesis@windows
+\DeclareOption{windows}{%
+  \ufscthesis@windowstrue%
+  \ufscthesis@detectosfalse%
+}
+
+% [unix]
+% Se presente, a implementação de embeddedlogo assume que o sistema é unix,
+% sem tentar detectar o SO.
+\DeclareOption{unix}{%
+  \ufscthesis@windowsfalse%
+  \ufscthesis@detectosfalse%
 }
 
 % [nocapautoref]
@@ -179,6 +200,23 @@
 
 % Faz a mágica acontecer
 \ProcessOptions\relax
+
+% Detecta windows (se detecção de SO está habilitada)
+\ifufscthesis@detectos
+  \IfFileExists{ifplatform.sty}{\RequirePackage{ifplatform}}{}
+  \ifwindows
+    \ufscthesis@windowstrue
+  \else
+    \ufscthesis@windowsfalse
+  \fi
+\fi
+
+% Determina comando usado para base64 --decode, a menos que já tenha sido definido
+\ifufscthesis@windows
+  \providecommand{\ufscthesis@decodecmd}{certutil --decode }
+\else
+  \providecommand{\ufscthesis@decodecmd}{base64 --decode }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Carregar abnTeX2 e outros pacotes                              %%%
@@ -849,10 +887,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifufscthesis@embeddedlogo
-  % 
   \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}
+  \typeout{CARALHO \ufscthesis@decodecmd}
   \AtBeginDocument{%
-    \immediate\write18{base64 --decode \jobname.64 > \jobname-logo.pdf}
+    \immediate\write18{\ufscthesis@decodecmd  \jobname.64 > \jobname-logo.pdf}
   }
 \else
   % Alguns caminhos possíveis onde o aluno poderia ter nos largado
