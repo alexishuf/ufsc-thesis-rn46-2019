@@ -564,7 +564,7 @@
 \newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Disserta\c{c}\~{a}o}}
 \newcommand{\tcc}[0]{%
   \toggletrue{ufscthesistcc}%
-  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclus\~{a}o do Curso}%
+  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclus\~{a}o de Curso}%
 }
 
 % \nivel{<mestrado/doutorado/graduação>}
@@ -677,7 +677,7 @@
 \renewcommand{\imprimirpreambulo}{%
   \iftoggle{ufscthesistcc}%
   {%
-    \imprimirtipotrabalho~do Curso de Gradua\c{c}\~{a}o em %
+    \imprimirtipotrabalho~submetido~ao Curso de Gradua\c{c}\~{a}o em %
     \imprimircurso~do \imprimircentro~da Universidade Federal de Santa Catarina %
     como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
     \ufscthesis@titulode{}.%
