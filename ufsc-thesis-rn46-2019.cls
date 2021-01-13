@@ -888,7 +888,6 @@
 
 \ifufscthesis@embeddedlogo
   \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}
-  \typeout{CARALHO \ufscthesis@decodecmd}
   \AtBeginDocument{%
     \immediate\write18{\ufscthesis@decodecmd  \jobname.64 > \jobname-logo.pdf}
   }
