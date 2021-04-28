@@ -86,6 +86,21 @@ pdflatex -shell-escape arquivo.tex
 
 ## FAQ
 
+### Preciso fazer com que algumas páginas não sejam contabilizadas
+
+Alguns programas impõem um limite máximo de páginas para documentos. Você pode fazer com que elementos pré-textuais não sejam contabilizados forçando com que a Introdução comece na página 1. Basta colocar `\setcounter{page}{1}` antes do `\section{Introduction}`. Note que isso causará warnings como esse:
+
+```
+pdfTeX warning (ext4): destination with the same identifier (name{page.2})
+has been already used, duplicate ignored
+```
+
+Esses warnings são inofensivos. Para eliminá-los, siga esses passos:
+
+1. Passe a opção `nopageanchorhack` para a classe
+2. Adicione `\hypersetup{pageanchor=false}` antes de `\imprimircapa`
+3. Adicione `\hypersetup{pageanchor=true}` após o `\setcounter{page}{1}`
+
 ### Como gerar um arquivo PDF/A?
 
 #### Conversor [online](http://pdfa.bu.ufsc.br/) da BU

@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8.1 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Suppressão de warnings                                         %%%
@@ -66,6 +66,27 @@
   \ufscthesis@onesidetrue%
   \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
+
+% [nopageanchorhack]
+% Como a capa é a página 0, \imprimircapa faz \hypersetup{pageanchor=false}
+% e isso é desfeito em instruções posteriores. O motivo é um falso-warning,
+% como explicado aqui: https://tex.stackexchange.com/a/331766
+%
+% Caso seu trabalho faça \setcounter{page}{1} após a capa, esse hack perderá o
+% efeito o você voltará a ver warnings com esse template:
+% > pdfTeX warning (ext4): destination with the same identifier (name{page.1})
+% > has been already used, duplicate ignored
+%
+% Para resolver isso, instrua a classe a não fazer o workaround com
+% [nopageanchorhack] e faça você mesmo com um \hypersetup{pageanchor=false}
+% antes de \imprimircapa e um \hypersetup{pageanchor=true} após o
+% \setcounter{page}{1}.
+\newif\ifufscthesis@pageanchorhack
+\ufscthesis@pageanchorhacktrue
+\DeclareOption{nopageanchorhack}{%
+  \ufscthesis@pageanchorhackfalse%
+}
+
 
 % [lmodern] [times] [arial]
 % Escolhe a fonte: lmodern, times (default), ou arial.
@@ -921,7 +942,9 @@
 
 % alterando a capa
 \renewcommand{\imprimircapa}{%
-  \hypersetup{pageanchor=false}%
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=false}%
+  \fi%
   \begin{capa}
     \begin{center}
       \selectlanguage{brazil}
@@ -1012,7 +1035,9 @@
 % 2. Aplicar \fill em todos os demais espaçamentos, usando o 
 %    dobro de força nos casos onde o @buDoc usava 2+ linhas
 \newcommand{\folhadecertificacaocontent}{
-  \hypersetup{pageanchor=true}
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=true}%
+  \fi%
   \begin{center}
     \selectlanguage{brazil} 
     \normalsize
@@ -1116,7 +1141,9 @@
     \renewcommand{\PRIVATEbookmarkthis}[1]{}
   }{}{}
   \apptocmd{\textual}{%
-    \hypersetup{pageanchor=true}
+    \ifufscthesis@pageanchorhack%
+      \hypersetup{pageanchor=true}%
+    \fi%
     \renewcommand{\PRIVATEbookmarkthis}[1]{\ufscthesis@oldPRIVATEbookmarkthis{#1}}
   }{}{}  
 \fi
@@ -1124,7 +1151,9 @@
 % @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
 % recuo de 5cm foi medido no @buDoc
 \apptocmd{\dedicatoria}{%
-  \hypersetup{pageanchor=true}%
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=true}%
+  \fi%
   \selectlanguage{brazil}%
   \vspace*{\fill}%
   \flushright%
@@ -1139,7 +1168,9 @@
 % 10. Provavelmente um acidente. Portanto aplicamos todas as regras do ambiente
 % citacao O recuo de 4cm foi medido no @buDoc
 \apptocmd{\epigrafe}{%
-  \hypersetup{pageanchor=true}%
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=true}%
+  \fi%
   \selectlanguage{brazil}
   \vspace*{\fill}%
   \flushright%
@@ -1158,7 +1189,9 @@
 % implementação usando \AtBeginEnvironment estava muito fŕagil, os
 % ambientes do abnTeX2 foram refeitos
 \newenvironment{ufscthesisresumo}[2]{%
-  \hypersetup{pageanchor=true}%
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=true}%
+  \fi%
   \pretextualchapter{#1}%
   \begingroup
   % remove espaçamentos após seções (resumo estendido -- @buResumo)

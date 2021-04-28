@@ -506,6 +506,26 @@ margens esquerda e direita. Essa opção também \textbf{elimina a inserção de
 para alunos apresentando relatórios parciais, como EQM, SAD e EQD. Alguns
 programas, como o PPGCC impõem limites nominais à quantidade de páginas.
 
+\paragraph*{\texttt{nopageanchorhack}}
+Como a capa é a página 0, \lacmd{imprimircapa} faz
+\lacmd{hypersetup\{pageanchor=false\}} e isso é desfeito em instruções
+posteriores. Isso é um
+\href{https://tex.stackexchange.com/a/331766}{\emph{workaround}} para evitar um
+warning inofensivo, mas recorrente sobre âcoras terem sido sido definidas
+multiplas vezes para a mesma página:
+\begin{minted}{text}
+pdfTeX warning (ext4): destination with the same identifier (name{page.1})
+has been already used, duplicate ignored
+\end{minted}
+Caso seu trabalho faça \lacmd{setcounter\{page\}\{1\}} após a capa, esse
+\emph{workaround} perderá o efeito. Essa opção instrui a classe a não aplicar o
+workaround, para que você o faça:
+\begin{itemize}
+\item Adicione \lacmd{hypersetup\{pageanchor=false\}} antes de \lacmd{imprimircapa}
+\item Adicione \lacmd{hypersetup\{pageanchor=\textbf{true}\}} após o
+      \lacmd{setcounter\{page\}\{1\}}.
+\end{itemize}
+
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
 o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
