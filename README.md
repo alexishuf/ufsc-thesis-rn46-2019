@@ -39,11 +39,24 @@ Disponibilize esse repositório como um subdiretório do seu projeto. Isso pode 
 
 **Dica:** ao usar as opções git, você pode incluir a opção `--depth 1` para evitar baixar todo o histórico de commits.
 
-Após a disponibilização, você deve usar a classe:
+Após a disponibilização, crie um link simbólico:
+```shell
+ln -s ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019.cls
+```
+
+... e use a classe:
 
 ```tex
 \documentclass[]{ufsc-thesis-rn46-2019}
 ```
+
+> Até dezembro de 2020, o link simbólico não era necessário pois o texlive-core
+> era tolerante a `\documentclass{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}`,
+> gerando apenas um warning. Nas versões atuais, esse tipo de uso fará com que
+> opções fornecidos no \documentclass sejam **silenciosamente ignoradas**. O
+> problema mais comum são erros relacionados ao arquivo `ufsc-logo.pdf` para
+> usuários usando a opção `embeddedlogo`.
+
 
 Se você mudou o nome ou local do diretório de uma forma que o .cls não consegue adivinhar onde ele está, você deverá alterar o `\graphicspath{}` para incluir o diretório onde está o arquivo .cls. O chute padrão da classe é esse:
 
