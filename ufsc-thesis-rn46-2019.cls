@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2020/09/30 v0.7 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Suppressão de warnings                                         %%%
@@ -921,6 +921,7 @@
 
 % alterando a capa
 \renewcommand{\imprimircapa}{%
+  \hypersetup{pageanchor=false}%
   \begin{capa}
     \begin{center}
       \selectlanguage{brazil}
@@ -1011,6 +1012,7 @@
 % 2. Aplicar \fill em todos os demais espaçamentos, usando o 
 %    dobro de força nos casos onde o @buDoc usava 2+ linhas
 \newcommand{\folhadecertificacaocontent}{
+  \hypersetup{pageanchor=true}
   \begin{center}
     \selectlanguage{brazil} 
     \normalsize
@@ -1114,6 +1116,7 @@
     \renewcommand{\PRIVATEbookmarkthis}[1]{}
   }{}{}
   \apptocmd{\textual}{%
+    \hypersetup{pageanchor=true}
     \renewcommand{\PRIVATEbookmarkthis}[1]{\ufscthesis@oldPRIVATEbookmarkthis{#1}}
   }{}{}  
 \fi
@@ -1121,7 +1124,8 @@
 % @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
 % recuo de 5cm foi medido no @buDoc
 \apptocmd{\dedicatoria}{%
-  \selectlanguage{brazil}
+  \hypersetup{pageanchor=true}%
+  \selectlanguage{brazil}%
   \vspace*{\fill}%
   \flushright%
   \minipage{\dimexpr\linewidth-5cm\relax}%
@@ -1135,6 +1139,7 @@
 % 10. Provavelmente um acidente. Portanto aplicamos todas as regras do ambiente
 % citacao O recuo de 4cm foi medido no @buDoc
 \apptocmd{\epigrafe}{%
+  \hypersetup{pageanchor=true}%
   \selectlanguage{brazil}
   \vspace*{\fill}%
   \flushright%
@@ -1153,6 +1158,7 @@
 % implementação usando \AtBeginEnvironment estava muito fŕagil, os
 % ambientes do abnTeX2 foram refeitos
 \newenvironment{ufscthesisresumo}[2]{%
+  \hypersetup{pageanchor=true}%
   \pretextualchapter{#1}%
   \begingroup
   % remove espaçamentos após seções (resumo estendido -- @buResumo)
