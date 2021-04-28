@@ -28,16 +28,22 @@
 % [english]
 % Ativa nomes de elementos (pré)textuais em inglês (secion, contents, table, figure, ...)
 \newif\ifufscthesis@eng
+\newif\ifufscthesis@enggiven
+\newif\ifufscthesis@bragiven
 \DeclareOption{english}{%
   \ufscthesis@engtrue%
-  \PassOptionsToClass{\CurrentOption}{abntex2}%
+  \ufscthesis@enggiventrue%
+  \PassOptionsToPackage{brazil}{abntex2}% sempre necessário: resumo
+  \PassOptionsToPackage{main=english}{abntex2}%
 }
 
 % [brazil]
 % Por padrão, assume-se pt_BR, por isso a opção é ignorada
 \DeclareOption{brazil}{%
   \ufscthesis@engfalse%
-  \PassOptionsToClass{\CurrentOption}{abntex2}%
+  \ufscthesis@bragiventrue%
+  \PassOptionsToPackage{english}{abntex2}% sempre necessário: abstract
+  \PassOptionsToPackage{main=brazil}{abntex2}%
 }
 
 % [oneside]
@@ -218,19 +224,17 @@
   \providecommand{\ufscthesis@decodecmd}{base64 --decode }
 \fi
 
+
+% Erro caso usuário tenha escolhido english e brazil:
+\ifufscthesis@bragiven
+  \ifufscthesis@enggiven
+    \ClassWarning{ufsc-thesis-rn46-2019}{Opções brazil e english ativas ao mesmo tempo. Escolha apenas uma. A classe sempre carregará as duas linguagens no babel, mas apenas uma pode ser a principal}
+  \fi
+\fi
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Carregar abnTeX2 e outros pacotes                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% O abnTeX2 faz \RequirePackage do babel após o hyperref. Em situações
-% normais (fora da abntex). Isso realmente faria com que o \autoref{}
-% continuasse usando nomes não-localizados. Mas usando abntex fora da
-% nossa classe, algo evitava o bug. Esse algo parou de funcionar então
-% é preciso pedir pelo babel antes mesmo do abntex2.
-%
-% Outro detalhe: brazil sempre precisa ser carregado (vide abntex2)
-% Outro detalhe(2): english sempre precisa ser carregado, devido ao abstract
-\RequirePackage[brazil,english]{babel}
 
 \ifufscthesis@nolatexextra\else
   % Esse RequirePackage deve acontecer **antes** do abntex2, pois o
@@ -242,10 +246,6 @@
 \fi
 
 % Carrega como base a classe 'abntex2'
-\ifufscthesis@eng\else
-  % Isso precisa ser feito antes do LoadClass[]{abntex2}
-  \PassOptionsToClass{brazil}{abntex2}
-\fi
 \ifufscthesis@oneside
   \PassOptionsToClass{oneside}{abntex2} % violação consciente
 \else
