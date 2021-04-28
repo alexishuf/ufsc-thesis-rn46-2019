@@ -22,6 +22,16 @@
 \ProvidesClass{ufsc-thesis-rn46-2019}[2020/09/30 v0.7 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Suppressão de warnings                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                     Judge not, that ye be not judged
+\RequirePackage{silence}
+% Warning every time \jobname.64 is extractted
+\WarningFilter{latex}{Writing file}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -881,7 +891,6 @@
 % - footnotes: Fracassei em alterar, mas default já é SingleSpacing
 % - referencias: Nem tentei alterar, mas o default já é SingleSpacing
 
-
 % Ajusta notas de margem para as margens mais externas
 % Necessário para todonotes
 \setlength{\marginparwidth}{2cm}
@@ -1273,8 +1282,12 @@
   }
 }
 
-
+% Usado para gerar \jobname.64 apenas se o arquivo não existe (evita warning)
+\newif\ifufscthesis@hasbase
+\IfFileExists{\jobname.64}{\ufscthesis@hasbasetrue}{\ufscthesis@hasbasefalse}
 \ifufscthesis@embeddedlogo
+  \ifufscthesis@hasbase
+  \else
 \begin{filecontents*}{\jobname.64}
 JVBERi0xLjUKJbXtrvsKNCAwIG9iago8PCAvTGVuZ3RoIDUgMCBSCiAgIC9GaWx0ZXIgL0ZsYXRl
 RGVjb2RlCj4+CnN0cmVhbQp4nLS9ya4mOdIltvenuOsf0JVzpm+1ESBAC0lLQQuhpe5C48aiW4t+
@@ -3261,6 +3274,8 @@ IG4gCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDExMjI3MCAwMDAwMCBuIAowMDAwMTEyNjY0IDAw
 MDAwIG4gCjAwMDAxMTI3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA4CiAgIC9Sb290IDcg
 MCBSCiAgIC9JbmZvIDYgMCBSCj4+CnN0YXJ0eHJlZgoxMTI4MzIKJSVFT0YK
 \end{filecontents*}
-\fi
+  \fi % \ifufscthesis@hasbase
+\fi % \ifufscthesis@embeddedlogo
+
 
 \endinput
