@@ -882,6 +882,11 @@
 % - referencias: Nem tentei alterar, mas o default já é SingleSpacing
 
 
+% Ajusta notas de margem para as margens mais externas
+% Necessário para todonotes
+\setlength{\marginparwidth}{2cm}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos para gerar elementos especiais                        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
