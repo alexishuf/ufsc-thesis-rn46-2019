@@ -987,6 +987,9 @@
     \end{center}
   \end{capa}
   \setcounter{page}{1}
+  \ifufscthesis@pageanchorhack%
+    \hypersetup{pageanchor=true}%
+  \fi%
 }
 
 
@@ -1035,9 +1038,6 @@
 % 2. Aplicar \fill em todos os demais espaçamentos, usando o 
 %    dobro de força nos casos onde o @buDoc usava 2+ linhas
 \newcommand{\folhadecertificacaocontent}{
-  \ifufscthesis@pageanchorhack%
-    \hypersetup{pageanchor=true}%
-  \fi%
   \begin{center}
     \selectlanguage{brazil} 
     \normalsize
@@ -1141,9 +1141,6 @@
     \renewcommand{\PRIVATEbookmarkthis}[1]{}
   }{}{}
   \apptocmd{\textual}{%
-    \ifufscthesis@pageanchorhack%
-      \hypersetup{pageanchor=true}%
-    \fi%
     \renewcommand{\PRIVATEbookmarkthis}[1]{\ufscthesis@oldPRIVATEbookmarkthis{#1}}
   }{}{}  
 \fi
@@ -1151,9 +1148,6 @@
 % @buABNT O texto deve ficar na parte inferior da página e alinhado a direita O
 % recuo de 5cm foi medido no @buDoc
 \apptocmd{\dedicatoria}{%
-  \ifufscthesis@pageanchorhack%
-    \hypersetup{pageanchor=true}%
-  \fi%
   \selectlanguage{brazil}%
   \vspace*{\fill}%
   \flushright%
@@ -1168,9 +1162,6 @@
 % 10. Provavelmente um acidente. Portanto aplicamos todas as regras do ambiente
 % citacao O recuo de 4cm foi medido no @buDoc
 \apptocmd{\epigrafe}{%
-  \ifufscthesis@pageanchorhack%
-    \hypersetup{pageanchor=true}%
-  \fi%
   \selectlanguage{brazil}
   \vspace*{\fill}%
   \flushright%
@@ -1189,9 +1180,6 @@
 % implementação usando \AtBeginEnvironment estava muito fŕagil, os
 % ambientes do abnTeX2 foram refeitos
 \newenvironment{ufscthesisresumo}[2]{%
-  \ifufscthesis@pageanchorhack%
-    \hypersetup{pageanchor=true}%
-  \fi%
   \pretextualchapter{#1}%
   \begingroup
   % remove espaçamentos após seções (resumo estendido -- @buResumo)
