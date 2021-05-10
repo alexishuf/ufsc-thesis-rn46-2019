@@ -544,6 +544,26 @@ cygwin).
 \paragraph*{\texttt{windows}} Mesmo efeito que \texttt{unix}, mas faz com que o
 sistema seja considerado Windows.
 
+{\sloppy
+\paragraph*{\texttt{logodir=OUTDIR}} Em combinação com \texttt{embeddedlogo},
+gera os arquivos \lacmd{jobname.64} e \lacmd{jobname-logo.pdf} dentro de
+\emph{OUTDIR}. \textbf{Importante}: \emph{OUTDIR} precisa existir antes da
+execução do \texttt{pdflatex}. A classe não criará o diretório
+\par}
+
+\paragraph*{\texttt{latexmkoutdir}} Quando a opção \texttt{-outdir=OUT} do
+\texttt{latexmk} é utilizada (com \texttt{-cd} ou \texttt{-cd-}), o ambiente
+\texttt{filecontents} irá gerar arquivos em \texttt{\emph{OUTDIR}}. No entanto o
+comportamento de \lacmd{write18} não será afetado. Isso irá se manifestar na forma de
+um erro similar a ``\texttt{base64: thesis.64: No such file or directory}'',
+seguido de uma falha de compilação por não encontrar o arquivo
+\lacmd{jobname-logo.pdf} (\lacmd{jobname} expande para \texttt{main} quando o
+arquivo compilado se chama \texttt{main.tex}). Essa opção informa a classe que a
+compilação está ocorrendo via \emph{latexmk}. Note que para que a compilação
+funcione, \textbf{também é necessário} fornecer a opção
+\texttt{logodir=\emph{OUTDIR}} onde \texttt{\emph{OUTDIR}} é o mesmo fornecido
+para a opção \texttt{-outdir} do \texttt{latexmk}
+
 \paragraph*{\texttt{times}, \texttt{lmodern}, \texttt{arial}} Escolhe a fonte
 do documento. O padrão é \texttt{times}. No caso das escolhas \texttt{times} e
 \texttt{arial} são usados clones \emph{open-source} (sem limitações legais à
@@ -893,14 +913,16 @@ capitalizadas.
 
 \end{document}
 
-% LocalWords:  pdf ufsc-thesis-rn abntex PPGCC Zambonin pull request GitHub PRs
-% LocalWords:  alexishuf Issues alpha drop-in template cls shell-escape ZIP Git
-% LocalWords:  UNIX-like Makefile git submodule shame on you Overleaf english
-% LocalWords:  overview Pós-Graduação Prof BU pdfpages bug BibTeX URLs at bst
-% LocalWords:  Available cite-alf url x-url brazil embeddedlogo auto-contido pt
-% LocalWords:  lmodern arial open-source Latin Modern nocapautoref ufsc-thesis
+% LocalWords:  pdf ufscthesisrn abntex PPGCC Zambonin pull request GitHub PRs
+% LocalWords:  alexishuf Issues alpha dropin template cls shellescape ZIP Git
+% LocalWords:  UNIXlike Makefile git submodule shame on you Overleaf english cd
+% LocalWords:  overview PósGraduação Prof BU pdfpages bug BibTeX URLs at bst or
+% LocalWords:  Available citealf url xurl brazil embeddedlogo autocontido pt
+% LocalWords:  lmodern arial opensource Latin Modern nocapautoref ufscthesis
 % LocalWords:  working directory pdflatex tex dijkstra diffie Saleem Ullman rdf
 % LocalWords:  magic Distefano Abiteboul Forgy default Word captions userguide
 % LocalWords:  noplainurl noabntexcite begin dedicatoria end doc abstracts EQM
 % LocalWords:  corretude indentação oneside memoir feature SAD EQD bookmarks of
-% LocalWords:  nopretextualbookmark listoffigures table contents
+% LocalWords:  nopretextualbookmark listoffigures table contents logodir OUTDIR
+% LocalWords:  jobname jobname-logo latexmkoutdir outdir latexmk filecontents
+% LocalWords:  write thesis such main

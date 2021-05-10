@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8.1 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8.2 ufsc-thesis-rn46-2019]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Suppressão de warnings                                         %%%
@@ -34,6 +34,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{kvoptions} %key=value class options
+\SetupKeyvalOptions{
+  family=ufscthesis,
+  prefix=ufscthesis@
+}
 
 % [english]
 % Ativa nomes de elementos (pré)textuais em inglês (secion, contents, table, figure, ...)
@@ -141,6 +147,33 @@
   \ufscthesis@detectosfalse%
 }
 
+% [logodir=OUTDIR]
+%
+% Em combinação com embeddedlogo, gera os arquivos \jobname.64 e
+% \jobname-logo.pdf dentro de OUTDIR.
+% 
+% **Importante**: OUTDIR precisa existir antes da execução do pdflatex. A classe
+% não criará o diretório
+\DeclareStringOption{logodir}
+
+% [latexmkoutdir]
+%
+% Se fornecido em combinação com logodir=OUTDIR, faz com que a extração de
+% \jobname.64 ignore a opção logodir (a emissão do comando base64 --decode, no
+% entanto continua levando logodir em conta).
+%
+% Essa opção é necessária pois com logodir=OUTDIR, latexmk -outdir=OUTDIR
+% causaria extração de OUTDIR/OUTDIR/\jobname.64. Infelizmente como o latexmk
+% muda o comportamento apenas de filecontents, sem modificar o comportamente do
+% \write18, é impossível fazer com que essa classe funcione tanto com -outdir
+% quanto sem -outdir. Como -outdir ainda assim gera arquivos temporários ao lado
+% do main.tex, talvez seja de seu interesse utilizar apenas a opção logodir na
+% classe e abandonar a opção -outdir do latexmk
+\newif\ifufscthesis@latexmkoutdir
+\DeclareOption{latexmkoutdir}{%
+  \ufscthesis@latexmkoutdirtrue%
+}
+
 % [nocapautoref]
 % Por padrão \autoref será configurado para produzir Seção/Section ao invés de seção/section
 % Passando essa opção, essa classe não irá alterar o comportamento padrão
@@ -237,6 +270,9 @@
 
 % Faz a mágica acontecer
 \ProcessOptions\relax
+
+% Processa opções key=value (logodir)
+\ProcessKeyvalOptions*
 
 % Detecta windows (se detecção de SO está habilitada)
 \ifufscthesis@detectos
@@ -922,9 +958,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifufscthesis@embeddedlogo
-  \newcommand{\ufscthesis@logo}{\jobname-logo.pdf}
+  \newcommand{\ufscthesis@logoprefix}{\ifdefvoid{\ufscthesis@logodir}{}{\ufscthesis@logodir/}}
+  \newcommand{\ufscthesis@logob}{\ufscthesis@logoprefix\jobname.64}
+  \ifufscthesis@latexmkoutdir
+    \newcommand{\ufscthesis@logofc}{\jobname.64}
+  \else
+    \newcommand{\ufscthesis@logofc}{\ufscthesis@logoprefix\jobname.64}
+  \fi %ufscthesis@latexmkoutdir
+  \newcommand{\ufscthesis@logo}{\ufscthesis@logoprefix\jobname-logo.pdf}
   \AtBeginDocument{%
-    \immediate\write18{\ufscthesis@decodecmd  \jobname.64 > \jobname-logo.pdf}
+    \immediate\write18{\ufscthesis@decodecmd  \ufscthesis@logob > \ufscthesis@logo}
   }
 \else
   % Alguns caminhos possíveis onde o aluno poderia ter nos largado
@@ -1309,13 +1352,13 @@
   }
 }
 
-% Usado para gerar \jobname.64 apenas se o arquivo não existe (evita warning)
+% Usado para gerar \ufscthesis@logofc apenas se o arquivo não existe (evita warning)
 \newif\ifufscthesis@hasbase
-\IfFileExists{\jobname.64}{\ufscthesis@hasbasetrue}{\ufscthesis@hasbasefalse}
+\IfFileExists{\ufscthesis@logofc}{\ufscthesis@hasbasetrue}{\ufscthesis@hasbasefalse}
 \ifufscthesis@embeddedlogo
   \ifufscthesis@hasbase
   \else
-\begin{filecontents*}{\jobname.64}
+\begin{filecontents*}{\ufscthesis@logofc}
 JVBERi0xLjUKJbXtrvsKNCAwIG9iago8PCAvTGVuZ3RoIDUgMCBSCiAgIC9GaWx0ZXIgL0ZsYXRl
 RGVjb2RlCj4+CnN0cmVhbQp4nLS9ya4mOdIltvenuOsf0JVzpm+1ESBAC0lLQQuhpe5C48aiW4t+
 ffEMRueNyKzMih+NRFXEd8IHOgej8diUPu713/+Q1v/VMT9L7+XOH//hx/VfrvSB//7rf/r4H//v
