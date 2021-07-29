@@ -19,7 +19,11 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/04/28 v0.8.2 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/07/29 v0.8.3 ufsc-thesis-rn46-2019]
+
+% Coisas usadas para truques aqui na classe
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Suppressão de warnings                                         %%%
@@ -28,8 +32,6 @@
 \RequirePackage{silence}
 % Warning every time \jobname.64 is extractted
 \WarningFilter{latex}{Writing file}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
@@ -46,6 +48,7 @@
 \newif\ifufscthesis@eng
 \newif\ifufscthesis@enggiven
 \newif\ifufscthesis@bragiven
+\newif\ifufscthesis@brafallback
 \DeclareVoidOption{english}{%
   \ufscthesis@engtrue%
   \ufscthesis@enggiventrue%
@@ -261,7 +264,21 @@
 \ifufscthesis@bragiven
   \ifufscthesis@enggiven
     \ClassWarning{ufsc-thesis-rn46-2019}{Opções brazil e english ativas ao mesmo tempo. Escolha apenas uma. A classe sempre carregará as duas linguagens no babel, mas apenas uma pode ser a principal}
-  \fi
+    \fi
+\else
+  \ifufscthesis@enggiven
+  \else
+    % Ações que seriam tomadas se brazil fosse opção do \documentclass
+    \ufscthesis@engfalse
+    \PassOptionsToPackage{english}{abntex2}% sempre necessário: abstract
+    \PassOptionsToPackage{main=brazil}{abntex2}
+    % Inserir brazil nas opções globais não resolve o problema de
+    % \figureautorefname e \tableautorefname permanecerem em inglês. Veja o
+    % teste de \ifufscthesis@brafallback mais abaixo para a solução final.
+    \ufscthesis@brafallbacktrue
+    %\let\ufscthesis@gopts\@classoptionslist
+    %\def\@classoptionslist{\ifdefempty{\ufscthesis@gopts}{brazil}{\ufscthesis@gopts,brazil}}%
+  \fi    
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -416,13 +433,23 @@
 % Usado para incluir a ficha catalográfica
 \RequirePackage{pdfpages}
 
-% Coisas usadas para truques aqui na classe
-\RequirePackage{etoolbox}
-\RequirePackage{ifthen}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% i18n                                                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Usa brazil como default na ausência de english e brazil como opções de classe
+\ifufscthesis@brafallback
+  % Antes do \LoadClass{abntex2} a opção brazil foi artificialmente processada
+  % apesar de não estar presente. No entanto, esses dois símbolos persistem em
+  % inglês. Por algum motivo o problema não ocorre se brazil é fornecido
+  % explicitamente no \documentclass (diretamente ou não à essa classe)
+  \addto\captionsbrazil{%
+    \renewcommand{\figureautorefname}{Figura}%
+    \renewcommand{\tableautorefname}{Tabela}%
+  }
+\fi
+
 \ifufscthesis@eng
   % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
   % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês
