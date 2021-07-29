@@ -46,7 +46,7 @@
 \newif\ifufscthesis@eng
 \newif\ifufscthesis@enggiven
 \newif\ifufscthesis@bragiven
-\DeclareOption{english}{%
+\DeclareVoidOption{english}{%
   \ufscthesis@engtrue%
   \ufscthesis@enggiventrue%
   \PassOptionsToPackage{brazil}{abntex2}% sempre necessário: resumo
@@ -55,7 +55,7 @@
 
 % [brazil]
 % Por padrão, assume-se pt_BR, por isso a opção é ignorada
-\DeclareOption{brazil}{%
+\DeclareVoidOption{brazil}{%
   \ufscthesis@engfalse%
   \ufscthesis@bragiventrue%
   \PassOptionsToPackage{english}{abntex2}% sempre necessário: abstract
@@ -68,7 +68,7 @@
 % (20/40/60) no número de páginas do documento (o que inclui páginas
 % em branco).
 \newif\ifufscthesis@oneside
-\DeclareOption{oneside}{%
+\DeclareVoidOption{oneside}{%
   \ufscthesis@onesidetrue%
   \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
@@ -87,9 +87,8 @@
 % [nopageanchorhack] e faça você mesmo com um \hypersetup{pageanchor=false}
 % antes de \imprimircapa e um \hypersetup{pageanchor=true} após o
 % \setcounter{page}{1}.
-\newif\ifufscthesis@pageanchorhack
-\ufscthesis@pageanchorhacktrue
-\DeclareOption{nopageanchorhack}{%
+\DeclareBoolOption[true]{pageanchorhack}
+\DeclareVoidOption{nopageanchorhack}{%
   \ufscthesis@pageanchorhackfalse%
 }
 
@@ -112,9 +111,9 @@
                           % Se roubou o TTF ou está no windows,
                           % faça a configuração no main.tex
 \ufscthesis@timestrue
-\DeclareOption{lmodern}{\ufscthesis@lmoderntrue \ufscthesis@timesfalse \ufscthesis@arialfalse}
-\DeclareOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
-\DeclareOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
+\DeclareVoidOption{lmodern}{\ufscthesis@lmoderntrue \ufscthesis@timesfalse \ufscthesis@arialfalse}
+\DeclareVoidOption{times}{\ufscthesis@lmodernfalse \ufscthesis@timestrue \ufscthesis@arialfalse}
+\DeclareVoidOption{arial}{\ufscthesis@lmodernfalse \ufscthesis@timesfalse \ufscthesis@arialtrue}
 
 % [embeddedlogo]
 % Se ativa, essa opção usa um logo da UFSC de alta qualidade que está
@@ -123,10 +122,9 @@
 % Esse desempacotamento depende de compilação com -shell-escape e de um
 % ambiente UNIX-like. Sem essa opção, você deve manter o ufsc.pdf
 % desse repositório para que seja incluído via \includegraphics{ufsc.pdf}
-\newif\ifufscthesis@embeddedlogo
-\DeclareOption{embeddedlogo}{%
-  \ufscthesis@embeddedlogotrue%
-}
+\DeclareBoolOption{embeddedlogo}
+
+
 \newif\ifufscthesis@detectos
 \ufscthesis@detectostrue
 
@@ -134,7 +132,7 @@
 % Se presente, a implementação de embeddedlogo assume que o sistema é windows,
 % sem tentar detectar o SO.
 \newif\ifufscthesis@windows
-\DeclareOption{windows}{%
+\DeclareVoidOption{windows}{%
   \ufscthesis@windowstrue%
   \ufscthesis@detectosfalse%
 }
@@ -142,7 +140,7 @@
 % [unix]
 % Se presente, a implementação de embeddedlogo assume que o sistema é unix,
 % sem tentar detectar o SO.
-\DeclareOption{unix}{%
+\DeclareVoidOption{unix}{%
   \ufscthesis@windowsfalse%
   \ufscthesis@detectosfalse%
 }
@@ -169,64 +167,43 @@
 % quanto sem -outdir. Como -outdir ainda assim gera arquivos temporários ao lado
 % do main.tex, talvez seja de seu interesse utilizar apenas a opção logodir na
 % classe e abandonar a opção -outdir do latexmk
-\newif\ifufscthesis@latexmkoutdir
-\DeclareOption{latexmkoutdir}{%
-  \ufscthesis@latexmkoutdirtrue%
-}
+\DeclareBoolOption{latexmkoutdir}
 
 % [nocapautoref]
 % Por padrão \autoref será configurado para produzir Seção/Section ao invés de seção/section
 % Passando essa opção, essa classe não irá alterar o comportamento padrão
-\newif\ifufscthesis@nocapautoref
-\DeclareOption{nocapautoref}{%
-  \ufscthesis@nocapautoreftrue%
-}
+\DeclareBoolOption{nocapautoref}
 
 % [noabntexcite]
 % Por padrão o abntex2cite é carregado, incluindo algumas opções pré-definidas
 % (veja logo abaixo). Para desativar esse carregamento automático (por exemplo,
 % para evitar algumas dessas opções, use a opção noabntex2cite
-\newif\ifufscthesis@noabntexcite
-\DeclareOption{noabntexcite}{%
-  \ufscthesis@noabntexcitetrue%
-}
+\DeclareBoolOption{noabntexcite}
 
 % [nohidelinks]
 % Por padrão essa classe desativa cor e bordas no links do documento (hyperref)
 % Use essa opção para que hidelinks não seja passado ao hyperref por essa classe
-\newif\ifufscthesis@nohidelinks
-\DeclareOption{nohidelinks}{%
-  \ufscthesis@nohidelinkstrue%
-}
+\DeclareBoolOption{nohidelinks}
 
 % [noplainurl] 
 % Como informado pela BU, a ABNT NBR 6023:2018 não utiliza mais <>
 % em URLs nas referências. A NBR 14724:2011 não apresenta nenhuma
 % URL. Logo, visando a uniformização de estilo, <>'s são removidos do
 % comando \url{}
-\newif\ifufscthesis@noplainurl
-\DeclareOption{noplainurl}{%
-  \ufscthesis@noplainurltrue%
-}
+\DeclareBoolOption{noplainurl}
 
 % [nocleanheader]
 % O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta
 % classe coloca headers conforme o @buDoc. Use essa opção para restaurar os headers
 % padrão do abnTex2
-\newif\ifufscthesis@nocleanheader
-\DeclareOption{nocleanheader}{%
-  \ufscthesis@nocleanheadertrue%
-}
+\DeclareBoolOption{nocleanheader}
 
 % [nopretextualbookmarks]
 % Se ativa essa opção impede o abnTeX de gerar bookmarks para
 % elementos pré-textuais. Bookmarks são o que dão origem às entradas
 % constituem o table of contents exibido pelos leitores PDF,
 % usualmente em barras laterais.
-\newif\ifufscthesis@nopretextualbookmarks
-\DeclareOption{nopretextualbookmarks}{%
-  \ufscthesis@nopretextualbookmarkstrue%
-}
+\DeclareBoolOption{nopretextualbookmarks}
 
 % [nocleardoublepage]
 % Por padrão, os comandos \tableofcontents \listoftables, \listoffigures,
@@ -234,10 +211,7 @@
 % o \begin{document} para que realizem um \cleardoublepage (portanto sendo
 % impressos garantidamente em uma nóva página que ficará no anverso).
 % Essa opção desativa a injeção dessa alteração
-\newif\ifufscthesis@nocleardoublepage
-\DeclareOption{nocleardoublepage}{%
-  \ufscthesis@nocleardoublepagetrue%
-}
+\DeclareBoolOption{nocleardoublepage}
 
 % [nolatexextra]
 % Se fornecida, essa opção impede o RequirePackage de pacotes em latexextra.
@@ -245,10 +219,7 @@
 % se a ausência desses pacotes não causar problemas nessa classe, 
 % certamente causará problemas em outros pacotes utilizados no main file.
 % Se ainda assim for necessário, use essa opção. Note que coisas podem quebrar.
-\newif\ifufscthesis@nolatexextra
-\DeclareOption{nolatexextra}{%
-  \ufscthesis@nolatexextratrue%
-}
+\DeclareBoolOption{nolatexextra}
 
 % [nopdfinfo]
 % Se fornecida impede a geração de um comando
@@ -257,21 +228,15 @@
 %     pdfauthor={Autor dado com \autor{...}}%
 %   }
 % ao final do preambulo. Essa opção de classe impede isso.
-\newif\ifufscthesis@nopdfinfo
-\DeclareOption{nopdfinfo}{%
-  \ufscthesis@nopdfinfotrue%
-}
+\DeclareBoolOption{nopdfinfo}
 
 
 % Todas as opções que não foram listadas anteriormente são redirecionadas para o abntex2
-\DeclareOption*{%
+\DeclareDefaultOption{%
  \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
 
-% Faz a mágica acontecer
-\ProcessOptions\relax
-
-% Processa opções key=value (logodir)
+% Processa opções key (quase todas) e key=value (logodir e opcionalmente as \DeclareBoolOption)
 \ProcessKeyvalOptions*
 
 % Detecta windows (se detecção de SO está habilitada)
