@@ -86,6 +86,14 @@ pdflatex -shell-escape arquivo.tex
 
 ## FAQ
 
+### O overleaf não compila e acusa "output-logo.pdf not found"
+
+Isso ocorre caso seja usada a opção `embeddedlogo` (recomendado para o overleaf) mas o arquivo .tex principal (aquele que faz o `\documentclass{ufsc-thesis-rn46-2019}`) não está na raiz do projeto. Para resolver, mova o .tex principal para a raiz do projeto. Lembre que o arquivo `ufsc-thesis-rn46-2019.cls` assim como o `.cls` de classes derivadas (como a [lapesd-thesis](https://github.com/lapesd/lapesd-thesis)) precisa estar "ao lado" (i.e., no mesmo diretório) do arquivo `.tex` principal.
+
+Esse problema pode ocorrer quando o usuário importa seu projeto para o overleaf usando um `.zip` que contenha outra pasta dentro. O problema pode ser difícil de diagnosticar, mas verifique na aba direita do overleaf, onde são listados os arquivos se existe uma pasta raiz que quando colapsada (o `v` à esquerda se transforma em um `>`) oculta o seu `.tex` principal. Para resolver a situação, arresta cada pasta/arquivo dentro dessa pasta raiz para fora da pasta raiz. 
+
+Caso você propositalmente tenha criado o arquivo `.tex` principal dentro de algum subdiretório do projeto, infelizmente a opção `embeddedlogo` é incompatível. Omita essa opção ou suprima o seu uso caso esteja usando uma classe derivada desta. Lembre que sem essa opção, é necessário copiar o arquivo [logo-ufsc.pdf](logo-ufsc.pdf) neste repositório para o seu projeto (ao lado do `.tex` principal ou em algum lugar no `\graphicspath`). 
+
 ### Preciso fazer com que algumas páginas não sejam contabilizadas
 
 Alguns programas impõem um limite máximo de páginas para documentos. Você pode fazer com que elementos pré-textuais não sejam contabilizados forçando com que a Introdução comece na página 1. Basta colocar `\setcounter{page}{1}` antes do `\section{Introduction}`. Note que isso causará warnings como esse:
