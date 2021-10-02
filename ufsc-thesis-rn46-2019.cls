@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/07/29 v0.8.3 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/01 v0.8.4 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -322,10 +322,6 @@
 % Identação do primeiro paragráfo
 \RequirePackage{indentfirst}
 
-% Número da última página
-\ifufscthesis@nolatexextra\else
-  \RequirePackage{lastpage}
-\fi
 
 % Citações
 \ifufscthesis@noabntexcite\else
