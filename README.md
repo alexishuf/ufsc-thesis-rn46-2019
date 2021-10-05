@@ -86,6 +86,14 @@ pdflatex -shell-escape arquivo.tex
 
 ## FAQ
 
+### Lista de Ilustrações ou Lista de Figuras?
+
+Boa pergunta. O abntex2, a NBR 14724:2011 e os slides/tutoriais da BU utilizam "*Ilustrações*", enquanto os templates da BU utilizam "*Figuras*". Por votação, classe adota Ilustrações, mas provavelmente "*Figuras*" é tão válido quanto já que embora a NBR14724:2011 não use "*Ilustrações*" em um contexto de mero exemplo, ela determina que tal elemento pré-textual é opcional, ao mesmo tempo que não há proibição à introdução de elementos pré-textuais adicionais. 
+
+Caso queira (ou o bibliotecário solicite), passe a opção `figuras` para a classe e `\listoffigures` se chamará "Lista de Figuras" em português.
+
+Uma consulta foi feita a BU e o default da classe (assim como essa resposta) pode mudar.
+
 ### O overleaf não compila e acusa "output-logo.pdf not found"
 
 Isso ocorre caso seja usada a opção `embeddedlogo` (recomendado para o overleaf) mas o arquivo .tex principal (aquele que faz o `\documentclass{ufsc-thesis-rn46-2019}`) não está na raiz do projeto. Para resolver, mova o .tex principal para a raiz do projeto. Lembre que o arquivo `ufsc-thesis-rn46-2019.cls` assim como o `.cls` de classes derivadas (como a [lapesd-thesis](https://github.com/lapesd/lapesd-thesis)) precisa estar "ao lado" (i.e., no mesmo diretório) do arquivo `.tex` principal.

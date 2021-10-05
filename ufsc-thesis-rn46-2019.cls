@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/05 v0.8.5 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/05 v0.8.6 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -200,6 +200,13 @@
 % URL. Logo, visando a uniformização de estilo, <>'s são removidos do
 % comando \url{}
 \DeclareBoolOption{noplainurl}
+
+% [figuras]
+% O abntex2 NBR 14724:2011, @buWord e @buABNT usam "Lista de Illustrações"
+% o @buDoc e o template LaTeX oficial da BU usam "Lista de Figuras"
+% Essa opção troca o nome da lista para lista de Figuras, quando o
+% $documento está em português
+\DeclareBoolOption{figuras}
 
 % [nocleanheader]
 % O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta
@@ -469,6 +476,13 @@
   \appto{\postextual}{\selectlanguage{english}}
   \selectlanguage{english}
 \else
+  % Implementa opção [figuras]
+  \ifufscthesis@figuras
+    \addto\captionsbrazil{%
+      \renewcommand{\listfigurename}{Lista de Figuras}%
+    }
+  \fi
+
   \addto\captionsbrazil{%
     % abntex2 não algumas macros dentro da linguagem BR. Após fazer
     % essa sequência de trocas: br -> en -> br, \essas macros permanecem
