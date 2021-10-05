@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/01 v0.8.4 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/05 v0.8.5 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -52,6 +52,9 @@
 \DeclareVoidOption{english}{%
   \ufscthesis@engtrue%
   \ufscthesis@enggiventrue%
+  % Versões antigas do abntex não repassam para o babel (<= 2017)
+  \PassOptionsToPackage{brazil}{babel}%
+  \PassOptionsToPackage{main=english}{babel}%
   \PassOptionsToPackage{brazil}{abntex2}% sempre necessário: resumo
   \PassOptionsToPackage{main=english}{abntex2}%
 }
@@ -61,6 +64,9 @@
 \DeclareVoidOption{brazil}{%
   \ufscthesis@engfalse%
   \ufscthesis@bragiventrue%
+  % Versões antigas do abntex não repassam para o babel (<= 2017)
+  \PassOptionsToPackage{english}{babel}%
+  \PassOptionsToPackage{main=brazil}{babel}%
   \PassOptionsToPackage{english}{abntex2}% sempre necessário: abstract
   \PassOptionsToPackage{main=brazil}{abntex2}%
 }
@@ -269,6 +275,9 @@
   \ifufscthesis@enggiven
   \else
     % Ações que seriam tomadas se brazil fosse opção do \documentclass
+    % Versões antigas do abntex não repassam para o babel (<= 2017)
+    \PassOptionsToPackage{english}{babel}
+    \PassOptionsToPackage{main=brazil}{babel}
     \ufscthesis@engfalse
     \PassOptionsToPackage{english}{abntex2}% sempre necessário: abstract
     \PassOptionsToPackage{main=brazil}{abntex2}
