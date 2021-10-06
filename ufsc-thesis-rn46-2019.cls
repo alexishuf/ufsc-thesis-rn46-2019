@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.7 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.8 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -1288,7 +1288,7 @@
     \noindent
     \begin{longtable}{p{#1}p{\dimexpr 16cm-\tabcolsep-#1\relax}}%
   }%
-  {\end{longtable}}
+  {\end{longtable}\addtocounter{table}{-1}}
 
 \ifufscthesis@nocleardoublepage\else
   \AtBeginDocument{
