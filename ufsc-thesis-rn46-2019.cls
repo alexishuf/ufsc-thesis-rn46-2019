@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/05 v0.8.6 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.7 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -201,12 +201,16 @@
 % comando \url{}
 \DeclareBoolOption{noplainurl}
 
-% [figuras]
-% O abntex2 NBR 14724:2011, @buWord e @buABNT usam "Lista de Illustrações"
-% o @buDoc e o template LaTeX oficial da BU usam "Lista de Figuras"
-% Essa opção troca o nome da lista para lista de Figuras, quando o
-% $documento está em português
-\DeclareBoolOption{figuras}
+% [ilustracoes]
+% Restaura o nome da "Lista de Figuras" para "Lista de Ilustrações" (default
+% do abntex2). "Ilustrações" é usado na NBR 14724:2011 e nos slides/tutorias
+% da BU, enquanto os templates da BU usam "Figuras". Consultada, a BU declarou
+% que ilustrações é usado apenas como termo genérico (cobrindo figuras,
+% quadros, tabelas, etc.) e que se a lista só contém figuras deveria ser
+% chamada de "Lista de Figuras". Como listar não-\texttt{figure}s em
+% \lacmd{listoffigures} é um cenário extrmamente exótico em \LaTeX, essa
+% classe utiliza "Lista de Figuras" em portugês.
+\DeclareBoolOption{ilustracoes}
 
 % [nocleanheader]
 % O @buDoc apresenta headers mais limpos que o padrão do abnTeX2. Por padrão, esta
@@ -476,8 +480,9 @@
   \appto{\postextual}{\selectlanguage{english}}
   \selectlanguage{english}
 \else
-  % Implementa opção [figuras]
-  \ifufscthesis@figuras
+  % Troca Lista de "Ilustrações" (abntex2) por "Figuras" (BU)
+  \ifufscthesis@ilustracoes
+  \else
     \addto\captionsbrazil{%
       \renewcommand{\listfigurename}{Lista de Figuras}%
     }

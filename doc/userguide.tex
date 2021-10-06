@@ -572,6 +572,15 @@ opção \texttt{lmodern} corresponde à fonte Latin Modern, a fonte padrão do
 \LaTeX. Essa é uma fonte serifada similar à Times, mas não possui respaldo
 oficial da BU.
 
+\paragraph*{\texttt{ilustracoes}} Restaura o nome da ``Lista de Figuras'' para
+``Lista de Ilustrações'' (default do abntex2). ``Ilustrações'' é usado na NBR
+14724:2011 e nos slides/tutorias da BU, enquanto os templates da BU usam
+``Figuras''. Consultada, a BU declarou que ilustrações é usado apenas como termo
+genérico (cobrindo figuras, quadros, tabelas, etc.) e que se a lista só contém
+figuras deveria ser chamada de ``Lista de Figuras''. Como listar
+não-\texttt{figure}s em \lacmd{listoffigures} é um cenário extrmamente exótico
+em \LaTeX, essa classe utiliza ``Lista de Figuras'' em portugês.
+
 \paragraph*{\texttt{nocapautoref}} Essa classe configura o comando
 \lacmd{autoref} para que nomes de capítulos e seções sejam capitalizados. Ao
 fornecer essa opção essa alteração deixará de ser feita.

@@ -88,11 +88,7 @@ pdflatex -shell-escape arquivo.tex
 
 ### Lista de Ilustrações ou Lista de Figuras?
 
-Boa pergunta. O abntex2, a NBR 14724:2011 e os slides/tutoriais da BU utilizam "*Ilustrações*", enquanto os templates da BU utilizam "*Figuras*". Por votação, classe adota Ilustrações, mas provavelmente "*Figuras*" é tão válido quanto já que embora a NBR14724:2011 não use "*Ilustrações*" em um contexto de mero exemplo, ela determina que tal elemento pré-textual é opcional, ao mesmo tempo que não há proibição à introdução de elementos pré-textuais adicionais. 
-
-Caso queira (ou o bibliotecário solicite), passe a opção `figuras` para a classe e `\listoffigures` se chamará "Lista de Figuras" em português.
-
-Uma consulta foi feita a BU e o default da classe (assim como essa resposta) pode mudar.
+A NBR 14724:2011 e os slides/tutoriais da BU utilizam "*Ilustrações*", mas quando questionada, a BU recomendou que se a lista só contem Figuras deveria ser chamada de "Lista de Figuras". Isso não é uma invenção da BU, já que a NBR 14724:2011 § 4.2.1.9 dá a entender que ilustração é qualquer float LaTeX que não é `table` (incluindo quadros que seriam desenhados como `tabular`). Como `\listoffigures` realmente só contem `figure`s, essa classe altera o padrão do abntex2 de "Lista de Ilustrações" para "Lista de Figuras". Para reverter o comportamento do abntex2, utilize a opção de classe `ilustracoes`.
 
 ### O overleaf não compila e acusa "output-logo.pdf not found"
 
