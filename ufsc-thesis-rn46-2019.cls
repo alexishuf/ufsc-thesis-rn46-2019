@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.8 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.9 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -1370,8 +1370,8 @@
 
 % Usado para gerar \ufscthesis@logofc apenas se o arquivo não existe (evita warning)
 \newif\ifufscthesis@hasbase
-\IfFileExists{\ufscthesis@logofc}{\ufscthesis@hasbasetrue}{\ufscthesis@hasbasefalse}
 \ifufscthesis@embeddedlogo
+  \IfFileExists{\ufscthesis@logofc}{\ufscthesis@hasbasetrue}{\ufscthesis@hasbasefalse}
   \ifufscthesis@hasbase
   \else
 \begin{filecontents*}{\ufscthesis@logofc}
