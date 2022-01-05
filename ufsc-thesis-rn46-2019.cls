@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2021/10/06 v0.8.9 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.10 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -271,7 +271,7 @@
 
 % Determina comando usado para base64 --decode, a menos que já tenha sido definido
 \ifufscthesis@windows
-  \providecommand{\ufscthesis@decodecmd}{certutil --decode }
+  \providecommand{\ufscthesis@decodecmd}{certutil -decode }
 \else
   \providecommand{\ufscthesis@decodecmd}{base64 --decode }
 \fi
