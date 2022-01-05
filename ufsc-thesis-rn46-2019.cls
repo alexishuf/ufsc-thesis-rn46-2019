@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.10 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.11 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -271,7 +271,7 @@
 
 % Determina comando usado para base64 --decode, a menos que já tenha sido definido
 \ifufscthesis@windows
-  \providecommand{\ufscthesis@decodecmd}{certutil -decode }
+  \providecommand{\ufscthesis@decodecmd}{certutil -decode -f }
 \else
   \providecommand{\ufscthesis@decodecmd}{base64 --decode }
 \fi
@@ -983,7 +983,13 @@
   \fi %ufscthesis@latexmkoutdir
   \newcommand{\ufscthesis@logo}{\ufscthesis@logoprefix\jobname-logo.pdf}
   \AtBeginDocument{%
-    \immediate\write18{\ufscthesis@decodecmd  \ufscthesis@logob > \ufscthesis@logo}
+    \ifufscthesis@windows
+      % Windows default, certutil does not work with redirects and
+      % gets confused with files that have -'s in their name
+      \immediate\write18{\ufscthesis@decodecmd  "\ufscthesis@logob"   "\ufscthesis@logo"}
+    \else
+      \immediate\write18{\ufscthesis@decodecmd   \ufscthesis@logob  >  \ufscthesis@logo }
+    \fi
   }
 \else
   % Alguns caminhos possíveis onde o aluno poderia ter nos largado
