@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.11 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.12 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -142,6 +142,12 @@
 % sem tentar detectar o SO.
 \newif\ifufscthesis@windows
 \DeclareVoidOption{windows}{%
+  % This appears to be required on texlive 2.6-1.40.23 on windows
+  % Without ifplatform included, there is a mysterious "extra \fi"
+  % error after longtable.sty finishes loading
+  % Keep the requirePackage inside an IfFileExists, since this may
+  % be a transitory issue
+  \IfFileExists{ifplatform.sty}{\RequirePackage{ifplatform}}{}
   \ufscthesis@windowstrue%
   \ufscthesis@detectosfalse%
 }
