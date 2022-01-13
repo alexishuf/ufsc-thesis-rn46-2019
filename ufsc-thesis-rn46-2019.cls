@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/05 v0.8.12 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/13 v0.9.0 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -101,6 +101,17 @@
   \ufscthesis@pageanchorhackfalse%
 }
 
+% [coorientadorbanca]
+%
+% Se o documento é um TCC e essa opção é dada, coorientadores serão listados
+% como membros da banca na folha de aprovação.
+%
+% No caso de teses e dissertações o template é claro quanto a não inclusão
+% de coorientadores. No caso de TCC, é razoável que surja a exigência de incluir
+% coorientadores como banca dependendo de regras internas do departamento.
+% Mesmo o template específico de TCCs da UFSC não inclui coorientadores de
+% folha de aprovação.
+\DeclareBoolOption[false]{coorientadorbanca}
 
 % [lmodern] [times] [arial]
 % Escolhe a fonte: lmodern, times (default), ou arial.
@@ -473,13 +484,6 @@
 \fi
 
 \ifufscthesis@eng
-  % Nomeclatura de orientador e Coorientador cf @buWord e @buABNT
-  % Esses nomes devem permanecer em pt_BR mesmo para trabalhos escritos em inglês
-  \addto\captionsenglish{%
-    \renewcommand{\orientadorname}{Orientador:}%
-    \renewcommand{\coorientadorname}{Coorientador:}%
-  }
-
   % Ativa o idioma em cada uma das partes
   \appto{\pretextual}{\selectlanguage{english}}
   \appto{\textual}{\selectlanguage{english}}
@@ -523,15 +527,36 @@
 \providecommand{\listadesimbolosname}{Lista de S\'imbolos}%
 \providecommand{\ufscthesisalgorithmname}{Algoritmo}%
 \providecommand{\ufscthesislistofalgorithmsname}{Lista de Algoritmos}%
+\providecommand{\ufscthesisand}{e}%
+\providecommand{\orientadoraname}{Orientadora:}%
+\providecommand{\coorientadoraname}{Coorientadora:}%
+\providecommand{\orientadorasname}{Orientadoras:}%
+\providecommand{\coorientadorasname}{Coorientadoras:}%
+\providecommand{\orientadoresname}{Orientadores:}%
+\providecommand{\coorientadoresname}{Coorientadores:}%
 \addto\captionsenglish{
   \renewcommand{\listadesimbolosname}{List of Symbols}%
   \renewcommand{\ufscthesisalgorithmname}{Algorithm}%
   \renewcommand{\ufscthesislistofalgorithmsname}{List of Algorithms}%
+  \renewcommand{\ufscthesisand}{and}%
+  \renewcommand{\orientadoraname}{\orientadorname}%
+  \renewcommand{\coorientadoraname}{\coorientadorname}%
+  \renewcommand{\orientadorasname}{\orientadoresname}%
+  \renewcommand{\coorientadorasname}{\coorientadoresname}%
+  \renewcommand{\orientadoresname}{Supervisors:}%
+  \renewcommand{\coorientadoresname}{Co-supervisors:}%
 }
 \addto\captionsbrazil{
   \renewcommand{\listadesimbolosname}{Lista de S\'imbolos}%
   \renewcommand{\ufscthesisalgorithmname}{Algoritmo}%
   \renewcommand{\ufscthesislistofalgorithmsname}{Lista de Algoritmos}%
+  \renewcommand{\ufscthesisand}{e}%
+  \renewcommand{\orientadoraname}{Orientadora:}%
+  \renewcommand{\coorientadoraname}{Coorientadora:}%
+  \renewcommand{\orientadorasname}{Orientadoras:}%
+  \renewcommand{\coorientadorasname}{Coorientadoras:}%
+  \renewcommand{\orientadoresname}{Orientadores:}%
+  \renewcommand{\coorientadoresname}{Coorientadores:}%
 }
 
 % \autorefnames que costumeiramente não estão definidos
@@ -617,44 +642,163 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos de dados                                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Comandos de dados - programa
-\providecommand{\imprimirprograma}{}
-\newcommand{\programa}[1]{\renewcommand{\imprimirprograma}{#1}}
 
-\providecommand{\imprimirtituloalt}{}
+% Uso interno: Variáveis de dados
+\newcommand{\ufscthesis@local}{\begingroup \bfseries Erro: chame \textbackslash{}local\endgroup}
+\newcommand{\ufscthesis@instituicao}{Universidade Federal de Santa Catarina}
+\newcommand{\ufscthesis@titulometadados}{\imprimirtitulo}
+\newcommand{\ufscthesis@programa}{\begingroup \bfseries Erro: chame \textbackslash{}programa\endgroup}
+\newcommand{\ufscthesis@titulode}{\begingroup \bfseries Erro: chame \textbackslash{}titulode\endgroup}
+\newcommand{\ufscthesis@tipotrabalho}{Disserta\c{c}\~{a}o}
+\newcommand{\ufscthesis@nivel}{
+  \iftoggle{ufscthesistese}%
+    {doutorado}%
+    {\iftoggle{ufscthesistcc}%
+      {gradua\c{c}\~{a}o}%
+      {mestrado}}%
+}
+\newcommand{\ufscthesis@centro}{\begingroup \bfseries Erro: chame \textbackslash{}centro\endgroup}
+\newcommand{\ufscthesis@departamento}{\begingroup \bfseries Erro: chame \textbackslash{}departamento\endgroup}
+\newcommand{\ufscthesis@curso}{\begingroup \bfseries Erro: chame \textbackslash{}curso\endgroup}
+\newcommand{\ufscthesis@preambulo}{
+  \iftoggle{ufscthesistcc}{%
+    \imprimirtipotrabalho~submetido~ao Curso de Gradua\c{c}\~{a}o em %
+    \imprimircurso~do \imprimircentro~da Universidade Federal de Santa Catarina %
+    como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
+    \imprimirtitulode{}.%
+  }{%
+    \imprimirtipotrabalho~submetida~ao \imprimirprograma{} para a %
+    obten\c{c}\~{a}o do t\'{i}tulo de \imprimirtitulode{}.%
+  }%
+}
+
+% Uso interno: Variáveis de dados - versão cotutela
+\newif\ifufscthesis@incotutela
+\newcommand{\ufscthesis@localcot}{}
+\newcommand{\ufscthesis@instituicaocot}{\ufscthesis@instituicao}
+\newcommand{\ufscthesis@programacot}{\ufscthesis@programa}
+\newcommand{\ufscthesis@titulodecot}{\ufscthesis@titulode}
+\newcommand{\ufscthesis@tipotrabalhocot}{
+  \iftoggle{ufscthesistese}
+    {Thesis}
+    {\iftoggle{ufscthesistcc}{Undergraduate Thesis}{Dissertation}}
+}
+\newcommand{\ufscthesis@nivelcot}{\ufscthesis@nivel}
+\newcommand{\ufscthesis@centrocot}{\ufscthesis@centro}
+\newcommand{\ufscthesis@departamentocot}{\ufscthesis@departamento}
+\newcommand{\ufscthesis@cursocot}{\ufscthesis@cursocot}
+\newcommand{\ufscthesis@preambulocot}{
+  \iftoggle{ufscthesistcc}%
+  {%
+    \imprimirtipotrabalho~submitted~to the undergraduate course of %
+    \imprimircurso~of the \imprimircentro~of Federal University of Santa %
+    Catarina as a requirement for the degree of \imprimirtitulode{}.%
+  }{%
+    \imprimirtipotrabalho~submitted~to the \imprimirprograma{} for %
+    obtaining the degree of \imprimirtitulode.%
+  }%
+}
+
+% Uso interno: "Printers" para as variáveis de dados
+\renewcommand{\imprimirlocal}{
+  \ifufscthesis@incotutela\ufscthesis@localcot\else\ufscthesis@local\fi}
+\renewcommand{\imprimirinstituicao}{
+  \ifufscthesis@incotutela\ufscthesis@instituicaocot\else\ufscthesis@instituicao\fi
+}
+\newcommand{\imprimirprograma}{
+  \ifufscthesis@incotutela\ufscthesis@programacot\else\ufscthesis@programa\fi
+}
+\newcommand{\imprimirtitulode}{
+  \ifufscthesis@incotutela\ufscthesis@titulodecot\else\ufscthesis@titulode\fi
+}
+\renewcommand{\imprimirtipotrabalho}{
+  \ifufscthesis@incotutela\ufscthesis@tipotrabalhocot\else\ufscthesis@tipotrabalho\fi
+}
+\newcommand{\imprimirnivel}{
+  \ifufscthesis@incotutela\ufscthesis@nivelcot\else\ufscthesis@nivel\fi
+}
+\newcommand{\imprimircentro}{
+  \ifufscthesis@incotutela\ufscthesis@centrocot\else\ufscthesis@centro\fi
+}
+\newcommand{\imprimirdepartamento}{
+  \ifufscthesis@incotutela\ufscthesis@departamentocot\else\ufscthesis@departamento\fi
+}
+\newcommand{\imprimircurso}{
+  \ifufscthesis@incotutela\ufscthesis@cursocot\else\ufscthesis@cursocot\fi
+}
+\renewcommand{\imprimirpreambulo}{
+  \ifufscthesis@incotutela\ufscthesis@preambulocot\else\ufscthesis@preambulo\fi
+}
+\newcommand{\imprimirlocalduplo}{
+  \ufscthesis@local\abntex@ifnotempty{\ufscthesis@localcot}{ / \ufscthesis@localcot}{}
+}
+
+% Uso público: "Setters"
+
+% \local{}
+% Cidade, sem o estado onde ocorreu a defesa
+\renewcommand{\local}[1]{\renewcommand\ufscthesis@local{#1}}
+
+% \localcotutela{}
+% Cidade da universidade onde o aluno está concluindo com acordo de cotutela.
+% Pelo template da UFSC, deveria ser apenas a cidade.
+\newcommand{\localcotutela}[1]{\renewcommand\ufscthesis@localcot{#1}}
+
+% \instituicao{Universidade...}
+% \instituicaocotutela{University...}
+% Define o nome da instituição. \instituicaocotutela afeta apenas
+% a folha de rosto de cotutela. Por padrão a instituição é
+% Universidade Federal de Santa Catarina
+\renewcommand{\instituicao}[1]{\renewcommand{\ufscthesis@instituicao}{#1}}
+\newcommand{\instituicaocotutela}[1]{\renewcommand{\ufscthesis@instituicaocot}{#1}}
+
+% \programa{Programa de Pós....}
+% \programacotutela{Graduate Program....}
+% Seta o programa, como deve aparecer na folha de rosto (ou de cotutela)
+\newcommand{\programa}[1]{\renewcommand{\ufscthesis@programa}{#1}}
+\newcommand{\programacotutela}[1]{\renewcommand{\ufscthesis@programa}{#1}}
+
+% \titulo[Título p/ metadados]{Título para PDF}
 \renewcommand{\titulo}[2][]{%
-  \renewcommand{\imprimirtituloalt}{\ifstrempty{#1}{#2}{#1}}%
+  \renewcommand{\ufscthesis@titulometadados}{\ifstrempty{#1}{#2}{#1}}%
   \title{#2}
 }
 
 % \titulode{Doutor em Ciência da Computação}
-% Define o título ao qual o trabalho corresponde
-\newtoggle{ufscthesishastitulode}
-\providecommand{\imprimirtitulode}{}
-\newcommand{\titulode}[1]{\toggletrue{ufscthesishastitulode}\renewcommand{\imprimirtitulode}{#1}}
-\newcommand{\ufscthesis@titulode}[0]{%
-  \iftoggle{ufscthesishastitulode}%
-    {\imprimirtitulode}%
-    {\begingroup \bfseries Erro: chame \textbackslash{}titulode\endgroup}%
-}%
+% \titulode{PhD in Computer Science}
+% Define o título que o aluno receberá
+\newcommand{\titulode}[1]{\renewcommand{\ufscthesis@titulode}{#1}}
+\newcommand{\titulodecotutela}[1]{\renewcommand{\ufscthesis@titulodecot}{#1}}
+
 
 % \tese
 % \dissertacao
 % \tcc
-% Define o tipo de trabalho. Você pode usar o \tipotrabalho definido no abnTeX2,
-% mas alguns defaults dessa classe deixarão de ser computados.
-% O mais importante deles é o \preambulo
+% Define o tipo de trabalho.
+%
+% Não use o \tipotrabalho definido no abnTeX2. Há regras especiais da BU para TCC
+% que não serão ativadas. 
 \newtoggle{ufscthesistese}
 \newtoggle{ufscthesistcc}
 \newcommand{\tese}[0]{%
   \toggletrue{ufscthesistese}
-  \renewcommand{\imprimirtipotrabalho}{Tese}%
+  \renewcommand{\ufscthesis@tipotrabalho}{Tese}%
 }
-\newcommand{\dissertacao}[0]{\renewcommand{\imprimirtipotrabalho}{Disserta\c{c}\~{a}o}}
+\newcommand{\dissertacao}[0]{%
+  \renewcommand{\ufscthesis@tipotrabalho}{Disserta\c{c}\~{a}o}%
+}
 \newcommand{\tcc}[0]{%
   \toggletrue{ufscthesistcc}%
-  \renewcommand{\imprimirtipotrabalho}{Trabalho de Conclus\~{a}o de Curso}%
+  \renewcommand{\ufscthesis@tipotrabalho}{Trabalho de Conclus\~{a}o de Curso}%
 }
+
+% redefine \tipotrabalho do abntex2 para afetar apenas a folha de rosto em português
+\renewcommand{\tipotrabalho}[1]{\renewcommand{\ufscthesis@tipotrabalho}{#1}}
+
+% \tipotrabalhocotutela
+% Troca a palavra para o tipo de trabalho usado na folha de rosto de cotutela
+% Por padrão é usada uma tradução para inglês do termo usado pela UFSC.
+\newcommand\tipotrabalhocotutela[1]{\renewcommand{\ufscthesis@tipotrabalhocot}{#1}}
 
 % \nivel{<mestrado/doutorado/graduação>}
 % Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT
@@ -669,30 +813,40 @@
 \newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
 
 % \centro{<centro>}
+% \centrocotutela{<centro>}
 % Configura o nome do centro da UFSC
-\providecommand{\imprimircentro}{}
-\newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
+\newcommand{\centro}[1]{\renewcommand{\ufscthesis@centro}{#1}}
+\newcommand{\centrocotutela}[1]{\renewcommand{\ufscthesis@centrocot}{#1}}
 
 % \departamento{<departamento>}
+% \departamentocotutela{<departamento>}
 % Configura o nome do departamento (apenas para TCCs (\tcc))
-\providecommand{\imprimirdepartamento}%
-  {\begingroup \bfseries Erro: chame \textbackslash{}departamento\{...\}\endgroup}
-\newcommand{\departamento}[1]{\renewcommand{\imprimirdepartamento}{#1}}
+\newcommand{\departamento}[1]{\renewcommand{\ufscthesis@departamento}{#1}}
+\newcommand{\departamentocotutela}[1]{\renewcommand{\ufscthesis@departamentocot}{#1}}
 
 % \curso{<curso>}
+% \cursocotutela{<curso>}
 % Configura o nome do curso (apenas para TCCs (\tcc))
-\providecommand{\imprimircurso}%
-  {\begingroup \bfseries Erro: chame \textbackslash{}curso\{...\}\endgroup}
-\newcommand{\curso}[1]{\renewcommand{\imprimircurso}{#1}}
+\newcommand{\curso}[1]{\renewcommand{\ufscthesis@cursocot}{#1}}
+\newcommand{\cursocotutela}[1]{\renewcommand{\ufscthesis@cursocotcot}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Banca e coordenação (folha de certificação)                    %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Uso interno. Lista de membros da banca
+% Uso interno. Lista de membros da banca, orientadores e coorientadores
 \newcommand*\ufscthesis@banca{}
-% Uso interno. Lista de membros da banca
-\newcommand{\ufscthesis@membrobanca}[2]{#1\par#2}
+\newcommand*\ufscthesis@orientadores{}
+\newcommand*\ufscthesis@coorientadores{}
+\newcommand\ufscthesis@primorientadorafiliacao{}
+\newcommand\ufscthesis@primorientadorpapel{}
+% Genero e número da lista de (co)orientadores
+\newif\ifufscthesis@hasorientador      % > 0 orientador(a)
+\newif\ifufscthesis@orientadormasc     % >= 1 orientador masculino
+\newif\ifufscthesis@multiorientador    % > 1 orientador(a)
+\newif\ifufscthesis@hascoorientador    % > 0 coorientador(a)
+\newif\ifufscthesis@coorientadormasc   % >= 1 coorientador masculino
+\newif\ifufscthesis@multicoorientador  % > 1 coorientador(a)
 % 6.61cm medido no template oficial @buWord
 \newcommand{\ufscthesis@certificador}[3][]{\rule{6.61cm}{1pt}\par#2\par#3\par\ifblank{#1}{}{#1\par}}
 
@@ -722,59 +876,104 @@
 }
 \newcommand{\coordenadora}[1]{\coordenador[a]{#1}}
 
-% \orientadora
-% \coorientadora
+% \orientadorext[afiliacaocurta]{nome}{afiliacaocompleta}
+% \coorientadorext[afiliacaocurta]{nome}{afiliacaocompleta}
 %
-% Versões femininas dos comandos abnTeX2
-\newtoggle{ufscthesisfemsupervisor}
-\newcommand{\orientadora}[1]{
-  \toggletrue{ufscthesisfemsupervisor}
-  \orientador[Orientadora:]{#1}
-}
-\newtoggle{ufscthesisfemcosupervisor}
-\newcommand{\coorientadora}[1]{%
-  \toggletrue{ufscthesisfemcosupervisor}
-  \coorientador[Coorientadora:]{#1}
-}
-
-% \afiliacaoorientador{<universidade/empresa/instituição>}
-% \afiliacaoorientadora{<universidade/empresa/instituição>}
-% \afiliacaocoorientador{<universidade/empresa/instituição>}
-% \afiliacaocoorientadora{<universidade/empresa/instituição>}
+% Adiciona um (co)orientador, opcionalmente com uma afiliação. Se a afiliação
+% for fornecida, ela será impressa na folha de rosto e na folha de certificação.
+% Se tanto uma afiliação completa como uma curta forem dadas, a folha de rosto
+% usará a versão curta e a folha de certificação, a versão longa.
 %
-% Define a afiliação do orientador e coorientador. Por padrão a afiliação de
-% ambos é Universidade Federal de Santa Catarina. A afiliação apenas é exibida
-% em TCCs, configurados com \tcc.
-\newcommand{\imprimirafiliacaoorientador}{Universidade Federal de Santa Catarina}%
-\newcommand{\imprimirafiliacaocoorientador}{Universidade Federal de Santa Catarina}%
-\newcommand{\afiliacaoorientador}[1]{%
-  \renewcommand{\imprimirafiliacaoorientador}{#1}%
+% Para (co)orientadores afiliados à UFSC, não forneça afiliações. Alternativamente,
+% use as macros \orientador e \coorientador para definir (co)orientadores da UFSC.
+\newcommand{\ufscthesis@orientadorext}[5]{
+  % #1 -> afiliacaocurta
+  % #2 -> nome
+  % #3 -> afiliacaocompleta
+  % #4 -> rotulo orientador
+  % #5 -> a se feminino, vazio caso contrario
+  \ifstrempty{#5}{\ufscthesis@orientadormasctrue}{}%
+  \ifufscthesis@hasorientador%
+    \ufscthesis@multiorientadortrue%
+    \listadd{\ufscthesis@orientadores}{%
+      \ufscthesis@adicional\ufscthesis@papel{#4}%
+      \ufscthesis@nome{#2}\ufscthesis@afiliacao{#1}{#3}%
+    }%
+  \else%
+    \ufscthesis@hasorientadortrue%
+    \renewcommand{\imprimirorientador}{#2}%
+    \renewcommand\ufscthesis@primorientadorafiliacao{#3}%
+    \renewcommand\ufscthesis@primorientadorpapel{#4}%
+    \listadd{\ufscthesis@orientadores}{%
+      \ufscthesis@primeiro\ufscthesis@papel{#4}%
+      \ufscthesis@nome{#2}\ufscthesis@afiliacao{#1}{#3}%
+    }%
+  \fi%
 }
-\newcommand{\afiliacaocoorientador}[1]{%
-  \renewcommand{\imprimirafiliacaocoorientador}{#1}%
+\newcommand{\ufscthesis@coorientadorext}[5]{
+  \ifstrempty{#5}{}{\ufscthesis@coorientadormasctrue}{}%
+  \ifufscthesis@hascoorientador%
+    \ufscthesis@multicoorientadortrue%
+    \listadd{\ufscthesis@coorientadores}{%
+      \ufscthesis@adicional\ufscthesis@papel{#4}%
+      \ufscthesis@nome{#2}\ufscthesis@afiliacao{#1}{#3}%
+    }%
+  \else%
+    \ufscthesis@hascoorientadortrue%
+    \renewcommand{\imprimircoorientador}{#2}%
+    \listadd{\ufscthesis@coorientadores}{%
+      \ufscthesis@primeiro\ufscthesis@papel{#4}%
+      \ufscthesis@nome{#2}\ufscthesis@afiliacao{#1}{#3}%
+    }%
+  \fi%
 }
-\newcommand{\afiliacaoorientadora}[1]{\afiliacaoorientador{#1}}
-\newcommand{\afiliacaocoorientadora}[1]{\afiliacaocoorientador{#1}}
+\newcommand{\orientadorext}[3][]{\ufscthesis@orientadorext{#1}{#2}{#3}{Orientador}{}}
+\newcommand{\orientadoraext}[3][]{\ufscthesis@orientadorext{#1}{#2}{#3}{Orientadora}{a}}
+\newcommand{\coorientadorext}[3][]{\ufscthesis@coorientadorext{#1}{#2}{#3}{Coorientador}{}}
+\newcommand{\coorientadoraext}[3][]{\ufscthesis@coorientadorext{#1}{#2}{#3}{Coorientadora}{a}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Padrões para Comandos de dados do abnTeX2                      %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% troca definição de (co)orientador  do abntex2
+\newif\ifufscthesis@hasorientador
+\renewcommand{\orientador}[2][\orientadorname]{%
+  \ifstrequal{#1}{Orientadora:}{\orientadoraext{#2}{}}{\orientadorext{#2}{}}%
+}
+\renewcommand{\coorientador}[2][\coorientadorname]{%
+  \ifstrequal{#1}{Coorientadora:}{\coorientadoraext{#2}{}}{\coorientadorext{#2}{}}%
+}
 
-% \preambulo{<texto>}
-% Texto padrão conforme @buABNT. Esse default só é configurado se os comandos
-% dessa classe, \tese ou \dissertacao, foram usados
-\renewcommand{\imprimirpreambulo}{%
-  \iftoggle{ufscthesistcc}%
-  {%
-    \imprimirtipotrabalho~submetido~ao Curso de Gradua\c{c}\~{a}o em %
-    \imprimircurso~do \imprimircentro~da Universidade Federal de Santa Catarina %
-    como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
-    \ufscthesis@titulode{}.%
-  }{%
-    \imprimirtipotrabalho~submetida~ao \imprimirprograma{} para a %
-    obten\c{c}\~{a}o do t\'{i}tulo de \ufscthesis@titulode{}.%
-  }%
-}%
+% troca definição de \imprimir(co)orientadorRotulo do abntex2
+\renewcommand{\imprimirorientadorRotulo}{
+  \ifufscthesis@multiorientador
+    \ifufscthesis@orientadormasc{}\orientadoresname\else{}orientadorasname\fi
+  \else
+    \ifufscthesis@orientadormasc{}\orientadorname\else{}\orientadoraname\fi
+  \fi
+}
+\renewcommand{\imprimircoorientadorRotulo}{
+  \ifufscthesis@multiorientador
+    \ifufscthesis@orientadormasc{}\coorientadoresname\else{}\coorientadorasname\fi
+  \else
+    \ifufscthesis@orientadormasc{}\coorientadorname\else{}\coorientadoraname\fi
+  \fi
+}
+
+% Gera erros para usuarios de \afiliacao*
+\newcommand{\afiliacaoorientador}[2][]{
+  \ClassError{ufsc-thesis-rn46-2019}
+    {\protect\afiliacaoorientador\space foi removido. Use \protect\orientadorext[Af. ABREV]{Prof. Exemplo, Dr.}{Afilicação Completa}}{}
+}
+\newcommand{\afiliacaoorientadora}[2][]{
+  \ClassError{ufsc-thesis-rn46-2019}
+    {\protect\afiliacaoorientadora\space foi removido. Use \protect\orientadoraext[Af. ABREV]{Prof. Exemplo, Dr.}{Afilicação Completa}}{}
+}
+\newcommand{\afiliacaocoorientador}[2][]{
+  \ClassError{ufsc-thesis-rn46-2019}
+    {\protect\afiliacaocoorientador\space foi removido. Use \protect\coorientadorext[Af. ABREV]{Prof. Exemplo, Dr.}{Afilicação Completa}}{}
+}
+\newcommand{\afiliacaocoorientadora}[2][]{
+  \ClassError{ufsc-thesis-rn46-2019}
+    {\protect\afiliacaocoorientadora\space foi removido. Use \protect\coorientadoraext[Af. ABREV]{Prof. Exemplo, Dr.}{Afilicação Completa}}{}
+}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Comandos para configurar data                                  %%%
@@ -833,7 +1032,7 @@
   \AtEndPreamble{%
     \hypersetup{%
       pdfauthor={\theauthor},%
-      pdftitle={\imprimirtituloalt}%
+      pdftitle={\ufscthesis@titulometadados}%
     }%
   }
 \fi
@@ -1063,11 +1262,26 @@
   \fi%
 }
 
+% \imprimirfolhaderostocotutela[idioma]
+%
+% Gera duas folhas de rosto como a BU exige para cotutela. A primeira será em
+% portugês (como é o normal) e a segunda será no idioma estrangeiro fornecido.
+% O idioma fornecido deve ser um identificador reconhecido pelo babel. O idioma
+% padrão é english.
+\newcommand{\imprimirfolhaderostocotutela}[1][english]{
+  \begin{folhaderosto*}
+    \folhaderostocontent
+  \end{folhaderosto*}
+  \begin{folhaderosto*}
+    \ufscthesis@incotutelatrue\folhaderostocontentpriv{#1}
+  \end{folhaderosto*}
+  \ufscthesis@incotutelafalse
+}
 
 % Folha de rosto segundo modelo novo da BU
-\renewcommand{\folhaderostocontent}{
+\newcommand{\folhaderostocontentpriv}[1]{
   \begin{center}
-    \selectlanguage{brazil} 
+    \selectlanguage{#1} 
     % Nome do autor em caixa baixa sem negrito
     {\ABNTEXchapterfont\textmd\imprimirautor}
     \vspace*{\fill}
@@ -1082,23 +1296,38 @@
       \begin{minipage}{.5\textwidth}
         \ABNTEXfontereduzida
         \SingleSpacing
-        \imprimirpreambulo
-        % Nomes do orientador e coorientador
-        {\par \imprimirorientadorRotulo~\imprimirorientador\par}
-        \abntex@ifnotempty{\imprimircoorientador}{%
-           {\par\imprimircoorientadorRotulo~\imprimircoorientador}%
-        }%
-      \end{minipage}%
+        \imprimirpreambulo\par
+        % Macros para formatação dos nomes e afiliações
+        \def\ufscthesis@primeiro{\relax}
+        \def\ufscthesis@adicional{\space\ufscthesisand\space}
+        \def\ufscthesis@papel##1{\relax}
+        \def\ufscthesis@nome##1{##1}
+        \def\ufscthesis@afiliacao##1##2{
+          \ifufscthesis@multiorientador
+            \ifstrempty{##1}{\ifstrempty{##2}{(UFSC)}{(##2)}}{(##1)}
+          \fi
+        }
+        \renewcommand*{\do}[1]{##1}
+        % Lista orientadores
+        {\imprimirorientadorRotulo~\dolistloop{\ufscthesis@orientadores}}
+        % Lista coorientadores
+        \def\ufscthesis@afiliacao##1##2{\relax}
+        {\ifufscthesis@hascoorientador\par\fi
+         \imprimircoorientadorRotulo~\dolistloop{\ufscthesis@coorientadores}}
+      \end{minipage}
       \vspace*{\fill}
-    }%
+    }
     \vspace*{\fill}
 
     % Local e data em caixa baixa sem negrito
-    {\imprimirlocal}
+    {\imprimirlocalduplo}
     \par{\imprimirano}
     \vspace*{1cm}
   \end{center}
   \newpage
+}
+\renewcommand{\folhaderostocontent}{
+  \folhaderostocontentpriv{brazil}
 }
 
 % Origem: @buDoc e @buABNT Atenção o uso de \vspace*{\fill} nos
@@ -1131,9 +1360,9 @@
     \imprimircoordenador
     \vspace*{\fill}
     \vspace*{\fill}
-    \ufscthesis@certificador{\imprimirorientador}{
-      Orientador\iftoggle{ufscthesisfemsupervisor}{a}{}
-    }
+    \ufscthesis@certificador[\ufscthesis@primorientadorafiliacao]%
+      {\imprimirorientador}%
+      {\ufscthesis@primorientadorpapel}
     \vspace*{\fill}
     \vspace*{\fill}
     % Local e data em caixa baixa sem negrito
@@ -1169,17 +1398,28 @@
     \vspace*{\fill}
     {\centering\bfseries Banca Examinadora: \par}%
     \vspace*{\fill}
-    \ufscthesis@certificador%
-      [\imprimirafiliacaoorientador]%
-      {\imprimirorientador}%
-      {Orientador\iftoggle{ufscthesisfemsupervisor}{a}{}}%
-    \vspace*{\fill}
-    \abntex@ifnotempty{\imprimircoorientador}{%%
-      \ufscthesis@certificador%
-        [\imprimirafiliacaocoorientador]%
-        {\imprimircoorientador}%
-        {Coorientador\iftoggle{ufscthesisfemcosupervisor}{a}{}}%
-    }%
+    % Macros para expandir listas de orientadores e coorientadores
+    \def\ufscthesis@primeiro{\relax}
+    \def\ufscthesis@adicional{\relax}
+    \def\ufscthesis@papel##1{\def\ufscthesis@certpapel{##1}}
+    \def\ufscthesis@nome##1{\def\ufscthesis@certnome{##1}}
+    \def\ufscthesis@afiliacao##1##2{
+      \def\ufscthesis@certafiliacao{
+        \ifstrempty{##2}{Universidade Federal de Santa Catarina}{##2}
+      }
+    }
+    \renewcommand*\do[1]{
+      ##1
+      \ufscthesis@certificador[\ufscthesis@certafiliacao]
+        {\ufscthesis@certnome}{\ufscthesis@certpapel}
+    }
+    % Lista de orientadores
+    \dolistloop{\ufscthesis@orientadores}
+    % Lista de coorientadores
+    \ifufscthesis@coorientadorbanca
+      \def\ufscthesis@primeiro{\vspace*{\fill}}
+      \dolistloop{\ufscthesis@coorientadores}
+    \fi
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
   \end{center}
 }

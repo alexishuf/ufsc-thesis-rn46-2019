@@ -506,6 +506,11 @@ margens esquerda e direita. Essa opção também \textbf{elimina a inserção de
 para alunos apresentando relatórios parciais, como EQM, SAD e EQD. Alguns
 programas, como o PPGCC impõem limites nominais à quantidade de páginas.
 
+\paragraph*{\texttt{coorientadorbanca}}
+No caso de documentos de TCC (e apenas nesse caso), essa opção faz com que o(s)
+coorientadore(s) sejam listados como membros da banca na ``Folha de aprovação''
+que substitui a ``Folha de Certificação''. 
+
 \paragraph*{\texttt{nopageanchorhack}}
 Como a capa é a página 0, \lacmd{imprimircapa} faz
 \lacmd{hypersetup\{pageanchor=false\}} e isso é desfeito em instruções
@@ -657,9 +662,17 @@ de preencher os comandos de dados do próprio \abnTeX, como mostrado na
 \paragraph*{\lacmd{programa\{<nome>\}}} Configura o nome do Programa de
 Pós-Graduação.
 
+\paragraph*{\lacmd{programacotutela\{<nome>\}}} Tradução a ser usada no lugar de
+\lacmd{\programa} na folha de rosto de cotutela em lingua estrangeira. Veja
+\lacmd{\imprimirfolhaderostocotutela}.
+
 \paragraph*{\lacmd{titulode\{<texto>\}}} Define o título alvo.  O título
 \textit{deve ser escrito incluindo a especialidade}. Por exemplo, \emph{Mestre
   em Ciência da Computação}.
+
+\paragraph*{\lacmd{titulodecotutela\{<texto>\}}} Uma tradução para
+\lacmd{titulode} a ser usada na folha de rosto em língua estrangeira (veja
+\lacmd{imprimirfolhaderostocotutela}).
 
 \paragraph*{\lacmd{tese}} Comando sem argumentos. Marca o documento como uma
 tese de doutorado. Isso irá alterar o preâmbulo e a folha de certificação.
@@ -679,12 +692,20 @@ incluído na capa.
 ou especialização do trabalho. Essa informação é incluída na parte superior da
 capa, na folha de rosto e na folha de aprovação.
 
+\paragraph*{\lacmd{cursocotutela\{<texto>\}}} Uma tradução para
+\lacmd{curso} a ser usada na folha de rosto em língua estrangeira (veja
+\lacmd{imprimirfolhaderostocotutela}).
+
 \paragraph*{\lacmd{nivel\{<nivel>\}}} Deve ser o nível do título almejado, em
 minúsculas. O valor padrão é inferido a partir do uso (ou não uso) de
 \lacmd{tese} e \lacmd{dissertacao}.
 
 \paragraph*{\lacmd{centro\{<texto>\}}} Centro da UFSC onde está sediado o
 Programa de Pós-Graduação.
+
+\paragraph*{\lacmd{centrocotutela\{<texto>\}}} Uma tradução para
+\lacmd{centro} a ser usada na folha de rosto em língua estrangeira (veja
+\lacmd{imprimirfolhaderostocotutela}).
 
 \paragraph*{\lacmd{data\{<data por extenso>\}}} Define a data a ser usada na
 folha de certificação. O ano dessa data será usado na capa e na folha de
@@ -715,6 +736,76 @@ do curso, no caso de TCCs. No caso de coordenadora, o comando
 \lacmd{coordenadora} pode ser usado. Exemplo: \lacmd{coordenador\{
   Prof. Mordecai Malignatus, Dr.\}}.
 
+\paragraph*{\lacmd{instituicaocotutela\{<texto>\}}} Uma tradução para
+\lacmd{instituicao} a ser usada na folha de rosto em língua estrangeira (veja
+\lacmd{imprimirfolhaderostocotutela}). Note que pelo modelo de cotutela da UFSC,
+não deve ser usado o nome da instituição estrangeira, mas sim uma o próprio nome
+da UFSC. Não está claro se o nome da UFSC deveria ou não ser traduzido. Caso
+esse comando não seja invocado, o nome da UFSC será usado sem tradução, como
+definido em \lacmd{instituicao}.
+
+\paragraph*{\lacmd{localcotutela\{<texto>\}}} Local da universidade (não a UFSC)
+com a qual o aluno tem acordo de cotutela. Não há regra sobre se deveria ser
+usado a cidade da sede, do campus ou do departamento. Consulte seu acordo de
+cotutela.
+
+\paragraph*{\lacmd{tipotrabalhocotutela\{<texto>\}}} Uma tradução para o
+\lacmd{tipotrabalho} a ser usada a ser usada na folha de rosto em língua
+estrangeira (veja \lacmd{imprimirfolhaderostocotutela}). Note que se forem
+utilizadas as macros \lacmd{tese}, \lacmd{dissertacao} ou \lacmd{\tcc}, será
+automaticamente gerada uma tradução do termo em portugês para o inglês.
+
+\paragraph*{\lacmd{orientadorext[<sigla afiliação>]\{<Prof. Nome, Dr.>\}\{<afiliação>\}}}
+Define um orientador com o nome e afiliação dados. Nomes de orientadores,
+coorientadores e membros de bancas devem ter os títulos (como Dr.) no final e
+Prof. (se for um professor) no início. A sigla da afiliação é usada apenas na
+folha de rosto quando o trabalho é em cotutela. A afiliação completa é usada na
+folha de certificação. \textbf{Importante:} Para professores da UFSC, não
+forneça afiliação (inclusive pode-se usar o comando \lacmd{orientador\{Prof.
+Nome, Dr.\}}). Fornecer uma afiliação da UFSC fará com que ela seja exibida
+onde regras da BU dizem que ela não deveria.
+
+Para definir mais de um orientador, use essa macro ou \lacmd{orientador} mais de
+uma vez. A ordem das macros define a ordem dos orientadores. O primeiro
+orientador deve ser afiliado à UFSC e apenas ele aparecerá na folha de
+certificação (pós graduação). No caso de cotutela na graduação, todos os
+orientadores aparecem na folha de aprovação. Lembre que só há mais de um
+orientador no caso de cotutela, o que exige
+\lacmd{imprimirfolhaderostocotutela}. A \autoref{fig:cotutela} mostra um exemplo
+com dois orientadores e dois corientadoras.
+
+\begin{figure}[tb]
+  \centering
+\begin{minted}{latex}
+\orientador{Prof. Fulano Silva, Dr.} % afiliado a UFSC
+\orientadoraext[UPAR]{Prof\textsuperscript{a}. François Exemple, Dr.}{Université Paris}
+\coorientadora{Prof\textsuperscript{a}. Ciclana Silveira, Dra.}
+\coorientadoraext[UFRGS]{Prof\textsuperscript{a}. Josefina Exemplo, Dra.}{Univer}
+
+% .... 
+\imprimirfolhaderostocotutela
+% - Usará (UFSC) e (UPAR) para os orientadores
+% - Usará Orientadores: e Coorientadoras:
+% - Em inglês usará Supervisors: e Co-supervisors:
+\end{minted}
+  \caption{Exemplo cotutela}
+  \label{fig:cotutela}
+\end{figure}
+
+\paragraph*{\lacmd{orientadoraext[<sigla afiliação>]\{<Prof. Nome, Dr.>\}\{<afiliação>\}}}
+Versão feminina de \lacmd{orientadorext}.
+
+\paragraph*{\lacmd{coorientadorext[<sigla afiliação>]\{<Prof. Nome, Dr.>\}\{<afiliação>\}}}
+Adiciona um coorientador com uma afiliação. As regras para afiliação são as mesmas
+detalhadas em \lacmd{orientadorext}.
+
+\paragraph*{\lacmd{coorientadoraext[<sigla afiliação>]\{<Prof. Nome, Dr.>\}\{<afiliação>\}}}
+Versão feminina de \lacmd{coorientadorext}.
+
+\paragraph*{\lacmd{orientadora\{Prof. Nome, Dr.\}}} Versão feminina de \lacmd{orientador}.
+
+\paragraph*{\lacmd{coorientadora\{Prof. Nome, Dr.\}}} Versão feminina de \lacmd{coorientador}.
+
 \subsection{Comandos de saída}
 
 Esses comandos produzem resultados visíveis. Devem ser usados dentro do
@@ -738,6 +829,41 @@ tabela respeite as margens. Exemplo:
   % ....
 \end{listadesimbolos}
 \end{minted}
+
+
+\paragraph*{\lacmd{imprimirfolhaderostocotutela[idioma]}} Chama
+\lacmd{imprimirfolhaderosto} e imediatamente gera uma folha de rosto com os
+dizeres traduzidos para o \texttt{idioma}. Como esse comando gera duas páginas
+(usando o anverso e o verso), não existe versão equivalente a
+\lacmd{\imprimirfolhaderosto*}. O \texttt{idioma} deve ser um idioma conhecido
+pelo \texttt{babel}, como \texttt{english}. Caso o idioma não seja
+\texttt{english}, pode ser necessário adicionar uma tradução para alguns termos,
+trocando \lacmd{captionsbrazil} por \lacmd{captions\emph{idioma}} no trecho de
+código exibido na \autoref{fig:rotulos}, que deve ser inserido no preambulo
+antes do \lacmd{\imprimirfolhaderostocotutela}. Termos dinâmicos, como
+instituição, curso, título obtido, tipo de trabalho podem ser configurados
+utilizando variantes terminando em cotutela dos comandos de dados que os
+configuram, como \lacmd{programacotutela} para o \lacmd{programa}.
+
+
+\begin{figure}[tb]
+  \centering
+\begin{minted}{latex}
+\addto\captionsbrazil{
+  \renewcommand{\ufscthesisand}{e}%
+  \renewcommand{\orientadorname}{Orientadora:}%
+  \renewcommand{\coorientadorname}{Coorientadora:}%
+  \renewcommand{\orientadoraname}{Orientadora:}%
+  \renewcommand{\coorientadoraname}{Coorientadora:}%
+  \renewcommand{\orientadorasname}{Orientadoras:}%
+  \renewcommand{\coorientadorasname}{Coorientadoras:}%
+  \renewcommand{\orientadoresname}{Orientadores:}%
+  \renewcommand{\coorientadoresname}{Coorientadores:}%
+}
+\end{minted}
+  \caption{Tradução rótulos de orientadores e coorientadores}
+  \label{fig:rotulos}
+\end{figure}
 
 \subsection{Comandos \abnTeX{} modificados}
 
