@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/13 v0.9.0 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/31 v0.9.1 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -100,6 +100,19 @@
 \DeclareVoidOption{nopageanchorhack}{%
   \ufscthesis@pageanchorhackfalse%
 }
+
+% [chapterspace]
+%
+% Por padrão, o memoir (upstream do abntex2) insere espaços entre itens de uma
+% \listofXXXX quando os itens estão em capítulos diferentes. Por padrão, a
+% ufsc-thesis-rn46-2019 desabilita esse comportamento, deixando-o ativo apenas
+% no sumário. Fornecer essa opção restaura o comportamento padrão do memoir
+%
+% O racional para alterar o comportamento do memoir é que tal espaçamento não
+% existe no template .docx. Mesmo que essa ausência seja acidental, pode ser
+% motivo de rejeição.
+\DeclareBoolOption[false]{chapterspace}
+\DeclareBoolOption[true]{tocchapterspace}
 
 % [coorientadorbanca]
 %
@@ -1619,6 +1632,11 @@
     \@ifstar\ufscthesis@listofalgorithmsKFT\ufscthesis@listofalgorithms%
   }
 }
+
+% Controle de \insertchapterspace} do memoir
+\ifufscthesis@chapterspace\else
+  \AtBeginDocument{\renewcommand{\insertchapterspace}{}}
+\fi
 
 % Usado para gerar \ufscthesis@logofc apenas se o arquivo não existe (evita warning)
 \newif\ifufscthesis@hasbase

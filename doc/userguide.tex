@@ -531,6 +531,14 @@ workaround, para que você o faça:
       \lacmd{setcounter\{page\}\{1\}}.
 \end{itemize}
 
+\paragraph*{\texttt{chapterspace}}
+O \texttt{memoir} (upstream do \texttt{abntex2}) insere espaços na lista de
+figuras e tabelas entre itens de capítulos diferentes. Esse espaço não existe no
+template .docx da BU. Logo, existe a possibilidade de que a ausência dele seja,
+ou venha a se tornar, uma regra. Essa opção restaura o comportamento original do
+\texttt{memoir}. Veja a página 85 (seção 6.5) no manual do memoir ou procure por
+\lacmd{insertchapterspace}.
+
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
 o \texttt{.cls} seja um arquivo auto-contido. Pessoas avessas a \texttt{git
