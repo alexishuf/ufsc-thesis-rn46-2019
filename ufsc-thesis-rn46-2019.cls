@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/01/31 v0.9.1 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/02/04 v0.9.2 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -924,7 +924,7 @@
   \fi%
 }
 \newcommand{\ufscthesis@coorientadorext}[5]{
-  \ifstrempty{#5}{}{\ufscthesis@coorientadormasctrue}{}%
+  \ifstrempty{#5}{\ufscthesis@coorientadormasctrue}{}%
   \ifufscthesis@hascoorientador%
     \ufscthesis@multicoorientadortrue%
     \listadd{\ufscthesis@coorientadores}{%
@@ -953,20 +953,23 @@
 \renewcommand{\coorientador}[2][\coorientadorname]{%
   \ifstrequal{#1}{Coorientadora:}{\coorientadoraext{#2}{}}{\coorientadorext{#2}{}}%
 }
+% atalhos para (co)orientador feminino da própria UFSC
+\newcommand{\orientadora}[1]{\orientadoraext[]{#1}{}}
+\newcommand{\coorientadora}[1]{\coorientadoraext[]{#1}{}}
 
 % troca definição de \imprimir(co)orientadorRotulo do abntex2
 \renewcommand{\imprimirorientadorRotulo}{
   \ifufscthesis@multiorientador
-    \ifufscthesis@orientadormasc{}\orientadoresname\else{}orientadorasname\fi
+    \ifufscthesis@orientadormasc{}\orientadoresname\else{}\orientadorasname\fi
   \else
     \ifufscthesis@orientadormasc{}\orientadorname\else{}\orientadoraname\fi
   \fi
 }
 \renewcommand{\imprimircoorientadorRotulo}{
-  \ifufscthesis@multiorientador
-    \ifufscthesis@orientadormasc{}\coorientadoresname\else{}\coorientadorasname\fi
+  \ifufscthesis@multicoorientador
+    \ifufscthesis@coorientadormasc{}\coorientadoresname\else{}\coorientadorasname\fi
   \else
-    \ifufscthesis@orientadormasc{}\coorientadorname\else{}\coorientadoraname\fi
+    \ifufscthesis@coorientadormasc{}\coorientadorname\else{}\coorientadoraname\fi
   \fi
 }
 
