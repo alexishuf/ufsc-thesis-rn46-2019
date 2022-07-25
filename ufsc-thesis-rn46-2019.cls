@@ -663,7 +663,7 @@
 \newcommand{\ufscthesis@programa}{\begingroup \bfseries Erro: chame \textbackslash{}programa\endgroup}
 \newcommand{\ufscthesis@titulode}{\begingroup \bfseries Erro: chame \textbackslash{}titulode\endgroup}
 \newcommand{\ufscthesis@tipotrabalho}{Disserta\c{c}\~{a}o}
-\newcommand{\ufscthesis@nivel}{
+\newcommand{\ufscthesis@nivel}{%
   \iftoggle{ufscthesistese}%
     {doutorado}%
     {\iftoggle{ufscthesistcc}%
@@ -713,36 +713,36 @@
 }
 
 % Uso interno: "Printers" para as variáveis de dados
-\renewcommand{\imprimirlocal}{
+\renewcommand{\imprimirlocal}{%
   \ifufscthesis@incotutela\ufscthesis@localcot\else\ufscthesis@local\fi}
-\renewcommand{\imprimirinstituicao}{
+\renewcommand{\imprimirinstituicao}{%
   \ifufscthesis@incotutela\ufscthesis@instituicaocot\else\ufscthesis@instituicao\fi
 }
-\newcommand{\imprimirprograma}{
+\newcommand{\imprimirprograma}{%
   \ifufscthesis@incotutela\ufscthesis@programacot\else\ufscthesis@programa\fi
 }
-\newcommand{\imprimirtitulode}{
+\newcommand{\imprimirtitulode}{%
   \ifufscthesis@incotutela\ufscthesis@titulodecot\else\ufscthesis@titulode\fi
 }
-\renewcommand{\imprimirtipotrabalho}{
+\renewcommand{\imprimirtipotrabalho}{%
   \ifufscthesis@incotutela\ufscthesis@tipotrabalhocot\else\ufscthesis@tipotrabalho\fi
 }
-\newcommand{\imprimirnivel}{
+\newcommand{\imprimirnivel}{%
   \ifufscthesis@incotutela\ufscthesis@nivelcot\else\ufscthesis@nivel\fi
 }
 \newcommand{\imprimircentro}{
   \ifufscthesis@incotutela\ufscthesis@centrocot\else\ufscthesis@centro\fi
 }
-\newcommand{\imprimirdepartamento}{
+\newcommand{\imprimirdepartamento}{%
   \ifufscthesis@incotutela\ufscthesis@departamentocot\else\ufscthesis@departamento\fi
 }
-\newcommand{\imprimircurso}{
+\newcommand{\imprimircurso}{%
   \ifufscthesis@incotutela\ufscthesis@cursocot\else\ufscthesis@cursocot\fi
 }
-\renewcommand{\imprimirpreambulo}{
+\renewcommand{\imprimirpreambulo}{%
   \ifufscthesis@incotutela\ufscthesis@preambulocot\else\ufscthesis@preambulo\fi
 }
-\newcommand{\imprimirlocalduplo}{
+\newcommand{\imprimirlocalduplo}{%
   \ufscthesis@local\abntex@ifnotempty{\ufscthesis@localcot}{ / \ufscthesis@localcot}{}
 }
 
