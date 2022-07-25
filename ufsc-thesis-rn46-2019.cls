@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/02/04 v0.9.2 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/07/25 v0.9.3 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -1328,8 +1328,8 @@
         {\imprimirorientadorRotulo~\dolistloop{\ufscthesis@orientadores}}
         % Lista coorientadores
         \def\ufscthesis@afiliacao##1##2{\relax}
-        {\ifufscthesis@hascoorientador\par\fi
-         \imprimircoorientadorRotulo~\dolistloop{\ufscthesis@coorientadores}}
+        {\ifufscthesis@hascoorientador\par
+         \imprimircoorientadorRotulo~\dolistloop{\ufscthesis@coorientadores}\fi}
       \end{minipage}
       \vspace*{\fill}
     }
