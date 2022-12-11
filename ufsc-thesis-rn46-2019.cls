@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2022/07/25 v0.9.3 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2022/12/11 v0.9.4 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
@@ -496,6 +496,25 @@
   }
 \fi
 
+\addto\captionsbrazil{%
+  % abntex2 não algumas macros dentro da linguagem BR. Após fazer
+  % essa sequência de trocas: br -> en -> br, \essas macros permanecem
+  % em en, quando deveriam ter voltado para br.
+  \renewcommand{\orientadorname}{Orientador:}%
+  \renewcommand{\coorientadorname}{Coorientador:}%
+  \renewcommand{\epigraphname}{Ep\'igrafe}%
+  \renewcommand{\dedicatorianame}{Dedicat\'oria}%
+  \renewcommand{\agradecimentosname}{Agradecimentos}%
+  \renewcommand{\anexoname}{ANEXO}%
+  \renewcommand{\anexosname}{Anexos}%
+  \renewcommand{\apendicename}{AP\^ENDICE}%
+  \renewcommand{\apendicesname}{Ap\^endices}%
+  \renewcommand{\listadesiglasname}{Lista de abreviaturas e siglas}%
+  \renewcommand{\listadesimbolosname}{Lista de s\'imbolos}%
+  \renewcommand{\fontename}{Fonte}%
+  \renewcommand{\notaname}{Nota}%
+}
+
 \ifufscthesis@eng
   % Ativa o idioma em cada uma das partes
   \appto{\pretextual}{\selectlanguage{english}}
@@ -511,24 +530,6 @@
     }
   \fi
 
-  \addto\captionsbrazil{%
-    % abntex2 não algumas macros dentro da linguagem BR. Após fazer
-    % essa sequência de trocas: br -> en -> br, \essas macros permanecem
-    % em en, quando deveriam ter voltado para br.
-    \renewcommand{\orientadorname}{Orientador:}%
-    \renewcommand{\coorientadorname}{Coorientador:}%
-    \renewcommand{\epigraphname}{Ep\'igrafe}%
-    \renewcommand{\dedicatorianame}{Dedicat\'oria}%
-    \renewcommand{\agradecimentosname}{Agradecimentos}%
-    \renewcommand{\anexoname}{ANEXO}%
-    \renewcommand{\anexosname}{Anexos}%
-    \renewcommand{\apendicename}{AP\^ENDICE}%
-    \renewcommand{\apendicesname}{Ap\^endices}%
-    \renewcommand{\listadesiglasname}{Lista de abreviaturas e siglas}%
-    \renewcommand{\listadesimbolosname}{Lista de s\'imbolos}%
-    \renewcommand{\fontename}{Fonte}%
-    \renewcommand{\notaname}{Nota}%
-  }
   % Ativa o idioma em cada uma das partes
   \appto{\pretextual}{\selectlanguage{brazil}}
   \appto{\textual}{\selectlanguage{brazil}}
