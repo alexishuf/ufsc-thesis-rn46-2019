@@ -217,9 +217,10 @@ bem vindos.
 
 Lista de versões (pelo menos das versões que receberam um número):
 \begin{description}
+  \item[v0.10.0] (2024-10-28) ``Suporte'' a NBR 10520:2023;
 \item[v0.2] (2019-10-30) Engloba alterações feitas pela BU na segunda metade de
-  setembro, bugfixes, \lacmd{listadesimbolos} e \lacmd{tcc}.
-\item[v0.1] (2019-08-02) Primeira versão completa e documentada.
+  setembro, bugfixes, \lacmd{listadesimbolos} e \lacmd{tcc};
+\item[v0.1] (2019-08-02) Primeira versão completa e documentada;
 \item[v0.1-alpha] (2019-08-01) Primeira versão para ajudar alunos com pouco
     prazo de entrega.
 \end{description}
@@ -531,13 +532,15 @@ workaround, para que você o faça:
       \lacmd{setcounter\{page\}\{1\}}.
 \end{itemize}
 
-\paragraph*{\texttt{chapterspace}}
-O \texttt{memoir} (upstream do \texttt{abntex2}) insere espaços na lista de
-figuras e tabelas entre itens de capítulos diferentes. Esse espaço não existe no
-template .docx da BU. Logo, existe a possibilidade de que a ausência dele seja,
-ou venha a se tornar, uma regra. Essa opção restaura o comportamento original do
-\texttt{memoir}. Veja a página 85 (seção 6.5) no manual do memoir ou procure por
-\lacmd{insertchapterspace}.
+\paragraph*{bstoverride} Para emular suporte à NBR 10520:2023, enquanto o
+abntex2 não oferece esse suporte (ou enquanto uma versão do abntex2 que oferece
+esse suporte não está disponível nos repositórios de pacotes ou no overleaf), a
+classe extrai uma versão minimamente modificada do abntex2-alf.bst no mesmo
+diretório onde está o arquivo .tex principal (o arquivo fornecido para
+latexmk/pdflatex/...). Para inibir tal comportamento, utilize as opções
+\lacmd{bstoverride=false} ou \lacmd{nobstoverride}. Alternativamente você pode
+copiar/editar o arquivo abntex2-alf.bst, uma vez que se o arquivo já existir,
+ele não será modificado ou substituído durante a compilação da classe.
 
 \paragraph*{\texttt{embeddedlogo}} Se ativada, essa opção desempacota o logo da
 UFSC diretamente de um base64 dentro do arquivo \texttt{.cls}. Isso permite que
