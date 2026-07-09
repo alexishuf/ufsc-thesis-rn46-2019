@@ -1040,9 +1040,9 @@
   \or Setembro\or Outubro\or Novembro\or Dezembro\fi%
 }
 \providecommand{\imprimirdia}{\the\day}
-\newcommand{\ano}[1]{\renewcommand{\ano}{\#1}}
-\newcommand{\mes}[1]{\renewcommand{\mes}{\#1}}
-\newcommand{\dia}[1]{\renewcommand{\dia}{\#1}}
+\newcommand{\ano}[1]{\renewcommand{\imprimirano}{#1}}
+\newcommand{\mes}[1]{\renewcommand{\imprimirmes}{#1}}
+\newcommand{\dia}[1]{\renewcommand{\imprimirdia}{#1}}
 \renewcommand{\imprimirdata}{\imprimirano} % engana abnTeX2
 
 % Uso na folha de certificação
