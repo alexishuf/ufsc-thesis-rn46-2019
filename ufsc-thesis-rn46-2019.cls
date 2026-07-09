@@ -1390,7 +1390,7 @@
     {\centering\bfseries \imprimirtitulo} \par
     \vspace*{\fill}
     %\ufscthesis@lbreak % uma linha em branco
-    O presente trabalho em n\'{i}vel de \imprimirnivel{} foi avaliado e aprovado por banca examinadora composta pelos seguintes membros:
+    O presente trabalho em n\'{i}vel de \imprimirnivel{} foi avaliado e aprovado, em \imprimirdataext{}, pela banca examinadora composta pelos seguintes membros:
     % Imprime os membros (sem linhas para assinatura)
     \forlistloop{\ufscthesis@lbreak}{\ufscthesis@banca} \par
     \vspace*{\fill}
@@ -1411,6 +1411,9 @@
     % Em algum momento de setembro ou outubro (hoje é 14 do 10 de
     % 2019) a BU trocou a data extensa (\imprimirdataext) por
     % simplemente ano (\imprimirano) no template docx.
+    % Aqui o ano é o "ano da entrega"; a data extensa da frase de
+    % aprovação acima é o "ano de defesa". A classe assume que ambos
+    % vêm do mesmo \data.
     \imprimirlocal, \imprimirano.
   \end{center}
 }
