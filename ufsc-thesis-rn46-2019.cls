@@ -691,10 +691,10 @@
 \newcommand{\ufscthesis@tipotrabalho}{Disserta\c{c}\~{a}o}
 \newcommand{\ufscthesis@nivel}{%
   \iftoggle{ufscthesistese}%
-    {doutorado}%
+    {Doutorado}%
     {\iftoggle{ufscthesistcc}%
-      {gradua\c{c}\~{a}o}%
-      {mestrado}}%
+      {Gradua\c{c}\~{a}o}%
+      {Mestrado}}%
 }
 \newcommand{\ufscthesis@centro}{\begingroup \bfseries Erro: chame \textbackslash{}centro\endgroup}
 \newcommand{\ufscthesis@departamento}{\begingroup \bfseries Erro: chame \textbackslash{}departamento\endgroup}
@@ -841,15 +841,16 @@
 % Por padrão é usada uma tradução para inglês do termo usado pela UFSC.
 \newcommand\tipotrabalhocotutela[1]{\renewcommand{\ufscthesis@tipotrabalhocot}{#1}}
 
-% \nivel{<mestrado/doutorado/graduação>}
+% \nivel{<Mestrado/Doutorado/Graduação>}
 % Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT
 % O valor padrão é inferido pelo uso de \tese, \dissertacao ou \tcc
+% Inerte: \imprimirnivel já é definido acima, junto dos demais "printers"
 \providecommand{\imprimirnivel}{%
   \iftoggle{ufscthesistese}%
-    {doutorado}%
+    {Doutorado}%
     {\iftoggle{ufscthesistcc}%
-      {gradua\c{c}\~{a}o}%
-      {mestrado}}%
+      {Gradua\c{c}\~{a}o}%
+      {Mestrado}}%
 }
 \newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
 
