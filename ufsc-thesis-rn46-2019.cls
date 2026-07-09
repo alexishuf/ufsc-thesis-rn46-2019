@@ -703,7 +703,7 @@
   \iftoggle{ufscthesistcc}{%
     \imprimirtipotrabalho~submetido~ao Curso de Gradua\c{c}\~{a}o em %
     \imprimircurso~do \imprimircentro~da Universidade Federal de Santa Catarina %
-    como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
+    como requisito parcial para a obten\c{c}\~{a}o do t\'{i}tulo de %
     \imprimirtitulode{}.%
   }{%
     \imprimirtipotrabalho~submetida~ao \imprimirprograma{} da %
@@ -732,7 +732,7 @@
   {%
     \imprimirtipotrabalho~submitted~to the undergraduate course of %
     \imprimircurso~of the \imprimircentro~of Federal University of Santa %
-    Catarina as a requirement for the degree of \imprimirtitulode{}.%
+    Catarina as a partial requirement for the degree of \imprimirtitulode{}.%
   }{%
     \imprimirtipotrabalho~submitted~to the \imprimirprograma{} of the %
     Federal University of Santa Catarina as a partial requirement for %
