@@ -843,16 +843,11 @@
 
 % \nivel{<Mestrado/Doutorado/Graduação>}
 % Nível do trabalho. Usado na folha de certificação cf. @buDoc e @buABNT
-% O valor padrão é inferido pelo uso de \tese, \dissertacao ou \tcc
-% Inerte: \imprimirnivel já é definido acima, junto dos demais "printers"
-\providecommand{\imprimirnivel}{%
-  \iftoggle{ufscthesistese}%
-    {Doutorado}%
-    {\iftoggle{ufscthesistcc}%
-      {Gradua\c{c}\~{a}o}%
-      {Mestrado}}%
-}
-\newcommand{\nivel}[1]{\renewcommand{\imprimirnivel}{#1}}
+% O valor padrão (\ufscthesis@nivel) é inferido pelo uso de \tese,
+% \dissertacao ou \tcc. Como os demais "setters", este escreve na
+% variável de dados, e não em \imprimirnivel, que despacha entre a
+% variável e sua versão de cotutela.
+\newcommand{\nivel}[1]{\renewcommand{\ufscthesis@nivel}{#1}}
 
 % \centro{<centro>}
 % \centrocotutela{<centro>}
