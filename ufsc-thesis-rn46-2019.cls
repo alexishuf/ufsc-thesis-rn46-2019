@@ -910,17 +910,18 @@
 
 % \coordenador[a]{<nome>}
 % Configura o nome do(a) Coordenador(a) do programa
-% @buDoc @buABNT mostram nesse caso o Dr. antes do nome.
-% Desde o docx de 24-03-2025 a folha de certificação de pós-graduação
-% traz apenas "Coordenação do Programa de Pós-Graduação" sob a linha de
-% assinatura, sem nome. O nome segue sendo exigido (e impresso) em TCCs.
+% Nos modelos de 24-03-2025 (docx de pós-graduação e odt de TCC), a
+% assinatura da coordenação é digital e traz apenas "Coordenação do
+% Programa de Pós-Graduação" (ou "Coordenação do Curso"), sem nome.
+% O nome e o argumento opcional de gênero são ignorados; \coordenador
+% permanece necessário apenas para imprimir o bloco.
 \newcommand{\imprimircoordenador}[0]{}
 \newcommand{\coordenador}[2][]{%
   \renewcommand{\imprimircoordenador}%
-    {\iftoggle{ufscthesistcc}%
-      {\ufscthesis@certificador{#2}{Coordenador#1 do Curso}}%
-      {\ufscthesis@certificador%
-        {Coordena\c{c}\~{a}o do Programa de P\'{o}s-Gradua\c{c}\~{a}o}{}}}%
+    {\ufscthesis@certificador{Coordena\c{c}\~{a}o do %
+      \iftoggle{ufscthesistcc}%
+        {Curso}%
+        {Programa de P\'{o}s-Gradua\c{c}\~{a}o}}{}}%
 }
 \newcommand{\coordenadora}[1]{\coordenador[a]{#1}}
 
