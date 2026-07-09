@@ -122,6 +122,13 @@
 % capitalização de (FULANO; 2023) para (Fulano; 2023). As demais
 % mudanças/clarificações podem (e alguns casos) devem ser implementadas
 % alterando a forma como as entradas .bib são preenchidas.
+%
+% Essa capitalização não pode ser feita com change.case$, que opera byte a
+% byte e estraga UTF-8: "GONÇALVES" viraria "GonÇalves". Por isso o .bst
+% simplesmente não converte a caixa dos rótulos de citação, e as entradas
+% .bib devem ser preenchidas com a capitalização desejada. Na lista de
+% referências, onde a norma pede caixa alta, usa-se \MakeTextUppercase,
+% que conhece acentos.
 \DeclareBoolOption[true]{bstoverride} \DeclareVoidOption{nobstoverride}{%
   \ufscthesis@bstoverridefalse 
 }
@@ -4192,7 +4199,7 @@ FUNCTION {format.single.name}
 {
 s nameptr get.person 'r :=
 abnt.last.names
-  {r #1 "{ll}{ jj}" format.name$ "u" change.case$
+  {r #1 "{ll}{ jj}" format.name$ "\MakeTextUppercase{" swap$ * "}" *
    abnt.full.initials
     {r #1 "{, ff}{ vv}" format.name$ *}
     {r #1 "{, f.}{ vv}" format.name$ *}
@@ -4200,7 +4207,7 @@ abnt.last.names
   {%r #1 is.composed.von {r #1 recompose.name 'r :=} 'skip$ if$
    r #1 "{ll}" format.name$
    #1 "{ll}" format.name$
-   r #1 "{ jj}" format.name$ * "u" change.case$
+   r #1 "{ jj}" format.name$ * "\MakeTextUppercase{" swap$ * "}" *
    abnt.full.initials
     {r #1 "{, ff}{ vv}" format.name$ *
      r #1 "{ll}" format.name$
@@ -4975,7 +4982,7 @@ FUNCTION {format.names.for.label2} %abnt-alf only
        {s nameptr "{ll}" format.name$ #1 "{ll}" format.name$
         s nameptr "{ jj}" format.name$ *}
      if$
-     abnt.cite.style #0 = {"t" change.case$} 'skip$ if$ 't :=
+     't :=
       nameptr #1 >
         {namesleft #1 >
             { numnames abnt.etal.cite > 
@@ -5010,9 +5017,9 @@ FUNCTION {format.title.for.label}
   while$
 s t = %title equals first word, dont use bbl.ldots
   {t  "}{" * t
-  abnt.cite.style #0 = {"t" change.case$ * } 'skip$ if$}
+  abnt.cite.style #0 = {*} 'skip$ if$}
   {t bbl.ldots * "}{" * t
-  abnt.cite.style #0 = {"t" change.case$} 'skip$ if$ * bbl.ldots *}
+  * bbl.ldots *}
 if$
 }
 
