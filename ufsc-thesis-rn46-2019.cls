@@ -699,6 +699,9 @@
 \newcommand{\ufscthesis@centro}{\begingroup \bfseries Erro: chame \textbackslash{}centro\endgroup}
 \newcommand{\ufscthesis@departamento}{\begingroup \bfseries Erro: chame \textbackslash{}departamento\endgroup}
 \newcommand{\ufscthesis@curso}{\begingroup \bfseries Erro: chame \textbackslash{}curso\endgroup}
+% Vazia quando o trabalho não é em cotutela. É esse vazio que decide se
+% o preâmbulo ganha a cláusula "em regime de cotutela".
+\newcommand{\ufscthesis@instituicaoparceira}{}
 \newcommand{\ufscthesis@preambulo}{
   \iftoggle{ufscthesistcc}{%
     \imprimirtipotrabalho~submetido~ao Curso de Gradua\c{c}\~{a}o em %
@@ -707,7 +710,12 @@
     \imprimirtitulode{}.%
   }{%
     \imprimirtipotrabalho~submetida~ao \imprimirprograma{} da %
-    Universidade Federal de Santa Catarina como requisito parcial %
+    Universidade Federal de Santa Catarina %
+    \ifdefempty{\ufscthesis@instituicaoparceira}%
+      {}%
+      {e pela Institui\c{c}\~{a}o \imprimirinstituicaoparceira{} em regime de %
+       cotutela }%
+    como requisito parcial %
     para a obten\c{c}\~{a}o do t\'{i}tulo de \imprimirtitulode{}.%
   }%
 }
@@ -716,6 +724,7 @@
 \newif\ifufscthesis@incotutela
 \newcommand{\ufscthesis@localcot}{}
 \newcommand{\ufscthesis@instituicaocot}{\ufscthesis@instituicao}
+\newcommand{\ufscthesis@instituicaoparceiracot}{\ufscthesis@instituicaoparceira}
 \newcommand{\ufscthesis@programacot}{\ufscthesis@programa}
 \newcommand{\ufscthesis@titulodecot}{\ufscthesis@titulode}
 \newcommand{\ufscthesis@tipotrabalhocot}{
@@ -739,7 +748,12 @@
     as a partial requirement for the degree of \imprimirtitulode{}.%
   }{%
     \imprimirtipotrabalho~submitted~to the \imprimirprograma{} of the %
-    \imprimirinstituicao{} as a partial requirement for %
+    \imprimirinstituicao{} %
+    \ifdefempty{\ufscthesis@instituicaoparceira}%
+      {}%
+      {and by the Institution \imprimirinstituicaoparceira{} under a %
+       cotutelle agreement }%
+    as a partial requirement for %
     obtaining the degree of \imprimirtitulode.%
   }%
 }
@@ -749,6 +763,13 @@
   \ifufscthesis@incotutela\ufscthesis@localcot\else\ufscthesis@local\fi}
 \renewcommand{\imprimirinstituicao}{%
   \ifufscthesis@incotutela\ufscthesis@instituicaocot\else\ufscthesis@instituicao\fi
+}
+\newcommand{\imprimirinstituicaoparceira}{%
+  \ifufscthesis@incotutela
+    \ufscthesis@instituicaoparceiracot
+  \else
+    \ufscthesis@instituicaoparceira
+  \fi
 }
 \newcommand{\imprimirprograma}{%
   \ifufscthesis@incotutela\ufscthesis@programacot\else\ufscthesis@programa\fi
@@ -796,6 +817,16 @@
 % Universidade Federal de Santa Catarina
 \renewcommand{\instituicao}[1]{\renewcommand{\ufscthesis@instituicao}{#1}}
 \newcommand{\instituicaocotutela}[1]{\renewcommand{\ufscthesis@instituicaocot}{#1}}
+
+% \instituicaoparceira{Université...}
+% \instituicaoparceiracotutela{Université...}
+% Nome da instituição estrangeira com a qual há acordo de cotutela.
+% Defini-la é o que insere "em regime de cotutela" no preâmbulo das
+% duas folhas de rosto; sem ela, o preâmbulo é o de um trabalho comum.
+\newcommand{\instituicaoparceira}[1]{%
+  \renewcommand{\ufscthesis@instituicaoparceira}{#1}}
+\newcommand{\instituicaoparceiracotutela}[1]{%
+  \renewcommand{\ufscthesis@instituicaoparceiracot}{#1}}
 
 % \programa{Programa de Pós....}
 % \programacotutela{Graduate Program....}

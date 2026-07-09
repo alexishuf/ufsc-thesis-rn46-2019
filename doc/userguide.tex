@@ -761,6 +761,19 @@ esse comando não seja invocado, o nome da UFSC será usado sem tradução, como
 definido em \lacmd{instituicao}. Exemplo:
 \lacmd{instituicaocotutela\{Federal University of Santa Catarina\}}.
 
+\paragraph*{\lacmd{instituicaoparceira\{<texto>\}}} Nome da instituição
+estrangeira com a qual há acordo de cotutela. É esse comando que insere a
+cláusula \emph{e pela Instituição <texto> em regime de cotutela} no preâmbulo
+das \textbf{duas} folhas de rosto. Se não for invocado, o preâmbulo é o de um
+trabalho comum, sem menção à cotutela. Exemplo:
+\lacmd{instituicaoparceira\{Université Paris\}}.
+
+\paragraph*{\lacmd{instituicaoparceiracotutela\{<texto>\}}} Uma tradução para
+\lacmd{instituicaoparceira} a ser usada na folha de rosto em língua estrangeira
+(veja \lacmd{imprimirfolhaderostocotutela}). Caso não seja invocado, o nome
+dado a \lacmd{instituicaoparceira} é usado sem tradução. Note que apenas
+\lacmd{instituicaoparceira} decide se a cláusula de cotutela aparece.
+
 \paragraph*{\lacmd{localcotutela\{<texto>\}}} Local da universidade (não a UFSC)
 com a qual o aluno tem acordo de cotutela. Não há regra sobre se deveria ser
 usado a cidade da sede, do campus ou do departamento. Consulte seu acordo de
@@ -794,16 +807,18 @@ com dois orientadores e dois corientadoras.
 \begin{figure}[tb]
   \centering
 \begin{minted}{latex}
+\instituicaoparceira{Université Paris}
 \orientador{Prof. Fulano Silva, Dr.} % afiliado a UFSC
 \orientadoraext[UPAR]{Prof\textsuperscript{a}. François Exemple, Dr.}{Université Paris}
 \coorientadora{Prof\textsuperscript{a}. Ciclana Silveira, Dra.}
 \coorientadoraext[UFRGS]{Prof\textsuperscript{a}. Josefina Exemplo, Dra.}{Univer}
 
-% .... 
+% ....
 \imprimirfolhaderostocotutela
 % - Usará (UFSC) e (UPAR) para os orientadores
 % - Usará Orientadores: e Coorientadoras:
 % - Em inglês usará Supervisors: e Co-supervisors:
+% - O preâmbulo dirá "e pela Instituição Université Paris em regime de cotutela"
 \end{minted}
   \caption{Exemplo cotutela}
   \label{fig:cotutela}
