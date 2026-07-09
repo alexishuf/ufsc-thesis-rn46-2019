@@ -129,6 +129,10 @@
 % .bib devem ser preenchidas com a capitalização desejada. Na lista de
 % referências, onde a norma pede caixa alta, usa-se \MakeTextUppercase,
 % que conhece acentos.
+%
+% Pelo mesmo motivo, o .bst não usa format.name$ para abreviar prenomes: essa
+% função corta o primeiro byte, e "Íris" viraria meio caractere UTF-8. Veja
+% a função abnt.utf8.initials no .bst embutido.
 \DeclareBoolOption[true]{bstoverride} \DeclareVoidOption{nobstoverride}{%
   \ufscthesis@bstoverridefalse 
 }
@@ -4195,6 +4199,118 @@ FUNCTION {recompose.name}
    }
 
 
+% Abreviação de prenomes ciente de UTF-8.
+%
+% format.name$ com a especificação "f." abrevia pegando o primeiro *byte* do
+% prenome. Em "Íris" esse byte é 0xC3, metade de uma sequência UTF-8, e o .bbl
+% sai com um byte solto: "! String contains an invalid utf-8 sequence."
+% Só funciona se a entrada .bib usar a forma TeX, {\'I}ris.
+%
+% Aqui pegamos o prenome inteiro ("ff"), que format.name$ não corta, e
+% abreviamos nós mesmos, respeitando as sequências multibyte. u.dot controla
+% se cada inicial recebe ponto (f.) ou não (f{}, iso-author-punctuation).
+%
+% Os limites da string são testados com substring$ vazio, e não com
+% text.length$: este conta caracteres (ignorando chaves) e não bytes, logo
+% não serve de índice para substring$.
+INTEGERS { u.ptr u.len u.dot u.depth u.scan }
+STRINGS { u.s u.t u.c u.sep u.r }
+
+FUNCTION {u.at} { u.s u.ptr #1 substring$ }
+
+% Comprimento do grupo entre chaves que começa em u.ptr, contando chaves
+% aninhadas. Um "caractere especial" do BibTeX, como {\'I}, é um grupo desses
+% e vale por uma letra só.
+FUNCTION {u.grouplen}
+{ #1 'u.depth :=
+  u.ptr #1 + 'u.scan :=
+  { u.depth #0 > u.s u.scan #1 substring$ "" = not and }
+  { u.s u.scan #1 substring$ 'u.c :=
+    u.c "{" = { u.depth #1 + 'u.depth := } 'skip$ if$
+    u.c "}" = { u.depth #1 - 'u.depth := } 'skip$ if$
+    u.scan #1 + 'u.scan :=
+  }
+  while$
+  u.scan u.ptr -
+}
+
+% Comprimento, em bytes, da sequência UTF-8 que começa no byte dado.
+FUNCTION {u.charlen}
+{ 'u.c :=
+  u.c chr.to.int$ #192 <
+    { #1 }
+    { u.c chr.to.int$ #224 <
+        { #2 }
+        { u.c chr.to.int$ #240 < { #3 } { #4 } if$ }
+      if$ }
+  if$
+}
+
+FUNCTION {u.is.sep}
+{ 'u.c :=
+  u.c " " = u.c "~" = or u.c "-" = or
+}
+
+% "Íris Ávila" -> "Í.~Á." (u.dot > 0) ou "ÍÁ" (u.dot = 0)
+FUNCTION {abnt.utf8.initials}
+{ 'u.s :=
+  "" 'u.t :=
+  "" 'u.sep :=
+  #1 'u.ptr :=
+  { u.at "" = not }
+  { u.at duplicate$ u.is.sep
+      { 'u.sep := u.ptr #1 + 'u.ptr := }
+      { pop$
+        u.t "" = u.dot #0 = or
+          'skip$
+          { u.sep "-" =
+              { u.t "-" * 'u.t := }
+              { u.t "~" * 'u.t := }
+            if$ }
+        if$
+        u.at "{" =
+          { u.grouplen 'u.len := }
+          { u.at u.charlen 'u.len := }
+        if$
+        u.t u.s u.ptr u.len substring$ * 'u.t :=
+        u.dot #0 >
+          { u.t "." * 'u.t := }
+          'skip$
+        if$
+        u.ptr u.len + 'u.ptr :=
+        { u.at "" = not  u.at u.is.sep not  and }
+        { u.ptr #1 + 'u.ptr := }
+        while$
+      }
+    if$
+  }
+  while$
+  u.t
+}
+
+% Equivalentes a "{, f.}{ vv}" e "{, f{}}{ vv}" em format.name$
+FUNCTION {abnt.first.abbrev}
+{ 'u.r :=
+  #1 'u.dot :=
+  u.r #1 "{ff}" format.name$ abnt.utf8.initials
+  duplicate$ "" =
+    { pop$ "" }
+    { ", " swap$ * }
+  if$
+  u.r #1 "{ vv}" format.name$ *
+}
+
+FUNCTION {abnt.first.abbrev.iso}
+{ 'u.r :=
+  #0 'u.dot :=
+  u.r #1 "{ff}" format.name$ abnt.utf8.initials
+  duplicate$ "" =
+    { pop$ "" }
+    { ", " swap$ * }
+  if$
+  u.r #1 "{ vv}" format.name$ *
+}
+
 FUNCTION {format.single.name}
 {
 s nameptr get.person 'r :=
@@ -4202,7 +4318,7 @@ abnt.last.names
   {r #1 "{ll}{ jj}" format.name$ "\MakeTextUppercase{" swap$ * "}" *
    abnt.full.initials
     {r #1 "{, ff}{ vv}" format.name$ *}
-    {r #1 "{, f.}{ vv}" format.name$ *}
+    {r abnt.first.abbrev *}
   if$}
   {%r #1 is.composed.von {r #1 recompose.name 'r :=} 'skip$ if$
    r #1 "{ll}" format.name$
@@ -4213,8 +4329,8 @@ abnt.last.names
      r #1 "{ll}" format.name$
      #1 "{ ff}{ vv}" format.name$ *}
     {iso.author.punctuation
-      {r #1 "{, f{}}{ vv}" format.name$ *}
-      {r #1 "{, f.}{ vv}" format.name$ *} if$
+      {r abnt.first.abbrev.iso *}
+      {r abnt.first.abbrev *} if$
      r #1 "{ll}" format.name$
      #1 "{ f.}{ vv}" format.name$ *}
   if$}
