@@ -706,8 +706,9 @@
     como requisito para obten\c{c}\~{a}o do t\'{i}tulo de %
     \imprimirtitulode{}.%
   }{%
-    \imprimirtipotrabalho~submetida~ao \imprimirprograma{} para a %
-    obten\c{c}\~{a}o do t\'{i}tulo de \imprimirtitulode{}.%
+    \imprimirtipotrabalho~submetida~ao \imprimirprograma{} da %
+    Universidade Federal de Santa Catarina como requisito parcial %
+    para a obten\c{c}\~{a}o do t\'{i}tulo de \imprimirtitulode{}.%
   }%
 }
 
@@ -733,7 +734,8 @@
     \imprimircurso~of the \imprimircentro~of Federal University of Santa %
     Catarina as a requirement for the degree of \imprimirtitulode{}.%
   }{%
-    \imprimirtipotrabalho~submitted~to the \imprimirprograma{} for %
+    \imprimirtipotrabalho~submitted~to the \imprimirprograma{} of the %
+    Federal University of Santa Catarina as a partial requirement for %
     obtaining the degree of \imprimirtitulode.%
   }%
 }
