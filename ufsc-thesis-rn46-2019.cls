@@ -727,15 +727,19 @@
 \newcommand{\ufscthesis@centrocot}{\ufscthesis@centro}
 \newcommand{\ufscthesis@departamentocot}{\ufscthesis@departamento}
 \newcommand{\ufscthesis@cursocot}{\ufscthesis@curso}
+% Único texto expandido com \ifufscthesis@incotutela verdadeiro, e
+% portanto o único lugar onde \imprimirinstituicao pode render a versão
+% de cotutela (\instituicaocotutela). Sem ela, cai no nome sem tradução
+% dado a \instituicao, como documentado no userguide.
 \newcommand{\ufscthesis@preambulocot}{
   \iftoggle{ufscthesistcc}%
   {%
     \imprimirtipotrabalho~submitted~to the undergraduate course of %
-    \imprimircurso~of the \imprimircentro~of Federal University of Santa %
-    Catarina as a partial requirement for the degree of \imprimirtitulode{}.%
+    \imprimircurso~of the \imprimircentro~of the \imprimirinstituicao{} %
+    as a partial requirement for the degree of \imprimirtitulode{}.%
   }{%
     \imprimirtipotrabalho~submitted~to the \imprimirprograma{} of the %
-    Federal University of Santa Catarina as a partial requirement for %
+    \imprimirinstituicao{} as a partial requirement for %
     obtaining the degree of \imprimirtitulode.%
   }%
 }
