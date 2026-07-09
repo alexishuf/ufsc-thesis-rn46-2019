@@ -19,7 +19,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 % Prove acesso a classe 'ufsc-thesis'
-\ProvidesClass{ufsc-thesis-rn46-2019}[2024/10/28 v0.10.0 ufsc-thesis-rn46-2019]
+\ProvidesClass{ufsc-thesis-rn46-2019}[2026/07/09 v0.11.0 ufsc-thesis-rn46-2019]
 
 % Coisas usadas para truques aqui na classe
 \RequirePackage{etoolbox}
