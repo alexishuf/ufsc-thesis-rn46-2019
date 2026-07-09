@@ -726,7 +726,7 @@
 \newcommand{\ufscthesis@nivelcot}{\ufscthesis@nivel}
 \newcommand{\ufscthesis@centrocot}{\ufscthesis@centro}
 \newcommand{\ufscthesis@departamentocot}{\ufscthesis@departamento}
-\newcommand{\ufscthesis@cursocot}{\ufscthesis@cursocot}
+\newcommand{\ufscthesis@cursocot}{\ufscthesis@curso}
 \newcommand{\ufscthesis@preambulocot}{
   \iftoggle{ufscthesistcc}%
   {%
@@ -765,7 +765,7 @@
   \ifufscthesis@incotutela\ufscthesis@departamentocot\else\ufscthesis@departamento\fi
 }
 \newcommand{\imprimircurso}{%
-  \ifufscthesis@incotutela\ufscthesis@cursocot\else\ufscthesis@cursocot\fi
+  \ifufscthesis@incotutela\ufscthesis@cursocot\else\ufscthesis@curso\fi
 }
 \renewcommand{\imprimirpreambulo}{%
   \ifufscthesis@incotutela\ufscthesis@preambulocot\else\ufscthesis@preambulo\fi
@@ -797,7 +797,7 @@
 % \programacotutela{Graduate Program....}
 % Seta o programa, como deve aparecer na folha de rosto (ou de cotutela)
 \newcommand{\programa}[1]{\renewcommand{\ufscthesis@programa}{#1}}
-\newcommand{\programacotutela}[1]{\renewcommand{\ufscthesis@programa}{#1}}
+\newcommand{\programacotutela}[1]{\renewcommand{\ufscthesis@programacot}{#1}}
 
 % \titulo[Título p/ metadados]{Título para PDF}
 \renewcommand{\titulo}[2][]{%
@@ -864,8 +864,8 @@
 % \curso{<curso>}
 % \cursocotutela{<curso>}
 % Configura o nome do curso (apenas para TCCs (\tcc))
-\newcommand{\curso}[1]{\renewcommand{\ufscthesis@cursocot}{#1}}
-\newcommand{\cursocotutela}[1]{\renewcommand{\ufscthesis@cursocotcot}{#1}}
+\newcommand{\curso}[1]{\renewcommand{\ufscthesis@curso}{#1}}
+\newcommand{\cursocotutela}[1]{\renewcommand{\ufscthesis@cursocot}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Banca e coordenação (folha de certificação)                    %%%
